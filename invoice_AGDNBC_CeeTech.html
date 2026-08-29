@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice – CeeTech Innovations</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      padding: 40px 20px;
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+      padding: 40px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .brand h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .brand p {
+      font-size: 12px;
+      color: #a0b4cc;
+      margin-top: 4px;
+    }
+
+    .invoice-label {
+      text-align: right;
+    }
+
+    .invoice-label .word {
+      font-size: 36px;
+      font-weight: 800;
+      color: #e94560;
+      letter-spacing: 2px;
+    }
+
+    .invoice-label .number {
+      font-size: 13px;
+      color: #a0b4cc;
+      margin-top: 4px;
+    }
+
+    /* ── Meta Bar ── */
+    .meta-bar {
+      background: #e94560;
+      padding: 14px 50px;
+      display: flex;
+      gap: 40px;
+    }
+
+    .meta-bar .meta-item label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.7);
+      display: block;
+    }
+
+    .meta-bar .meta-item span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* ── Body ── */
+    .body {
+      padding: 50px;
+    }
+
+    /* ── Parties ── */
+    .parties {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 44px;
+    }
+
+    .party h3 {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #e94560;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .party p {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .party .party-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f3460;
+      margin-bottom: 4px;
+    }
+
+    /* ── Project Summary Box ── */
+    .summary-box {
+      background: #f7f9fc;
+      border-left: 4px solid #0f3460;
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 36px;
+    }
+
+    .summary-box h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #e94560;
+      margin-bottom: 8px;
+    }
+
+    .summary-box p {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    /* ── Table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    thead tr {
+      background: #0f3460;
+    }
+
+    thead th {
+      padding: 13px 16px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    thead th:last-child { text-align: right; }
+
+    tbody tr {
+      border-bottom: 1px solid #eef0f4;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9fbfd;
+    }
+
+    tbody td {
+      padding: 14px 16px;
+      font-size: 13.5px;
+      color: #333;
+      vertical-align: top;
+    }
+
+    tbody td:last-child {
+      text-align: right;
+      font-weight: 600;
+      color: #0f3460;
+    }
+
+    td.desc-main {
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    td.desc-sub {
+      font-size: 11.5px;
+      color: #777;
+      margin-top: 3px;
+    }
+
+    /* ── Totals ── */
+    .totals-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 40px;
+    }
+
+    .totals {
+      width: 300px;
+    }
+
+    .totals .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      font-size: 13.5px;
+      border-bottom: 1px solid #eef0f4;
+      color: #555;
+    }
+
+    .totals .row span:last-child {
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    .totals .row.total-due {
+      background: #0f3460;
+      margin: 0 -16px;
+      padding: 14px 16px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 6px;
+    }
+
+    .totals .row.total-due span {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff !important;
+    }
+
+    /* ── Payment Schedule ── */
+    .payment-schedule {
+      background: #f7f9fc;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
+    }
+
+    .payment-schedule h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #e94560;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .schedule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px dashed #dde3ec;
+    }
+
+    .schedule-row:last-child { border: none; }
+
+    .schedule-row .milestone {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #0f3460;
+    }
+
+    .schedule-row .when {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .schedule-row .amount {
+      font-size: 16px;
+      font-weight: 700;
+      color: #e94560;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .badge-green { background: #d4edda; color: #155724; }
+    .badge-orange { background: #fff3cd; color: #856404; }
+
+    /* ── Terms ── */
+    .terms {
+      border-top: 2px solid #eef0f4;
+      padding-top: 28px;
+      margin-bottom: 28px;
+    }
+
+    .terms h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0f3460;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .terms ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .terms ul li {
+      font-size: 12.5px;
+      color: #555;
+      padding: 5px 0;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .terms ul li::before {
+      content: '•';
+      color: #e94560;
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: #0f3460;
+      padding: 22px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: #a0b4cc;
+    }
+
+    .footer .thank-you {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* ── Print ── */
+    .print-btn {
+      display: block;
+      text-align: center;
+      margin: 24px auto 0;
+      max-width: 820px;
+    }
+
+    .print-btn button {
+      background: #0f3460;
+      color: white;
+      border: none;
+      padding: 12px 36px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    .print-btn button:hover { background: #e94560; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; }
+      .print-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <div class="page">
+    <div class="header">
+      <div class="brand">
+        <h1>CeeTech Innovations</h1>
+        <p>cyrilabasiono@gmail.com &nbsp;|&nbsp; 08024271385</p>
+      </div>
+      <div class="invoice-label">
+        <div class="word">INVOICE</div>
+        <div class="number">INV-CEETECH-2026-001</div>
+      </div>
+    </div>
+
+    <!-- ── Meta Bar ── -->
+    <div class="meta-bar">
+      <div class="meta-item">
+        <label>Invoice Date</label>
+        <span>27 July 2026</span>
+      </div>
+      <div class="meta-item">
+        <label>First Payment Due</label>
+        <span>10 August 2026</span>
+      </div>
+      <div class="meta-item">
+        <label>Project Delivery</label>
+        <span>12 Weeks from Commencement</span>
+      </div>
+      <div class="meta-item">
+        <label>Status</label>
+        <span>Awaiting Payment</span>
+      </div>
+    </div>
+
+    <div class="body">
+
+      <!-- ── Parties ── -->
+      <div class="parties">
+        <div class="party">
+          <h3>From</h3>
+          <div class="party-name">CeeTech Innovations</div>
+          <p>
+            cyrilabasiono@gmail.com<br>
+            08024271385<br>
+            Nigeria
+          </p>
+        </div>
+        <div class="party" style="text-align:right;">
+          <h3>Billed To</h3>
+          <div class="party-name">Apostle G.D Numbere Bible School</div>
+          <p>
+            Apostle Geoffrey Dabibi Numbere<br>
+            Bible College, Satellite Campus<br>
+            (AGDNBC_SC), Nigeria
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Project Summary ── -->
+      <div class="summary-box">
+        <h4>Project Overview</h4>
+        <p>
+          Full design and development of the official AGDNBC_SC website and Student Information Portal — including the public website, secure student portal, online examination system, integrated e-commerce shop, payment gateway integration, and administrative dashboard. Project also includes 6 months of post-launch online support.
+        </p>
+      </div>
+
+      <!-- ── Line Items ── -->
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Service / Deliverable</th>
+            <th style="text-align:right;">Amount (₦)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <div class="desc-main">UI/UX Design</div>
+              <div class="desc-sub">Full Figma mockups for all public pages and portal screens before development begins</div>
+            </td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              <div class="desc-main">Public Website (10+ Pages)</div>
+              <div class="desc-sub">Home, About, Admissions, Programmes, Meet the Team, News & Events, Alumni, Financial Partnership, Contact, Shop — mobile-responsive with SEO optimisation</div>
+            </td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>
+              <div class="desc-main">Secure Student Portal</div>
+              <div class="desc-sub">School ID login, profile, courses, results, announcements, fee tracking, downloadable results (PDF), portal access fee gating</div>
+            </td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>
+              <div class="desc-main">Online Examination System</div>
+              <div class="desc-sub">Server-side timer, question bank, anti-cheat measures, auto-grading, result display, admin exam management</div>
+            </td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>
+              <div class="desc-main">Online Shop & Payment Integration</div>
+              <div class="desc-sub">Merchandise + academic materials (soft/hard copy), delivery fee calculator, Paystack payment gateway, automated receipt generation</div>
+            </td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>
+              <div class="desc-main">Administrative Dashboard</div>
+              <div class="desc-sub">Student management, admissions, course/result uploads, exam management, payment records, content management, analytics & reports</div>
+            </td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>
+              <div class="desc-main">Deployment & Go-Live Setup</div>
+              <div class="desc-sub">Domain configuration (agdnbcsc.edu.ng), SSL certificate, hosting setup, performance optimisation</div>
+            </td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>
+              <div class="desc-main">6 Months Post-Launch Online Support</div>
+              <div class="desc-sub">Bug fixes, minor adjustments, technical assistance, and guidance via email/messaging — from delivery date</div>
+            </td>
+            <td>Included</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ── Totals ── -->
+      <div class="totals-wrap">
+        <div class="totals">
+          <div class="row">
+            <span>Subtotal</span>
+            <span>₦1,600,000.00</span>
+          </div>
+          <div class="row">
+            <span>Discount</span>
+            <span>₦0.00</span>
+          </div>
+          <div class="row">
+            <span>Tax / VAT</span>
+            <span>₦0.00</span>
+          </div>
+          <div class="row total-due">
+            <span>Total Due</span>
+            <span>₦1,600,000.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Payment Schedule ── -->
+      <div class="payment-schedule">
+        <h4>Payment Schedule</h4>
+
+        <div class="schedule-row">
+          <div>
+            <div class="milestone">
+              Milestone 1 — Project Commencement
+              <span class="badge badge-orange">Due Now</span>
+            </div>
+            <div class="when">Payable before work begins &nbsp;•&nbsp; Due by 10 August 2026</div>
+          </div>
+          <div class="amount">₦800,000.00</div>
+        </div>
+
+        <div class="schedule-row">
+          <div>
+            <div class="milestone">
+              Milestone 2 — Final Delivery
+              <span class="badge badge-green">On Delivery</span>
+            </div>
+            <div class="when">Payable upon successful project handover &nbsp;•&nbsp; ~12 weeks from commencement</div>
+          </div>
+          <div class="amount">₦800,000.00</div>
+        </div>
+      </div>
+
+      <!-- ── Terms ── -->
+      <div class="terms">
+        <h4>Terms & Conditions</h4>
+        <ul>
+          <li>Work commences only after the first payment of ₦800,000 is received and confirmed.</li>
+          <li>Project delivery is estimated at <strong>12 weeks</strong> from the date of project commencement.</li>
+          <li>The 6-month online support period begins on the date of final delivery and handover.</li>
+          <li>Support covers bug fixes and minor adjustments; major new features are subject to a separate agreement.</li>
+          <li>Annual hosting and domain costs (estimated ₦345,000/year) are not included and will be borne by the client separately.</li>
+          <li>Any changes to the agreed scope of work may affect the project timeline and cost. Changes will be communicated and agreed upon in writing before implementation.</li>
+          <li>All completed work and intellectual property transfer to the client upon receipt of the final payment.</li>
+          <li>Bank transfer or Paystack payment accepted.</li>
+        </ul>
+      </div>
+
+      <!-- ── Bank Details ── -->
+      <div class="summary-box" style="border-left-color: #e94560;">
+        <h4>Payment Information</h4>
+        <p>
+          <strong>Account Name:</strong> CeeTech Innovations<br>
+          <strong>Contact for bank details:</strong> cyrilabasiono@gmail.com &nbsp;|&nbsp; 08024271385<br>
+          <strong>Reference:</strong> INV-CEETECH-2026-001
+        </p>
+      </div>
+
+    </div><!-- end .body -->
+
+    <!-- ── Footer ── -->
+    <div class="footer">
+      <p>INV-CEETECH-2026-001 &nbsp;|&nbsp; Issued: 27 July 2026</p>
+      <div class="thank-you">Thank you for your partnership.</div>
+    </div>
+
+  </div><!-- end .page -->
+
+  <div class="print-btn">
+    <button onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+</body>
+</html>

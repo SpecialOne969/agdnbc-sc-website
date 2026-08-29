@@ -1,0 +1,413 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Role {
+  student
+  admin
+  super_admin
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+}
+
+enum ExamStatus {
+  draft
+  scheduled
+  active
+  completed
+  cancelled
+}
+
+enum OrderStatus {
+  pending
+  processing
+  completed
+  cancelled
+}
+
+enum DeliveryType {
+  pickup
+  delivery
+}
+
+enum ProductType {
+  digital
+  physical
+}
+
+enum StudentStatus {
+  active
+  inactive
+  suspended
+  graduated
+}
+
+// ─── Admin Users ──────────────────────────────────────────────────────────────
+
+model Admin {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(admin)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admins")
+}
+
+// ─── Students ─────────────────────────────────────────────────────────────────
+
+model Student {
+  id                  String        @id @default(cuid())
+  schoolId            String        @unique
+  name                String
+  email               String?       @unique
+  phone               String?
+  address             String?
+  passwordHash        String
+  programme           String?
+  level               String?
+  admissionYear       String?
+  session             String?
+  status              StudentStatus @default(active)
+  portalAccessExpiry  DateTime?
+  firstLogin          Boolean       @default(true)
+  photo               String?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  courses      StudentCourse[]
+  results      Result[]
+  examSessions ExamSession[]
+  payments     Payment[]
+  orders       Order[]
+
+  @@map("students")
+}
+
+// ─── Programmes & Courses ────────────────────────────────────────────────────
+
+model Programme {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  duration    String?
+  level       String?
+  createdAt   DateTime @default(now())
+
+  courses Course[]
+
+  @@map("programmes")
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  programmeId String?
+  semester    String
+  credits     Int      @default(3)
+  lecturer    String?
+  createdAt   DateTime @default(now())
+
+  programme     Programme?      @relation(fields: [programmeId], references: [id])
+  studentCourses StudentCourse[]
+  results       Result[]
+  exams         Exam[]
+
+  @@map("courses")
+}
+
+model StudentCourse {
+  id        String   @id @default(cuid())
+  studentId String
+  courseId  String
+  semester  String
+  year      String
+  createdAt DateTime @default(now())
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId, semester, year])
+  @@map("student_courses")
+}
+
+// ─── Results ─────────────────────────────────────────────────────────────────
+
+model Result {
+  id        String   @id @default(cuid())
+  studentId String
+  courseId  String
+  score     Float
+  grade     String
+  semester  String
+  year      String
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId, semester, year])
+  @@map("results")
+}
+
+// ─── Examinations ────────────────────────────────────────────────────────────
+
+model Exam {
+  id          String     @id @default(cuid())
+  title       String
+  courseId    String?
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  duration    Int
+  status      ExamStatus @default(draft)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  course    Course?      @relation(fields: [courseId], references: [id])
+  questions Question[]
+  sessions  ExamSession[]
+
+  @@map("exams")
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  examId        String
+  text          String
+  type          String   @default("mcq")
+  options       Json?
+  correctAnswer String?
+  marks         Int      @default(1)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  exam    Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
+  answers ExamAnswer[]
+
+  @@map("questions")
+}
+
+model ExamSession {
+  id          String    @id @default(cuid())
+  studentId   String
+  examId      String
+  startedAt   DateTime  @default(now())
+  submittedAt DateTime?
+  score       Float?
+  status      String    @default("in_progress")
+
+  student Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  exam    Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
+  answers ExamAnswer[]
+
+  @@unique([studentId, examId])
+  @@map("exam_sessions")
+}
+
+model ExamAnswer {
+  id         String   @id @default(cuid())
+  sessionId  String
+  questionId String
+  answer     String
+  isCorrect  Boolean?
+  createdAt  DateTime @default(now())
+
+  session  ExamSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  question Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, questionId])
+  @@map("exam_answers")
+}
+
+// ─── Payments ────────────────────────────────────────────────────────────────
+
+model PaymentCategory {
+  id     String @id @default(cuid())
+  name   String @unique
+  amount Float
+
+  @@map("payment_categories")
+}
+
+model Payment {
+  id         String        @id @default(cuid())
+  studentId  String
+  category   String
+  amount     Float
+  reference  String?       @unique
+  status     PaymentStatus @default(pending)
+  receiptUrl String?
+  paystackId String?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+// ─── Shop ────────────────────────────────────────────────────────────────────
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  category    String
+  type        ProductType
+  price       Float
+  stock       Int?
+  description String?
+  imageUrl    String?
+  fileUrl     String?
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  orderItems OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id              String       @id @default(cuid())
+  studentId       String?
+  guestEmail      String?
+  status          OrderStatus  @default(pending)
+  total           Float
+  deliveryFee     Float        @default(0)
+  deliveryAddress String?
+  paymentRef      String?
+  paymentStatus   PaymentStatus @default(pending)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  student    Student?    @relation(fields: [studentId], references: [id])
+  items      OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id           String       @id @default(cuid())
+  orderId      String
+  productId    String
+  quantity     Int          @default(1)
+  price        Float
+  deliveryType DeliveryType @default(pickup)
+  downloadToken String?
+  downloadedAt  DateTime?
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+// ─── Content ─────────────────────────────────────────────────────────────────
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  target    String   @default("all")
+  adminId   String?
+  createdAt DateTime @default(now())
+
+  @@map("announcements")
+}
+
+model NewsPost {
+  id          String   @id @default(cuid())
+  title       String
+  body        String
+  category    String   @default("General")
+  imageUrl    String?
+  publishedAt DateTime @default(now())
+  adminId     String?
+
+  @@map("news_posts")
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  date        DateTime
+  location    String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+
+  @@map("events")
+}
+
+model TeamMember {
+  id       String  @id @default(cuid())
+  name     String
+  role     String
+  dept     String?
+  bio      String?
+  photo    String?
+  order    Int     @default(0)
+  isActive Boolean @default(true)
+
+  @@map("team_members")
+}
+
+// ─── Alumni & Partnerships ───────────────────────────────────────────────────
+
+model Alumni {
+  id             String   @id @default(cuid())
+  fullName       String
+  email          String
+  phone          String?
+  graduationYear String
+  programme      String
+  occupation     String?
+  location       String?
+  createdAt      DateTime @default(now())
+
+  @@map("alumni")
+}
+
+model PartnershipForm {
+  id               String   @id @default(cuid())
+  name             String
+  email            String
+  phone            String?
+  organisation     String?
+  partnershipType  String
+  intendedAmount   String?
+  message          String?
+  createdAt        DateTime @default(now())
+
+  @@map("partnership_forms")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  type      String   @default("general")
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
