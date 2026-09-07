@@ -38,9 +38,9 @@ export default function StudentDashboard() {
         <div className="bg-amber-50 border border-amber-300 rounded-xl p-4 flex items-start gap-3">
           <AlertCircle size={20} className="text-amber-600 shrink-0 mt-0.5" />
           <div className="flex-1">
-            <p className="font-semibold text-amber-800 text-sm">Portal Access Fee Required</p>
+            <p className="font-semibold text-amber-800 text-sm">School Fees Required for Portal Access</p>
             <p className="text-xs text-amber-700 mt-1">
-              Your annual portal access fee of ₦1,000 is pending. Pay now to retain full access.
+              Your portal access is activated when school fees are paid. Year 1: ₦105,000 · Year 2: ₦155,000 (includes portal access).
             </p>
           </div>
           <Link to="/portal/payments" className="text-xs bg-amber-600 text-white px-3 py-1.5 rounded-lg hover:bg-amber-700 whitespace-nowrap">

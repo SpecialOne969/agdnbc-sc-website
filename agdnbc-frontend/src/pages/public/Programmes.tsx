@@ -7,6 +7,9 @@ const programmes = [
     level: 'Certificate',
     title: 'Certificate in Theology',
     duration: '1 Academic Year',
+    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }],
+    totalLabel: 'Total Programme Fees',
+    totalAmount: '₦115,000',
     description:
       'An introductory programme providing a solid foundation in theological principles, biblical interpretation, and Christian living.',
     modules: ['Introduction to the Bible', 'Old Testament Survey', 'New Testament Survey', 'Christian Doctrine', 'Church History', 'Homiletics'],
@@ -16,6 +19,9 @@ const programmes = [
     level: 'Diploma',
     title: 'Diploma in Biblical Studies',
     duration: '2 Academic Years',
+    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }, { label: 'School Fees (Year 2)', amount: '₦155,000' }],
+    totalLabel: 'Total Programme Fees',
+    totalAmount: '₦270,000',
     description:
       'A comprehensive study of Scripture covering biblical languages, hermeneutics, systematic theology, and practical ministry.',
     modules: ['Biblical Hermeneutics', 'Systematic Theology', 'Biblical Languages (Greek/Hebrew Intro)', 'Pastoral Theology', 'Christian Ethics', 'Counselling'],
@@ -25,6 +31,9 @@ const programmes = [
     level: 'Diploma',
     title: 'Christian Ministry & Leadership',
     duration: '2 Academic Years',
+    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }, { label: 'School Fees (Year 2)', amount: '₦155,000' }],
+    totalLabel: 'Total Programme Fees',
+    totalAmount: '₦270,000',
     description:
       'Focused training for those called to church leadership, covering leadership principles, administration, and ministry management.',
     modules: ['Leadership Principles', 'Church Administration', 'Preaching & Teaching', 'Discipleship & Mentoring', 'Conflict Resolution', 'Ministry Practicum'],
@@ -34,6 +43,9 @@ const programmes = [
     level: 'Certificate',
     title: 'Mission & Evangelism',
     duration: '1 Academic Year',
+    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }],
+    totalLabel: 'Total Programme Fees',
+    totalAmount: '₦115,000',
     description:
       'A specialised programme equipping students for cross-cultural missions, evangelism strategies, and church planting.',
     modules: ['Missiology', 'Cross-Cultural Communication', 'Evangelism Strategies', 'Church Planting', 'World Religions', 'Field Practicum'],
@@ -53,7 +65,7 @@ export default function Programmes() {
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 space-y-10">
-          {programmes.map(({ icon: Icon, level, title, duration, description, modules }) => (
+          {programmes.map(({ icon: Icon, level, title, duration, description, modules, fees, totalAmount }) => (
             <div key={title} className="card p-8 grid md:grid-cols-3 gap-8 items-start">
               <div className="md:col-span-2">
                 <div className="flex items-center gap-3 mb-4">
@@ -69,6 +81,25 @@ export default function Programmes() {
                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-5">
                   <Clock size={14} className="text-[#e94560]" /> {duration}
                 </div>
+
+                {/* Fee breakdown */}
+                <div className="bg-[#f7f9fc] rounded-xl p-4 mb-5 border border-gray-100">
+                  <h5 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Fee Breakdown</h5>
+                  <div className="space-y-2">
+                    {fees.map((f) => (
+                      <div key={f.label} className="flex justify-between text-sm">
+                        <span className="text-gray-600">{f.label}</span>
+                        <span className="font-semibold text-[#0f3460]">{f.amount}</span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between text-sm border-t border-gray-200 pt-2 mt-2">
+                      <span className="font-bold text-[#0f3460]">Total</span>
+                      <span className="font-extrabold text-[#e94560]">{totalAmount}</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-2">* School fees include portal access</p>
+                </div>
+
                 <Link to="/admissions" className="btn-accent text-sm py-2.5">
                   Apply for This Programme <ArrowRight size={15} />
                 </Link>

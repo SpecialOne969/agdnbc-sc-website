@@ -49,8 +49,9 @@ export class PaymentsService {
       data: { status: 'paid', paystackId: data.id.toString() },
     });
 
-    // Auto-grant portal access if that's what was paid for
-    if (payment.category === 'Portal Access Fee') {
+    // Grant portal access when school fees are paid (portal is included in school fees)
+    const schoolFeeCategories = ['School Fees (Year 1)', 'School Fees (Year 2)'];
+    if (schoolFeeCategories.includes(payment.category)) {
       await this.studentsService.grantPortalAccess(payment.studentId);
     }
 

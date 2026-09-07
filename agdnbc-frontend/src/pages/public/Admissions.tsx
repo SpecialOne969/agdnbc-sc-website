@@ -20,10 +20,10 @@ type FormData = z.infer<typeof schema>
 
 const steps = [
   { step: '01', title: 'Submit Application', desc: 'Fill out the online form below or visit our campus.' },
-  { step: '02', title: 'Pay Application Fee', desc: 'Pay the application fee online to process your application.' },
+  { step: '02', title: 'Pay Registration Fee', desc: 'Pay the non-refundable registration fee of ₦10,000 to process your application.' },
   { step: '03', title: 'Document Submission', desc: 'Submit required documents (certificates, passport photo).' },
   { step: '04', title: 'Interview / Review', desc: 'Attend a brief interview session with the admissions team.' },
-  { step: '05', title: 'Admission Letter', desc: 'Receive your official admission letter and begin registration.' },
+  { step: '05', title: 'Admission Letter', desc: 'Receive your official admission letter and pay school fees to begin.' },
 ]
 
 const requirements = [
@@ -101,15 +101,34 @@ export default function Admissions() {
             </ul>
 
             <div className="bg-[#f7f9fc] rounded-xl p-6 border-l-4 border-[#0f3460]">
-              <h4 className="font-bold text-[#0f3460] mb-2 flex items-center gap-2">
-                <FileText size={16} /> Application Fee
+              <h4 className="font-bold text-[#0f3460] mb-4 flex items-center gap-2">
+                <FileText size={16} /> Fee Schedule
               </h4>
-              <p className="text-sm text-gray-600">
-                A non-refundable application fee is required to process your admission. Payment can be made
-                online through the student portal or at the college finance office.
-              </p>
-              <Link to="/portal/payments" className="inline-flex items-center gap-2 text-sm text-[#e94560] font-semibold mt-3 hover:underline">
-                Pay Online <ArrowRight size={14} />
+              <div className="space-y-3">
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">Registration Fee</p>
+                    <p className="text-xs text-gray-500">Non-refundable, paid once</p>
+                  </div>
+                  <span className="text-lg font-extrabold text-[#e94560]">₦10,000</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">School Fees – Year 1</p>
+                    <p className="text-xs text-gray-500">Includes portal access</p>
+                  </div>
+                  <span className="text-lg font-extrabold text-[#0f3460]">₦105,000</span>
+                </div>
+                <div className="flex justify-between items-center py-2">
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">School Fees – Year 2</p>
+                    <p className="text-xs text-gray-500">Includes portal access</p>
+                  </div>
+                  <span className="text-lg font-extrabold text-[#0f3460]">₦155,000</span>
+                </div>
+              </div>
+              <Link to="/portal/payments" className="inline-flex items-center gap-2 text-sm text-[#e94560] font-semibold mt-4 hover:underline">
+                Pay Online via Student Portal <ArrowRight size={14} />
               </Link>
             </div>
           </div>

@@ -54,12 +54,12 @@ export default function StudentLogin() {
 
         {/* Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          {/* Portal fee notice */}
+          {/* Portal access notice */}
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex gap-3">
             <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
             <div className="text-xs text-amber-700">
-              <strong>Annual Portal Access:</strong> A fee of ₦1,000 must be paid to activate your portal
-              access for the current academic year.
+              <strong>Portal Access:</strong> Portal access is included in your school fees (₦105,000 – Year 1 /
+              ₦155,000 – Year 2). Ensure your fees are paid to retain full access.
             </div>
           </div>
 

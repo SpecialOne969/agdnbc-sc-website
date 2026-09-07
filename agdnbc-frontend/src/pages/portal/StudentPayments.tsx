@@ -5,18 +5,14 @@ import toast from 'react-hot-toast'
 import { getMyPayments, initializePayment } from '../../services/api'
 
 const mockPayments = [
-  { id: '1', category: 'Portal Access Fee', amount: 1000, status: 'paid', date: '2026-01-15', ref: 'PAY-2026-001' },
-  { id: '2', category: 'School Fees – 1st Semester', amount: 35000, status: 'paid', date: '2026-01-20', ref: 'PAY-2026-002' },
-  { id: '3', category: 'Tuition – 2nd Semester', amount: 30000, status: 'pending', date: null, ref: null },
-  { id: '4', category: 'Examination Fee', amount: 5000, status: 'pending', date: null, ref: null },
+  { id: '1', category: 'Registration Fee', amount: 10000, status: 'paid', date: '2026-01-10', ref: 'PAY-2026-001' },
+  { id: '2', category: 'School Fees (Year 1)', amount: 105000, status: 'pending', date: null, ref: null },
 ]
 
 const paymentCategories = [
-  { label: 'Portal Access Fee', amount: 1000 },
-  { label: 'School Fees', amount: 35000 },
-  { label: 'Tuition', amount: 30000 },
-  { label: 'Examination Fee', amount: 5000 },
-  { label: 'Admission Form', amount: 2000 },
+  { label: 'Registration Fee', amount: 10000 },
+  { label: 'School Fees (Year 1)', amount: 105000 },
+  { label: 'School Fees (Year 2)', amount: 155000 },
   { label: 'Graduation Fee', amount: 10000 },
 ]
 
