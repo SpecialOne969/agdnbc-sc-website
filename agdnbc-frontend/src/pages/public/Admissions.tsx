@@ -123,10 +123,10 @@ export default function Admissions() {
                   </div>
                   <div className="ml-2 space-y-1">
                     <div className="flex justify-between text-xs text-gray-500">
-                      <span>1st Installment</span><span className="font-medium">₦55,000</span>
+                      <span>1st Installment</span><span className="font-medium">₦52,500</span>
                     </div>
                     <div className="flex justify-between text-xs text-gray-500">
-                      <span>2nd Installment</span><span className="font-medium">₦50,000</span>
+                      <span>2nd Installment</span><span className="font-medium">₦52,500</span>
                     </div>
                   </div>
                 </div>
@@ -141,10 +141,10 @@ export default function Admissions() {
                   </div>
                   <div className="ml-2 space-y-1">
                     <div className="flex justify-between text-xs text-gray-500">
-                      <span>1st Installment</span><span className="font-medium">₦80,000</span>
+                      <span>1st Installment</span><span className="font-medium">₦77,500</span>
                     </div>
                     <div className="flex justify-between text-xs text-gray-500">
-                      <span>2nd Installment</span><span className="font-medium">₦75,000</span>
+                      <span>2nd Installment</span><span className="font-medium">₦77,500</span>
                     </div>
                   </div>
                 </div>

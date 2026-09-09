@@ -3,13 +3,13 @@ import { Clock, BookOpen, Users, Award, Globe, ArrowRight, CheckCircle } from 'l
 
 const oneYearFees = [
   { label: 'Registration Fee', amount: '₦10,000', sub: null },
-  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦55,000', '2nd Installment: ₦50,000'] },
+  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦52,500', '2nd Installment: ₦52,500'] },
 ]
 
 const twoYearFees = [
   { label: 'Registration Fee', amount: '₦10,000', sub: null },
-  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦55,000', '2nd Installment: ₦50,000'] },
-  { label: 'School Fees – Year 2', amount: '₦155,000', sub: ['1st Installment: ₦80,000', '2nd Installment: ₦75,000'] },
+  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦52,500', '2nd Installment: ₦52,500'] },
+  { label: 'School Fees – Year 2', amount: '₦155,000', sub: ['1st Installment: ₦77,500', '2nd Installment: ₦77,500'] },
 ]
 
 const programmes = [
