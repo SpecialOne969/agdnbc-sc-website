@@ -8,9 +8,12 @@ import toast from 'react-hot-toast'
 import { studentLogin } from '../../services/api'
 import { useAuthStore } from '../../store/authStore'
 
+const DEMO_ID = 'AGDNBC/2024/001'
+const DEMO_PWD = '0987654'
+
 const schema = z.object({
   schoolId: z.string().min(3, 'School ID is required'),
-  password: z.string().length(8, 'Password must be exactly 8 characters'),
+  password: z.string().min(6, 'Password must be at least 6 characters').max(8, 'Password must be at most 8 characters'),
 })
 type FormData = z.infer<typeof schema>
 
@@ -24,6 +27,24 @@ export default function StudentLogin() {
   })
 
   const onSubmit = async (data: FormData) => {
+    // Demo bypass — works without a live backend
+    if (data.schoolId === DEMO_ID && data.password === DEMO_PWD) {
+      setAuth(
+        {
+          id: 'demo-001',
+          schoolId: DEMO_ID,
+          name: 'Demo Student',
+          role: 'student',
+          portalAccessValid: true,
+          level: 'Year 1',
+          programme: 'Diploma in Biblical Studies',
+        },
+        'demo-token',
+      )
+      navigate('/portal/dashboard')
+      return
+    }
+
     try {
       const res = await studentLogin(data.schoolId, data.password)
       setAuth(res.data.user, res.data.token)
@@ -120,7 +141,14 @@ export default function StudentLogin() {
           </div>
         </div>
 
-        <div className="text-center mt-6">
+        {/* Demo credentials hint */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4 text-xs text-blue-700">
+          <p className="font-bold mb-1">Demo Access</p>
+          <p>School ID: <span className="font-mono font-semibold">AGDNBC/2024/001</span></p>
+          <p>Password: <span className="font-mono font-semibold">0987654</span></p>
+        </div>
+
+        <div className="text-center mt-4">
           <Link to="/" className="text-sm text-gray-400 hover:text-[#0f3460]">
             ← Back to College Website
           </Link>
