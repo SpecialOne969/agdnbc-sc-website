@@ -1,14 +1,24 @@
 import { Link } from 'react-router-dom'
 import { Clock, BookOpen, Users, Award, Globe, ArrowRight, CheckCircle } from 'lucide-react'
 
+const oneYearFees = [
+  { label: 'Registration Fee', amount: '₦10,000', sub: null },
+  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦55,000', '2nd Installment: ₦50,000'] },
+]
+
+const twoYearFees = [
+  { label: 'Registration Fee', amount: '₦10,000', sub: null },
+  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦55,000', '2nd Installment: ₦50,000'] },
+  { label: 'School Fees – Year 2', amount: '₦155,000', sub: ['1st Installment: ₦80,000', '2nd Installment: ₦75,000'] },
+]
+
 const programmes = [
   {
     icon: BookOpen,
     level: 'Certificate',
     title: 'Certificate in Theology',
     duration: '1 Academic Year',
-    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }],
-    totalLabel: 'Total Programme Fees',
+    fees: oneYearFees,
     totalAmount: '₦115,000',
     description:
       'An introductory programme providing a solid foundation in theological principles, biblical interpretation, and Christian living.',
@@ -19,8 +29,7 @@ const programmes = [
     level: 'Diploma',
     title: 'Diploma in Biblical Studies',
     duration: '2 Academic Years',
-    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }, { label: 'School Fees (Year 2)', amount: '₦155,000' }],
-    totalLabel: 'Total Programme Fees',
+    fees: twoYearFees,
     totalAmount: '₦270,000',
     description:
       'A comprehensive study of Scripture covering biblical languages, hermeneutics, systematic theology, and practical ministry.',
@@ -31,8 +40,7 @@ const programmes = [
     level: 'Diploma',
     title: 'Christian Ministry & Leadership',
     duration: '2 Academic Years',
-    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }, { label: 'School Fees (Year 2)', amount: '₦155,000' }],
-    totalLabel: 'Total Programme Fees',
+    fees: twoYearFees,
     totalAmount: '₦270,000',
     description:
       'Focused training for those called to church leadership, covering leadership principles, administration, and ministry management.',
@@ -43,8 +51,7 @@ const programmes = [
     level: 'Certificate',
     title: 'Mission & Evangelism',
     duration: '1 Academic Year',
-    fees: [{ label: 'Registration Fee', amount: '₦10,000' }, { label: 'School Fees (Year 1)', amount: '₦105,000' }],
-    totalLabel: 'Total Programme Fees',
+    fees: oneYearFees,
     totalAmount: '₦115,000',
     description:
       'A specialised programme equipping students for cross-cultural missions, evangelism strategies, and church planting.',
@@ -65,7 +72,7 @@ export default function Programmes() {
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 space-y-10">
-          {programmes.map(({ icon: Icon, level, title, duration, description, modules, fees, totalAmount }) => (
+          {programmes.map(({ icon: Icon, level, title, duration, description, modules, fees, totalAmount }: typeof programmes[0]) => (
             <div key={title} className="card p-8 grid md:grid-cols-3 gap-8 items-start">
               <div className="md:col-span-2">
                 <div className="flex items-center gap-3 mb-4">
@@ -87,9 +94,18 @@ export default function Programmes() {
                   <h5 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Fee Breakdown</h5>
                   <div className="space-y-2">
                     {fees.map((f) => (
-                      <div key={f.label} className="flex justify-between text-sm">
-                        <span className="text-gray-600">{f.label}</span>
-                        <span className="font-semibold text-[#0f3460]">{f.amount}</span>
+                      <div key={f.label}>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">{f.label}</span>
+                          <span className="font-semibold text-[#0f3460]">{f.amount}</span>
+                        </div>
+                        {f.sub && (
+                          <div className="ml-3 mt-0.5 space-y-0.5">
+                            {f.sub.map((s) => (
+                              <p key={s} className="text-xs text-gray-400">{s}</p>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     ))}
                     <div className="flex justify-between text-sm border-t border-gray-200 pt-2 mt-2">

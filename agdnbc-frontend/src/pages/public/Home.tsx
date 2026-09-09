@@ -5,9 +5,9 @@ import {
 } from 'lucide-react'
 
 const stats = [
-  { value: '500+', label: 'Students Enrolled' },
-  { value: '12+', label: 'Programmes Offered' },
-  { value: '10+', label: 'Years of Excellence' },
+  { value: '100+', label: 'Students Enrolled' },
+  { value: '26', label: 'Courses Offered' },
+  { value: '2+', label: 'Years of Excellence' },
   { value: '95%', label: 'Graduate Success Rate' },
 ]
 

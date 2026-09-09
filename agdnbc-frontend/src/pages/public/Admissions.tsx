@@ -112,19 +112,41 @@ export default function Admissions() {
                   </div>
                   <span className="text-lg font-extrabold text-[#e94560]">₦10,000</span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">School Fees – Year 1</p>
-                    <p className="text-xs text-gray-500">Includes portal access</p>
+
+                <div className="py-2 border-b border-gray-200">
+                  <div className="flex justify-between items-center mb-1">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-800">School Fees – Year 1</p>
+                      <p className="text-xs text-gray-500">Includes portal access · 2 installments</p>
+                    </div>
+                    <span className="text-lg font-extrabold text-[#0f3460]">₦105,000</span>
                   </div>
-                  <span className="text-lg font-extrabold text-[#0f3460]">₦105,000</span>
+                  <div className="ml-2 space-y-1">
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>1st Installment</span><span className="font-medium">₦55,000</span>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>2nd Installment</span><span className="font-medium">₦50,000</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center py-2">
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800">School Fees – Year 2</p>
-                    <p className="text-xs text-gray-500">Includes portal access</p>
+
+                <div className="py-2">
+                  <div className="flex justify-between items-center mb-1">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-800">School Fees – Year 2</p>
+                      <p className="text-xs text-gray-500">Includes portal access · 2 installments</p>
+                    </div>
+                    <span className="text-lg font-extrabold text-[#0f3460]">₦155,000</span>
                   </div>
-                  <span className="text-lg font-extrabold text-[#0f3460]">₦155,000</span>
+                  <div className="ml-2 space-y-1">
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>1st Installment</span><span className="font-medium">₦80,000</span>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>2nd Installment</span><span className="font-medium">₦75,000</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <Link to="/portal/payments" className="inline-flex items-center gap-2 text-sm text-[#e94560] font-semibold mt-4 hover:underline">

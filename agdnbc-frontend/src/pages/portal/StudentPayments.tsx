@@ -6,13 +6,16 @@ import { getMyPayments, initializePayment } from '../../services/api'
 
 const mockPayments = [
   { id: '1', category: 'Registration Fee', amount: 10000, status: 'paid', date: '2026-01-10', ref: 'PAY-2026-001' },
-  { id: '2', category: 'School Fees (Year 1)', amount: 105000, status: 'pending', date: null, ref: null },
+  { id: '2', category: 'School Fees – Year 1 (1st Installment)', amount: 55000, status: 'paid', date: '2026-01-15', ref: 'PAY-2026-002' },
+  { id: '3', category: 'School Fees – Year 1 (2nd Installment)', amount: 50000, status: 'pending', date: null, ref: null },
 ]
 
 const paymentCategories = [
   { label: 'Registration Fee', amount: 10000 },
-  { label: 'School Fees (Year 1)', amount: 105000 },
-  { label: 'School Fees (Year 2)', amount: 155000 },
+  { label: 'School Fees – Year 1 (1st Installment)', amount: 55000 },
+  { label: 'School Fees – Year 1 (2nd Installment)', amount: 50000 },
+  { label: 'School Fees – Year 2 (1st Installment)', amount: 80000 },
+  { label: 'School Fees – Year 2 (2nd Installment)', amount: 75000 },
   { label: 'Graduation Fee', amount: 10000 },
 ]
 

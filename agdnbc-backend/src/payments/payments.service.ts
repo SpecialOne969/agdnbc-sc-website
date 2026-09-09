@@ -49,9 +49,8 @@ export class PaymentsService {
       data: { status: 'paid', paystackId: data.id.toString() },
     });
 
-    // Grant portal access when school fees are paid (portal is included in school fees)
-    const schoolFeeCategories = ['School Fees (Year 1)', 'School Fees (Year 2)'];
-    if (schoolFeeCategories.includes(payment.category)) {
+    // Grant portal access when any school fee installment is paid (portal is included in school fees)
+    if (payment.category.startsWith('School Fees')) {
       await this.studentsService.grantPortalAccess(payment.studentId);
     }
 
