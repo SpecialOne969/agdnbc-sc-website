@@ -15,6 +15,7 @@ import Alumni from './pages/public/Alumni'
 import NewsEvents from './pages/public/NewsEvents'
 import Partnership from './pages/public/Partnership'
 import Shop from './pages/public/Shop'
+import Gallery from './pages/public/Gallery'
 
 // Portal pages
 import StudentLogin from './pages/portal/StudentLogin'
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="/partnership" element={<Partnership />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/gallery" element={<Gallery />} />
         </Route>
 
         {/* Student Portal */}

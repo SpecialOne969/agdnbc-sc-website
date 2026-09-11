@@ -18,6 +18,7 @@ const navLinks = [
     label: 'Community',
     children: [
       { label: 'Alumni Community', to: '/alumni' },
+      { label: 'Photo Gallery', to: '/gallery' },
       { label: 'Financial Partnership', to: '/partnership' },
     ],
   },

@@ -1,8 +1,17 @@
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, BookOpen, Users, Award, Globe, ChevronRight,
-  Star, Quote, Calendar, Clock, FileText, ClipboardList, CreditCard
+  Star, Quote, Calendar, Clock, FileText, ClipboardList, CreditCard, Images
 } from 'lucide-react'
+
+import heroImg from '../../assets/Images/_EWC0240.jpg'
+import aboutImg from '../../assets/Images/IMG_3791.jpg'
+import gal1 from '../../assets/Images/IMG_3783.jpg'
+import gal2 from '../../assets/Images/_EWC0263.jpg'
+import gal3 from '../../assets/Images/_EWC0276.jpg'
+import gal4 from '../../assets/Images/IMG_3804.jpg'
+import gal5 from '../../assets/Images/IMG_3798.jpg'
+import gal6 from '../../assets/Images/_EWC0214.jpg'
 
 const stats = [
   { value: '100+', label: 'Students Enrolled' },
@@ -66,8 +75,9 @@ export default function Home() {
           <div className="absolute top-20 left-20 w-72 h-72 bg-[#e94560] rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400 rounded-full blur-3xl" />
         </div>
-        <div className="max-w-7xl mx-auto px-4 py-20 relative z-10">
-          <div className="max-w-3xl">
+        <div className="max-w-7xl mx-auto px-4 py-20 relative z-10 grid lg:grid-cols-2 gap-12 items-center w-full">
+          {/* Text */}
+          <div>
             <div className="inline-flex items-center gap-2 bg-[#e94560]/20 border border-[#e94560]/30 text-[#e94560] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
               <Star size={12} /> Apostle G.D Numbere Bible College
             </div>
@@ -75,7 +85,7 @@ export default function Home() {
               Equipping Believers<br />
               <span className="text-[#e94560]">for Kingdom Impact</span>
             </h1>
-            <p className="text-blue-200 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
+            <p className="text-blue-200 text-lg md:text-xl leading-relaxed mb-8">
               Join a community of faith where sound biblical education, spiritual formation, and practical
               ministry training converge — preparing you to make a lasting impact for God's Kingdom.
             </p>
@@ -87,6 +97,26 @@ export default function Home() {
                 View Programmes <ChevronRight size={18} />
               </Link>
             </div>
+          </div>
+
+          {/* Hero image */}
+          <div className="hidden lg:block relative">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <img src={heroImg} alt="AGDNBC Graduation Ceremony" className="w-full h-[520px] object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0f3460]/60 to-transparent" />
+            </div>
+            {/* Floating stat badge */}
+            <div className="absolute -bottom-5 -left-5 bg-[#e94560] text-white rounded-2xl px-6 py-4 shadow-xl">
+              <div className="text-3xl font-extrabold">100+</div>
+              <div className="text-xs font-medium text-white/80">Graduates & Counting</div>
+            </div>
+            {/* Floating gallery link */}
+            <Link
+              to="/gallery"
+              className="absolute -top-4 -right-4 bg-white text-[#0f3460] rounded-xl px-4 py-2 shadow-lg text-xs font-bold flex items-center gap-1.5 hover:bg-[#f7f9fc] transition-colors"
+            >
+              <Images size={14} /> View Gallery
+            </Link>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent" />
@@ -143,19 +173,18 @@ export default function Home() {
               </Link>
             </div>
             <div className="relative">
-              <div className="bg-[#0f3460] rounded-2xl p-8 text-white">
-                <h3 className="text-xl font-bold mb-3">Our Mission</h3>
-                <p className="text-blue-200 leading-relaxed mb-6">
-                  To raise up a generation of Kingdom ambassadors who are grounded in the Word, filled with
-                  the Spirit, and committed to transforming their world for Christ.
-                </p>
-                <h3 className="text-xl font-bold mb-3">Our Vision</h3>
-                <p className="text-blue-200 leading-relaxed">
-                  A Nigeria and Africa where every believer is equipped, empowered, and deployed for
-                  effective Kingdom service.
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <img src={aboutImg} alt="Academic leadership at AGDNBC" className="w-full h-[420px] object-cover" />
+              </div>
+              {/* Mission overlay card */}
+              <div className="absolute bottom-6 left-6 right-6 bg-[#0f3460]/95 backdrop-blur-sm rounded-xl p-5 text-white shadow-2xl">
+                <h4 className="font-bold mb-1">Our Mission</h4>
+                <p className="text-blue-200 text-sm leading-relaxed">
+                  To raise up a generation of Kingdom ambassadors grounded in the Word, filled with the Spirit,
+                  and committed to transforming their world for Christ.
                 </p>
               </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-[#e94560] rounded-2xl -z-10" />
+              <div className="absolute -bottom-3 -right-3 w-20 h-20 bg-[#e94560] rounded-2xl -z-10" />
             </div>
           </div>
         </div>
@@ -236,6 +265,29 @@ export default function Home() {
                   <div className="text-xs text-[#e94560]">{programme}</div>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Gallery Preview ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+              <p className="section-subtitle">Life at AGDNBC</p>
+              <h2 className="section-title mb-0">Photo Gallery</h2>
+            </div>
+            <Link to="/gallery" className="btn-outline text-sm py-2.5">
+              <Images size={15} /> View All Photos <ArrowRight size={15} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {[gal1, gal2, gal3, gal4, gal5, gal6].map((src, i) => (
+              <Link key={i} to="/gallery" className="group relative overflow-hidden rounded-xl aspect-[4/3] block">
+                <img src={src} alt={`Gallery photo ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-[#0f3460]/0 group-hover:bg-[#0f3460]/40 transition-colors duration-300" />
+              </Link>
             ))}
           </div>
         </div>
