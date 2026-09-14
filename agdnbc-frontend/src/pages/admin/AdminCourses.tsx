@@ -3,11 +3,41 @@ import { BookOpen, Plus, Edit, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const mockCourses = [
-  { id: '1', code: 'TH101', name: 'Introduction to the Bible', programme: 'Certificate in Theology', semester: '1st', credits: 3, lecturer: 'Rev. Dr. A. Numbere' },
-  { id: '2', code: 'TH102', name: 'Old Testament Survey', programme: 'Certificate in Theology', semester: '1st', credits: 3, lecturer: 'Rev. D. Adeyemi' },
-  { id: '3', code: 'TH103', name: 'New Testament Survey', programme: 'Certificate in Theology', semester: '1st', credits: 3, lecturer: 'Pastor B. Okafor' },
-  { id: '4', code: 'BS201', name: 'Biblical Hermeneutics', programme: 'Diploma in Biblical Studies', semester: '1st', credits: 3, lecturer: 'Pastor B. Okafor' },
-  { id: '5', code: 'BS202', name: 'Systematic Theology', programme: 'Diploma in Biblical Studies', semester: '1st', credits: 3, lecturer: 'Rev. Dr. A. Numbere' },
+  // ── Year 1 ──────────────────────────────────────────────────────────────
+  { id: '1',  code: 'SPF101', name: 'Spiritual Formation',                    year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
+  { id: '2',  code: 'ESM102', name: 'Essentials of Supportive Ministry',      year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
+  { id: '3',  code: 'HMT103', name: 'Hermeneutics',                           year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
+  { id: '4',  code: 'PPS104', name: 'Prayer Principles',                      year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
+  { id: '5',  code: 'ECC105', name: 'Ecclesiology',                           year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
+  { id: '6',  code: 'MSG106', name: 'Missiology',                             year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
+  { id: '7',  code: 'BLG107', name: 'Bible Language (Greek)',                 year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '8',  code: 'PTM108', name: 'Practical Theology of Ministry',         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '9',  code: 'BLH109', name: 'Bible Language (Hebrew)',                year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '10', code: 'MNE110', name: 'Ministerial Ethics/Etiquettes',          year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '11', code: 'BBF111', name: 'Biblical Faith',                         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '12', code: 'CAL112', name: 'Church Admin/Leadership',                year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '13', code: 'FMM113', name: 'Family, Marriage, and Ministry',         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '14', code: 'FOG114', name: 'Fundamentals of GEWC',                   year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '15', code: 'KDH115', name: 'Kingdom Honour',                         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
+  // ── Year 2 ──────────────────────────────────────────────────────────────
+  { id: '16', code: 'PNM201', name: 'Pneumatology',                           year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '17', code: 'RMG202', name: 'Research Methodology',                   year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '18', code: 'WRS203', name: 'World Religions',                        year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '19', code: 'STG204', name: 'Systematic Theology',                    year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '20', code: 'APG205', name: 'Apologetics',                            year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '21', code: 'CHT206', name: 'Church History',                         year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '22', code: 'HML207', name: 'Homiletics',                             year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '23', code: 'OTL208', name: 'Old Testament Literature',               year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
+  { id: '24', code: 'NTL209', name: 'New Testament Literature',               year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '25', code: 'APE210', name: 'Apocalypse/Eschatology',                 year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '26', code: 'ECP211', name: 'Essentials of Christian Perfection',     year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '27', code: 'CHC212', name: 'Christian Counselling',                  year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '28', code: 'IRM213', name: 'Itinerant Ministry',                     year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '29', code: 'TYM214', name: 'Teens/Youth Ministry',                   year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '30', code: 'WSM215', name: 'Worship Ministry',                       year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '31', code: 'PJM216', name: 'Project Management',                     year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '32', code: 'PNP217', name: 'Pioneering Principles',                  year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
+  { id: '33', code: 'EFM218', name: 'Excellence in Facilities and Management',year: 'Year 2', semester: '2nd', credits: 3, lecturer: '' },
 ]
 
 export default function AdminCourses() {
@@ -35,7 +65,7 @@ export default function AdminCourses() {
               <tr className="bg-[#f7f9fc] text-xs text-gray-500 uppercase tracking-wider">
                 <th className="text-left px-6 py-3">Code</th>
                 <th className="text-left px-6 py-3">Course Name</th>
-                <th className="text-left px-6 py-3">Programme</th>
+                <th className="text-left px-6 py-3">Year</th>
                 <th className="text-center px-6 py-3">Semester</th>
                 <th className="text-center px-6 py-3">Credits</th>
                 <th className="text-left px-6 py-3">Lecturer</th>
@@ -47,7 +77,7 @@ export default function AdminCourses() {
                 <tr key={course.id} className="border-b border-gray-50 hover:bg-[#f7f9fc]">
                   <td className="px-6 py-4 font-mono text-sm font-bold text-[#0f3460]">{course.code}</td>
                   <td className="px-6 py-4 text-sm text-gray-700 font-medium">{course.name}</td>
-                  <td className="px-6 py-4 text-xs text-gray-500 max-w-[160px] truncate">{course.programme}</td>
+                  <td className="px-6 py-4 text-xs text-gray-500">{(course as typeof mockCourses[0]).year}</td>
                   <td className="px-6 py-4 text-center text-sm">{course.semester}</td>
                   <td className="px-6 py-4 text-center text-sm font-bold text-[#0f3460]">{course.credits}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{course.lecturer}</td>

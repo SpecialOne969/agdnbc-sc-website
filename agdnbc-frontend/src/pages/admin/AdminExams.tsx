@@ -28,31 +28,33 @@ interface Exam {
 }
 
 const courses = [
-  'TH101','TH102','TH103','TH104','TH105','TH106',
-  'CM101','CM102','CM103','MS101','MS102','MS103',
-  'BD101','BD102','BD103','BD104',
+  'SPF101','ESM102','HMT103','PPS104','ECC105','MSG106','BLG107','PTM108',
+  'BLH109','MNE110','BBF111','CAL112','FMM113','FOG114','KDH115',
+  'PNM201','RMG202','WRS203','STG204','APG205','CHT206','HML207','OTL208',
+  'NTL209','APE210','ECP211','CHC212','IRM213','TYM214','WSM215',
+  'PJM216','PNP217','EFM218',
 ]
 
 const initialExams: Exam[] = [
   {
-    id: '1', title: 'Introduction to Bible – Final Exam', course: 'TH101',
-    date: '2026-08-15', startTime: '09:00', endTime: '11:00', duration: 60,
+    id: '1', title: 'Hermeneutics – Final Exam', course: 'HMT103',
+    date: '2026-09-20', startTime: '09:00', endTime: '11:00', duration: 60,
     status: 'scheduled', submissions: 0,
     questions: [
-      { id: 'q1', text: 'How many books are in the Old Testament?', type: 'mcq', options: ['39','27','66','50'], correctAnswer: '39', points: 2 },
-      { id: 'q2', text: 'Who wrote the book of Romans?', type: 'mcq', options: ['Peter','Paul','John','Luke'], correctAnswer: 'Paul', points: 2 },
+      { id: 'q1', text: 'What is the primary goal of biblical hermeneutics?', type: 'mcq', options: ['To translate the Bible','To interpret the Bible correctly','To memorize scripture','To write commentaries'], correctAnswer: 'To interpret the Bible correctly', points: 2 },
+      { id: 'q2', text: 'How many books are in the Old Testament?', type: 'mcq', options: ['39','27','66','50'], correctAnswer: '39', points: 2 },
       { id: 'q3', text: 'What is the first book of the Bible?', type: 'mcq', options: ['Genesis','Exodus','Leviticus','Numbers'], correctAnswer: 'Genesis', points: 2 },
     ],
   },
   {
-    id: '2', title: 'OT Survey – Mid-Semester', course: 'TH102',
-    date: '2026-08-20', startTime: '10:00', endTime: '11:00', duration: 60,
+    id: '2', title: 'Pneumatology – Mid-Semester', course: 'PNM201',
+    date: '2026-09-25', startTime: '10:00', endTime: '11:00', duration: 60,
     status: 'scheduled', submissions: 0, questions: [],
   },
   {
-    id: '3', title: 'Christian Doctrine Quiz', course: 'TH104',
+    id: '3', title: 'Systematic Theology Quiz', course: 'STG204',
     date: '2026-07-10', startTime: '09:00', endTime: '10:00', duration: 45,
-    status: 'completed', submissions: 42,
+    status: 'completed', submissions: 66,
     questions: [
       { id: 'q1', text: 'The Trinity consists of how many persons?', type: 'mcq', options: ['1','2','3','4'], correctAnswer: '3', points: 2 },
     ],
