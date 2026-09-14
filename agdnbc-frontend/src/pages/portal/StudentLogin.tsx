@@ -2,23 +2,31 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useNavigate, Link } from 'react-router-dom'
-import { Lock, Hash, Eye, EyeOff, AlertCircle } from 'lucide-react'
+import { Lock, Eye, EyeOff, AlertCircle, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { studentLogin } from '../../services/api'
 import { useAuthStore } from '../../store/authStore'
 
-const DEMO_ID = 'AGDNBC/2024/001'
+// New ID format: AGDNBCSC/YYYY/NNNCC  (e.g. AGDNBCSC/2024/001PH)
+const DEMO_ID = 'AGDNBCSC/2024/001PH'
 const DEMO_PWD = '0987654'
 
 const schema = z.object({
-  schoolId: z.string().min(3, 'School ID is required'),
-  password: z.string().min(6, 'Password must be at least 6 characters').max(8, 'Password must be at most 8 characters'),
+  password: z.string().min(6, 'Minimum 6 characters').max(8, 'Maximum 8 characters'),
 })
 type FormData = z.infer<typeof schema>
 
+const campusLabels: Record<string, string> = {
+  BY: 'Yenagoa, Bayelsa',
+  PH: 'Port Harcourt',
+}
+
 export default function StudentLogin() {
   const [showPwd, setShowPwd] = useState(false)
+  const [idYear, setIdYear] = useState('2024')
+  const [idSuffix, setIdSuffix] = useState('')
+  const [idError, setIdError] = useState('')
   const { setAuth } = useAuthStore()
   const navigate = useNavigate()
 
@@ -26,9 +34,23 @@ export default function StudentLogin() {
     resolver: zodResolver(schema),
   })
 
+  const fullId = `AGDNBCSC/${idYear}/${idSuffix.toUpperCase()}`
+  const campusCode = idSuffix.slice(-2).toUpperCase()
+  const campusName = campusLabels[campusCode] || ''
+
   const onSubmit = async (data: FormData) => {
-    // Demo bypass — works without a live backend
-    if (data.schoolId === DEMO_ID && data.password === DEMO_PWD) {
+    // Validate suffix format: 3 digits + BY or PH
+    const suffixRegex = /^\d{3}(BY|PH)$/i
+    if (!idSuffix.trim() || !suffixRegex.test(idSuffix.trim())) {
+      setIdError('Enter your number + campus code, e.g. 001BY or 001PH')
+      return
+    }
+    setIdError('')
+
+    const schoolId = fullId
+
+    // Demo bypass
+    if (schoolId === DEMO_ID && data.password === DEMO_PWD) {
       setAuth(
         {
           id: 'demo-001',
@@ -46,7 +68,7 @@ export default function StudentLogin() {
     }
 
     try {
-      const res = await studentLogin(data.schoolId, data.password)
+      const res = await studentLogin(schoolId, data.password)
       setAuth(res.data.user, res.data.token)
       navigate('/portal/dashboard')
     } catch (err: unknown) {
@@ -75,32 +97,66 @@ export default function StudentLogin() {
 
         {/* Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          {/* Portal access notice */}
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex gap-3">
             <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
             <div className="text-xs text-amber-700">
-              <strong>Portal Access:</strong> Portal access is included in your school fees (₦105,000 – Year 1 /
-              ₦155,000 – Year 2). Ensure your fees are paid to retain full access.
+              <strong>Portal Access</strong> is included in your school fees (₦105,000 – Year 1 / ₦155,000 – Year 2). Ensure your fees are paid to retain full access.
             </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            {/* Split School ID input */}
             <div>
-              <label className="label flex items-center gap-2">
-                <Hash size={14} /> School ID Number
-              </label>
-              <input
-                {...register('schoolId')}
-                className="input-field font-mono tracking-wider"
-                placeholder="e.g. AGDNBC/2024/001"
-                autoComplete="username"
-              />
-              {errors.schoolId && <p className="text-red-500 text-xs mt-1">{errors.schoolId.message}</p>}
+              <label className="label">School ID Number</label>
+
+              {/* Prefix + year row */}
+              <div className="flex items-stretch gap-2 mb-2">
+                <div className="bg-gray-100 text-gray-500 text-sm font-mono px-3 py-2.5 rounded-xl border border-gray-200 shrink-0 flex items-center">
+                  AGDNBCSC/
+                </div>
+                <select
+                  value={idYear}
+                  onChange={(e) => setIdYear(e.target.value)}
+                  className="input-field font-mono font-semibold text-[#0f3460] shrink-0 w-28"
+                >
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                </select>
+                <div className="bg-gray-100 text-gray-400 text-sm font-mono px-2 rounded-xl border border-gray-200 flex items-center">
+                  /
+                </div>
+                <input
+                  value={idSuffix}
+                  onChange={(e) => { setIdSuffix(e.target.value.toUpperCase()); setIdError('') }}
+                  className="input-field font-mono tracking-widest flex-1 uppercase"
+                  placeholder="001PH"
+                  maxLength={5}
+                  autoComplete="username"
+                />
+              </div>
+
+              {/* Combined ID preview + campus */}
+              <div className="flex items-center justify-between text-xs mb-1">
+                <span className="text-gray-400">
+                  Full ID: <span className="font-mono font-semibold text-[#0f3460]">{fullId}</span>
+                </span>
+                {campusName && (
+                  <span className="flex items-center gap-1 text-[#e94560]">
+                    <MapPin size={10} /> {campusName}
+                  </span>
+                )}
+              </div>
+
+              {/* Hint */}
+              <p className="text-xs text-gray-400">Enter your 3-digit number + campus code: <span className="font-mono">BY</span> (Yenagoa) or <span className="font-mono">PH</span> (Port Harcourt)</p>
+              {idError && <p className="text-red-500 text-xs mt-1">{idError}</p>}
             </div>
 
+            {/* Password */}
             <div>
               <label className="label flex items-center gap-2">
-                <Lock size={14} /> Password (8 characters)
+                <Lock size={14} /> Password
               </label>
               <div className="relative">
                 <input
@@ -122,11 +178,7 @@ export default function StudentLogin() {
               {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn-primary w-full justify-center py-3.5 text-base"
-            >
+            <button type="submit" disabled={isSubmitting} className="btn-primary w-full justify-center py-3.5 text-base">
               {isSubmitting ? 'Signing in...' : 'Sign In to Portal'}
             </button>
           </form>
@@ -141,11 +193,12 @@ export default function StudentLogin() {
           </div>
         </div>
 
-        {/* Demo credentials hint */}
+        {/* Demo hint */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4 text-xs text-blue-700">
           <p className="font-bold mb-1">Demo Access</p>
-          <p>School ID: <span className="font-mono font-semibold">AGDNBC/2024/001</span></p>
+          <p>Year: <span className="font-mono font-semibold">2024</span> &nbsp;·&nbsp; Number: <span className="font-mono font-semibold">001PH</span></p>
           <p>Password: <span className="font-mono font-semibold">0987654</span></p>
+          <p className="mt-1 text-blue-500">Full ID: <span className="font-mono font-semibold">AGDNBCSC/2024/001PH</span></p>
         </div>
 
         <div className="text-center mt-4">
