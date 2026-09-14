@@ -109,47 +109,43 @@ export default function StudentLogin() {
             <div>
               <label className="label">School ID Number</label>
 
-              {/* Prefix + year row */}
-              <div className="flex items-stretch gap-2 mb-2">
-                <div className="bg-gray-100 text-gray-500 text-sm font-mono px-3 py-2.5 rounded-xl border border-gray-200 shrink-0 flex items-center">
+              {/* Unified input bar */}
+              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden focus-within:border-[#0f3460] focus-within:ring-2 focus-within:ring-[#0f3460]/10 transition-all">
+                <span className="bg-gray-100 text-gray-500 text-sm font-mono px-3 py-3 border-r border-gray-200 shrink-0 whitespace-nowrap select-none">
                   AGDNBCSC/
-                </div>
+                </span>
                 <select
                   value={idYear}
                   onChange={(e) => setIdYear(e.target.value)}
-                  className="input-field font-mono font-semibold text-[#0f3460] shrink-0 w-28"
+                  className="text-sm font-mono font-semibold text-[#0f3460] px-2 py-3 border-r border-gray-200 bg-white focus:outline-none shrink-0"
+                  style={{ width: '84px' }}
                 >
                   <option value="2024">2024</option>
                   <option value="2025">2025</option>
                   <option value="2026">2026</option>
                 </select>
-                <div className="bg-gray-100 text-gray-400 text-sm font-mono px-2 rounded-xl border border-gray-200 flex items-center">
-                  /
-                </div>
+                <span className="text-gray-400 font-mono text-sm px-2 border-r border-gray-200 py-3 shrink-0 select-none">/</span>
                 <input
                   value={idSuffix}
                   onChange={(e) => { setIdSuffix(e.target.value.toUpperCase()); setIdError('') }}
-                  className="input-field font-mono tracking-widest flex-1 uppercase"
+                  className="flex-1 min-w-0 text-sm font-mono tracking-widest uppercase px-3 py-3 bg-white focus:outline-none placeholder:text-gray-300"
                   placeholder="001PH"
                   maxLength={5}
                   autoComplete="username"
                 />
-              </div>
-
-              {/* Combined ID preview + campus */}
-              <div className="flex items-center justify-between text-xs mb-1">
-                <span className="text-gray-400">
-                  Full ID: <span className="font-mono font-semibold text-[#0f3460]">{fullId}</span>
-                </span>
                 {campusName && (
-                  <span className="flex items-center gap-1 text-[#e94560]">
+                  <span className="text-xs text-[#e94560] font-semibold px-3 shrink-0 flex items-center gap-1 whitespace-nowrap">
                     <MapPin size={10} /> {campusName}
                   </span>
                 )}
               </div>
 
-              {/* Hint */}
-              <p className="text-xs text-gray-400">Enter your 3-digit number + campus code: <span className="font-mono">BY</span> (Yenagoa) or <span className="font-mono">PH</span> (Port Harcourt)</p>
+              <p className="text-xs text-gray-400 mt-1.5">
+                Enter your 3-digit number + campus code: <span className="font-mono font-medium">BY</span> (Yenagoa) or <span className="font-mono font-medium">PH</span> (Port Harcourt)
+              </p>
+              <p className="text-xs text-gray-400">
+                Full ID: <span className="font-mono font-semibold text-[#0f3460]">{fullId}</span>
+              </p>
               {idError && <p className="text-red-500 text-xs mt-1">{idError}</p>}
             </div>
 
