@@ -1,17 +1,23 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, BookOpen, Users, Award, Globe, ChevronRight,
   Star, Quote, Calendar, Clock, FileText, ClipboardList, CreditCard, Images
 } from 'lucide-react'
 
-import heroImg from '../../assets/Images/_EWC0240.jpg'
+import carousel1 from '../../assets/Images/_EWC0240.jpg'
+import carousel2 from '../../assets/Images/IMG_3783.jpg'
+import carousel3 from '../../assets/Images/_EWC0263.jpg'
+import carousel4 from '../../assets/Images/_EWC0276.jpg'
 import aboutImg from '../../assets/Images/IMG_3791.jpg'
-import gal1 from '../../assets/Images/IMG_3783.jpg'
-import gal2 from '../../assets/Images/_EWC0263.jpg'
-import gal3 from '../../assets/Images/_EWC0276.jpg'
-import gal4 from '../../assets/Images/IMG_3804.jpg'
-import gal5 from '../../assets/Images/IMG_3798.jpg'
-import gal6 from '../../assets/Images/_EWC0214.jpg'
+import gal1 from '../../assets/Images/IMG_3782.jpg'
+import gal2 from '../../assets/Images/IMG_3804.jpg'
+import gal3 from '../../assets/Images/IMG_3798.jpg'
+import gal4 from '../../assets/Images/_EWC0214.jpg'
+import gal5 from '../../assets/Images/_EWC0225.jpg'
+import gal6 from '../../assets/Images/_EWC0270.jpg'
+
+const carouselImages = [carousel1, carousel2, carousel3, carousel4]
 
 const stats = [
   { value: '100+', label: 'Students Enrolled' },
@@ -67,17 +73,35 @@ const news = [
 ]
 
 export default function Home() {
+  const [slide, setSlide] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => setSlide((s) => (s + 1) % carouselImages.length), 5000)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <div>
-      {/* ── Hero ── */}
-      <section className="relative min-h-[90vh] bg-gradient-to-br from-[#0f3460] via-[#16213e] to-[#0f3460] flex items-center overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-[#e94560] rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400 rounded-full blur-3xl" />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 py-20 relative z-10 grid lg:grid-cols-2 gap-12 items-center w-full">
-          {/* Text */}
-          <div>
+      {/* ── Hero with background carousel ── */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+
+        {/* Carousel backgrounds — crossfade */}
+        {carouselImages.map((img, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: i === slide ? 1 : 0 }}
+          >
+            <img src={img} alt="" className="w-full h-full object-cover" />
+          </div>
+        ))}
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#0f3460]/75" />
+
+        {/* Static text content */}
+        <div className="max-w-7xl mx-auto px-4 py-24 relative z-10 w-full">
+          <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-[#e94560]/20 border border-[#e94560]/30 text-[#e94560] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
               <Star size={12} /> Apostle G.D Numbere Bible College
             </div>
@@ -85,11 +109,11 @@ export default function Home() {
               Equipping Believers<br />
               <span className="text-[#e94560]">for Kingdom Impact</span>
             </h1>
-            <p className="text-blue-200 text-lg md:text-xl leading-relaxed mb-8">
+            <p className="text-blue-200 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
               Join a community of faith where sound biblical education, spiritual formation, and practical
               ministry training converge — preparing you to make a lasting impact for God's Kingdom.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mb-12">
               <Link to="/admissions" className="btn-accent text-base py-3.5 px-8">
                 Apply for Admission <ArrowRight size={18} />
               </Link>
@@ -97,29 +121,21 @@ export default function Home() {
                 View Programmes <ChevronRight size={18} />
               </Link>
             </div>
-          </div>
 
-          {/* Hero image */}
-          <div className="hidden lg:block relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img src={heroImg} alt="AGDNBC Graduation Ceremony" className="w-full h-[520px] object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f3460]/60 to-transparent" />
+            {/* Dot indicators */}
+            <div className="flex gap-2">
+              {carouselImages.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSlide(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${i === slide ? 'w-8 bg-[#e94560]' : 'w-2 bg-white/40 hover:bg-white/60'}`}
+                />
+              ))}
             </div>
-            {/* Floating stat badge */}
-            <div className="absolute -bottom-5 -left-5 bg-[#e94560] text-white rounded-2xl px-6 py-4 shadow-xl">
-              <div className="text-3xl font-extrabold">100+</div>
-              <div className="text-xs font-medium text-white/80">Graduates & Counting</div>
-            </div>
-            {/* Floating gallery link */}
-            <Link
-              to="/gallery"
-              className="absolute -top-4 -right-4 bg-white text-[#0f3460] rounded-xl px-4 py-2 shadow-lg text-xs font-bold flex items-center gap-1.5 hover:bg-[#f7f9fc] transition-colors"
-            >
-              <Images size={14} /> View Gallery
-            </Link>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent" />
+
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10" />
       </section>
 
       {/* ── Stats ── */}
