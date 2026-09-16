@@ -28,8 +28,11 @@ export default function AdminLogin() {
       const res = await adminLogin(data.email, data.password)
       setAuth(res.data.user, res.data.token)
       navigate('/admin/dashboard')
-    } catch {
-      toast.error('Invalid credentials')
+    } catch (err: unknown) {
+      const e = err as { response?: { status?: number; data?: { message?: string } }; message?: string }
+      const msg = e?.response?.data?.message || e?.message || 'Login failed'
+      console.error('Login error:', e?.response?.status, msg, e)
+      toast.error(msg)
     }
   }
 

@@ -17,7 +17,9 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    if (error.response?.status === 401) {
+    // Only auto-logout on 401 for authenticated routes, not login endpoints
+    const url = error.config?.url || ''
+    if (error.response?.status === 401 && !url.includes('/login')) {
       useAuthStore.getState().clearAuth()
       window.location.href = '/portal/login'
     }
