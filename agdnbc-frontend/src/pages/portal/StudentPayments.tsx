@@ -1,14 +1,13 @@
-import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { CreditCard, CheckCircle, Clock, AlertCircle, Download, Plus } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Building2, Copy, CheckCircle, Clock, XCircle, Plus, Send, Banknote } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { getMyPayments, initializePayment } from '../../services/api'
+import { useAuthStore } from '../../store/authStore'
 
-const mockPayments = [
-  { id: '1', category: 'Registration Fee', amount: 10000, status: 'paid', date: '2026-01-10', ref: 'PAY-2026-001' },
-  { id: '2', category: 'School Fees – Year 1 (1st Installment)', amount: 52500, status: 'paid', date: '2026-01-15', ref: 'PAY-2026-002' },
-  { id: '3', category: 'School Fees – Year 1 (2nd Installment)', amount: 52500, status: 'pending', date: null, ref: null },
-]
+const BANK_DETAILS = {
+  bankName: 'Guaranty Trust Bank (GTBank)',
+  accountName: 'AGDN Bible College SC',
+  accountNumber: '0123456789',
+}
 
 const paymentCategories = [
   { label: 'Registration Fee', amount: 10000 },
@@ -19,155 +18,250 @@ const paymentCategories = [
   { label: 'Graduation Fee', amount: 10000 },
 ]
 
-const statusConfig: Record<string, { icon: typeof CheckCircle; color: string; label: string }> = {
-  paid: { icon: CheckCircle, color: 'text-green-600 bg-green-100', label: 'Paid' },
-  pending: { icon: Clock, color: 'text-orange-600 bg-orange-100', label: 'Pending' },
-  failed: { icon: AlertCircle, color: 'text-red-600 bg-red-100', label: 'Failed' },
+interface PaymentClaim {
+  id: string
+  studentId: string
+  studentName: string
+  category: string
+  amount: number
+  transactionRef: string
+  submittedAt: string
+  status: 'awaiting_approval' | 'approved' | 'rejected'
+  adminNote?: string
+}
+
+const statusConfig = {
+  approved: { icon: CheckCircle, color: 'text-green-600 bg-green-100', label: 'Approved' },
+  awaiting_approval: { icon: Clock, color: 'text-orange-600 bg-orange-100', label: 'Awaiting Approval' },
+  rejected: { icon: XCircle, color: 'text-red-600 bg-red-100', label: 'Rejected' },
+}
+
+function loadClaims(): PaymentClaim[] {
+  try { return JSON.parse(localStorage.getItem('agdnbc-payment-claims') || '[]') } catch { return [] }
 }
 
 export default function StudentPayments() {
+  const { user } = useAuthStore()
+  const [claims, setClaims] = useState<PaymentClaim[]>([])
   const [showModal, setShowModal] = useState(false)
   const [selected, setSelected] = useState(paymentCategories[0])
-  const [paying, setPaying] = useState(false)
+  const [transRef, setTransRef] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [copied, setCopied] = useState(false)
 
-  const { data, isLoading } = useQuery({ queryKey: ['my-payments'], queryFn: getMyPayments })
-  const payments = data?.data?.length ? data.data : mockPayments
+  useEffect(() => {
+    setClaims(loadClaims().filter(c => c.studentId === user?.schoolId))
+  }, [user?.schoolId])
 
-  const pending = payments.filter((p: typeof mockPayments[0]) => p.status === 'pending')
-  const totalOutstanding = pending.reduce((s: number, p: typeof mockPayments[0]) => s + p.amount, 0)
-
-  const handlePay = async () => {
-    setPaying(true)
-    try {
-      const res = await initializePayment({ category: selected.label, amount: selected.amount })
-      window.location.href = res.data.authorization_url
-    } catch {
-      toast.error('Payment initialization failed. Please try again.')
-      setPaying(false)
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText(BANK_DETAILS.accountNumber)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
-  if (isLoading) return <div className="text-center py-20 text-gray-400">Loading payments...</div>
+  const handleSubmit = () => {
+    if (!transRef.trim()) { toast.error('Please enter your transaction reference'); return }
+    setSubmitting(true)
+    const claim: PaymentClaim = {
+      id: `claim-${Date.now()}`,
+      studentId: user?.schoolId || '',
+      studentName: user?.name || '',
+      category: selected.label,
+      amount: selected.amount,
+      transactionRef: transRef.trim(),
+      submittedAt: new Date().toISOString(),
+      status: 'awaiting_approval',
+    }
+    const all = loadClaims()
+    all.push(claim)
+    localStorage.setItem('agdnbc-payment-claims', JSON.stringify(all))
+    setClaims(all.filter(c => c.studentId === user?.schoolId))
+    setShowModal(false)
+    setTransRef('')
+    setSubmitting(false)
+    toast.success('Submitted! Admin will review and approve shortly.')
+  }
+
+  const totalApproved = claims.filter(c => c.status === 'approved').reduce((s, c) => s + c.amount, 0)
+  const pendingCount = claims.filter(c => c.status === 'awaiting_approval').length
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-[#0f3460]">Payments</h2>
         <button onClick={() => setShowModal(true)} className="btn-primary text-sm py-2.5">
-          <Plus size={16} /> Make a Payment
+          <Plus size={16} /> I've Made a Payment
         </button>
       </div>
 
       {/* Summary */}
       <div className="grid md:grid-cols-3 gap-4">
         <div className="bg-green-50 border border-green-200 rounded-xl p-5">
-          <div className="text-xs text-green-600 font-semibold mb-1">Total Paid</div>
-          <div className="text-2xl font-bold text-green-700">
-            ₦{payments.filter((p: typeof mockPayments[0]) => p.status === 'paid').reduce((s: number, p: typeof mockPayments[0]) => s + p.amount, 0).toLocaleString()}
-          </div>
+          <div className="text-xs text-green-600 font-semibold mb-1">Total Approved</div>
+          <div className="text-2xl font-bold text-green-700">₦{totalApproved.toLocaleString()}</div>
         </div>
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-5">
-          <div className="text-xs text-orange-600 font-semibold mb-1">Outstanding</div>
-          <div className="text-2xl font-bold text-orange-700">₦{totalOutstanding.toLocaleString()}</div>
+          <div className="text-xs text-orange-600 font-semibold mb-1">Awaiting Approval</div>
+          <div className="text-2xl font-bold text-orange-700">{pendingCount}</div>
         </div>
         <div className="bg-[#f7f9fc] border border-gray-200 rounded-xl p-5">
-          <div className="text-xs text-gray-500 font-semibold mb-1">Total Transactions</div>
-          <div className="text-2xl font-bold text-[#0f3460]">{payments.length}</div>
+          <div className="text-xs text-gray-500 font-semibold mb-1">Total Submissions</div>
+          <div className="text-2xl font-bold text-[#0f3460]">{claims.length}</div>
         </div>
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      {/* Bank Details */}
+      <div className="bg-[#0f3460] text-white rounded-2xl p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <Building2 size={22} />
+          <h3 className="font-bold text-lg">Bank Transfer Details</h3>
+        </div>
+        <p className="text-blue-100 text-sm mb-5">
+          Transfer the exact amount for your payment category to the account below, then click{' '}
+          <strong>"I've Made a Payment"</strong> with your transaction reference so admin can verify.
+        </p>
+        <div className="bg-white/10 rounded-xl p-5 space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="text-blue-200 text-sm">Bank</span>
+            <span className="font-semibold">{BANK_DETAILS.bankName}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-blue-200 text-sm">Account Name</span>
+            <span className="font-semibold">{BANK_DETAILS.accountName}</span>
+          </div>
+          <div className="flex justify-between items-center border-t border-white/20 pt-3">
+            <span className="text-blue-200 text-sm">Account Number</span>
+            <div className="flex items-center gap-3">
+              <span className="font-bold text-xl tracking-widest">{BANK_DETAILS.accountNumber}</span>
+              <button
+                onClick={handleCopy}
+                className="bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
+              >
+                {copied ? <CheckCircle size={13} /> : <Copy size={13} />}
+                {copied ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Payment categories reference */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-gray-100">
-          <h3 className="font-bold text-[#0f3460]">Payment History</h3>
+          <h3 className="font-bold text-[#0f3460]">Fee Schedule</h3>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-[#f7f9fc] text-xs text-gray-500 uppercase tracking-wider">
-                <th className="text-left px-6 py-3">Category</th>
-                <th className="text-left px-6 py-3">Reference</th>
-                <th className="text-left px-6 py-3">Date</th>
-                <th className="text-right px-6 py-3">Amount</th>
-                <th className="text-center px-6 py-3">Status</th>
-                <th className="text-center px-6 py-3">Receipt</th>
-              </tr>
-            </thead>
-            <tbody>
-              {payments.map((payment: typeof mockPayments[0]) => {
-                const cfg = statusConfig[payment.status]
-                const Icon = cfg.icon
-                return (
-                  <tr key={payment.id} className="border-b border-gray-50 hover:bg-[#f7f9fc] transition-colors">
-                    <td className="px-6 py-4 text-sm font-semibold text-[#0f3460]">{payment.category}</td>
-                    <td className="px-6 py-4 text-sm font-mono text-gray-500">{payment.ref || '—'}</td>
-                    <td className="px-6 py-4 text-sm text-gray-500">{payment.date || '—'}</td>
-                    <td className="px-6 py-4 text-right font-bold text-[#0f3460]">₦{payment.amount.toLocaleString()}</td>
-                    <td className="px-6 py-4 text-center">
-                      <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${cfg.color}`}>
-                        <Icon size={11} /> {cfg.label}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {payment.status === 'paid' ? (
-                        <button className="text-[#0f3460] hover:text-[#e94560]">
-                          <Download size={16} />
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => {
-                            const cat = paymentCategories.find((c) => c.label === payment.category) || paymentCategories[0]
-                            setSelected(cat)
-                            setShowModal(true)
-                          }}
-                          className="text-xs bg-[#e94560] text-white px-3 py-1 rounded-lg hover:bg-[#c73550]"
-                        >
-                          Pay Now
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+        <div className="divide-y divide-gray-50">
+          {paymentCategories.map(cat => (
+            <div key={cat.label} className="flex justify-between items-center px-6 py-4">
+              <span className="text-sm text-gray-700">{cat.label}</span>
+              <span className="font-bold text-[#0f3460]">₦{cat.amount.toLocaleString()}</span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Payment modal */}
+      {/* Submissions history */}
+      {claims.length > 0 && (
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="p-5 border-b border-gray-100">
+            <h3 className="font-bold text-[#0f3460]">My Payment Submissions</h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-[#f7f9fc] text-xs text-gray-500 uppercase tracking-wider">
+                  <th className="text-left px-6 py-3">Category</th>
+                  <th className="text-left px-6 py-3">Transaction Ref</th>
+                  <th className="text-left px-6 py-3">Submitted</th>
+                  <th className="text-right px-6 py-3">Amount</th>
+                  <th className="text-center px-6 py-3">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {claims.map(claim => {
+                  const cfg = statusConfig[claim.status]
+                  const Icon = cfg.icon
+                  return (
+                    <tr key={claim.id} className="border-b border-gray-50 hover:bg-[#f7f9fc]">
+                      <td className="px-6 py-4 text-sm font-semibold text-[#0f3460]">{claim.category}</td>
+                      <td className="px-6 py-4 text-xs font-mono text-gray-500">{claim.transactionRef}</td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {new Date(claim.submittedAt).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </td>
+                      <td className="px-6 py-4 text-right font-bold text-[#0f3460]">₦{claim.amount.toLocaleString()}</td>
+                      <td className="px-6 py-4 text-center">
+                        <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${cfg.color}`}>
+                          <Icon size={11} /> {cfg.label}
+                        </span>
+                        {claim.status === 'rejected' && claim.adminNote && (
+                          <p className="text-xs text-red-500 mt-1">{claim.adminNote}</p>
+                        )}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {claims.length === 0 && (
+        <div className="bg-white rounded-2xl p-12 text-center border border-gray-100">
+          <Banknote size={40} className="mx-auto text-gray-200 mb-3" />
+          <p className="text-gray-400 text-sm">No submissions yet. Make a transfer and click "I've Made a Payment".</p>
+        </div>
+      )}
+
+      {/* Submit modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
             <div className="flex items-center gap-3 mb-6">
-              <CreditCard size={24} className="text-[#0f3460]" />
-              <h3 className="text-xl font-bold text-[#0f3460]">Make a Payment</h3>
+              <Send size={22} className="text-[#0f3460]" />
+              <h3 className="text-xl font-bold text-[#0f3460]">Notify Admin of Payment</h3>
             </div>
-            <div className="mb-4">
-              <label className="label">Payment Category</label>
-              <select
-                className="input-field"
-                value={selected.label}
-                onChange={(e) => {
-                  const cat = paymentCategories.find((c) => c.label === e.target.value)!
-                  setSelected(cat)
-                }}
-              >
-                {paymentCategories.map((cat) => (
-                  <option key={cat.label} value={cat.label}>{cat.label}</option>
-                ))}
-              </select>
+
+            <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-5 text-sm text-blue-700">
+              Make sure you've already transferred to <strong>{BANK_DETAILS.accountName}</strong>{' '}
+              (<span className="font-mono">{BANK_DETAILS.accountNumber}</span>) before submitting.
             </div>
-            <div className="bg-[#f7f9fc] rounded-xl p-4 mb-6">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Amount</span>
-                <span className="text-2xl font-extrabold text-[#0f3460]">₦{selected.amount.toLocaleString()}</span>
+
+            <div className="space-y-4">
+              <div>
+                <label className="label">Payment Category</label>
+                <select
+                  className="input-field"
+                  value={selected.label}
+                  onChange={e => setSelected(paymentCategories.find(c => c.label === e.target.value)!)}
+                >
+                  {paymentCategories.map(c => (
+                    <option key={c.label} value={c.label}>{c.label} — ₦{c.amount.toLocaleString()}</option>
+                  ))}
+                </select>
               </div>
-              <p className="text-xs text-gray-400 mt-2">You will be redirected to Paystack to complete your payment securely.</p>
+              <div>
+                <label className="label">Transaction Reference / Narration</label>
+                <input
+                  className="input-field"
+                  placeholder="e.g. TRF250916ABC1234 or bank SMS narration"
+                  value={transRef}
+                  onChange={e => setTransRef(e.target.value)}
+                />
+                <p className="text-xs text-gray-400 mt-1">Copy the reference from your bank app or debit SMS alert.</p>
+              </div>
+              <div className="bg-[#f7f9fc] rounded-xl p-3 flex justify-between items-center">
+                <span className="text-sm text-gray-500">Amount</span>
+                <span className="text-xl font-extrabold text-[#0f3460]">₦{selected.amount.toLocaleString()}</span>
+              </div>
             </div>
-            <div className="flex gap-3">
-              <button onClick={() => setShowModal(false)} className="btn-outline flex-1 justify-center">Cancel</button>
-              <button onClick={handlePay} disabled={paying} className="btn-accent flex-1 justify-center">
-                <CreditCard size={16} /> {paying ? 'Redirecting...' : 'Pay with Paystack'}
+
+            <div className="flex gap-3 mt-6">
+              <button onClick={() => { setShowModal(false); setTransRef('') }} className="btn-outline flex-1 justify-center">
+                Cancel
+              </button>
+              <button onClick={handleSubmit} disabled={submitting} className="btn-primary flex-1 justify-center">
+                <Send size={16} /> {submitting ? 'Sending...' : "I've Paid — Notify Admin"}
               </button>
             </div>
           </div>

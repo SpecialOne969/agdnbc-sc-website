@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BookOpen, FileText, ClipboardList,
@@ -18,10 +18,28 @@ const adminLinks = [
   { label: 'Content', to: '/admin/content', icon: FileEdit },
 ]
 
+function usePendingPayments() {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    const read = () => {
+      try {
+        const claims = JSON.parse(localStorage.getItem('agdnbc-payment-claims') || '[]')
+        setCount(claims.filter((c: { status: string }) => c.status === 'awaiting_approval').length)
+      } catch { setCount(0) }
+    }
+    read()
+    window.addEventListener('storage', read)
+    const timer = setInterval(read, 10000)
+    return () => { window.removeEventListener('storage', read); clearInterval(timer) }
+  }, [])
+  return count
+}
+
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { user, clearAuth } = useAuthStore()
   const navigate = useNavigate()
+  const pendingPayments = usePendingPayments()
 
   const handleLogout = () => {
     clearAuth()
@@ -62,7 +80,13 @@ export default function AdminLayout() {
                 ${isActive ? 'bg-[#e94560] text-white' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`
               }
             >
-              <Icon size={18} /> {label}
+              <Icon size={18} />
+              <span className="flex-1">{label}</span>
+              {label === 'Payments' && pendingPayments > 0 && (
+                <span className="bg-[#e94560] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                  {pendingPayments}
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>
