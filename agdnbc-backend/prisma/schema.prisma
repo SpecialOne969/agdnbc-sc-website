@@ -21,6 +21,12 @@ enum PaymentStatus {
   failed
 }
 
+enum ClaimStatus {
+  awaiting_approval
+  approved
+  rejected
+}
+
 enum ExamStatus {
   draft
   scheduled
@@ -88,11 +94,12 @@ model Student {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
 
-  courses      StudentCourse[]
-  results      Result[]
-  examSessions ExamSession[]
-  payments     Payment[]
-  orders       Order[]
+  courses       StudentCourse[]
+  results       Result[]
+  examSessions  ExamSession[]
+  payments      Payment[]
+  paymentClaims PaymentClaim[]
+  orders        Order[]
 
   @@map("students")
 }
@@ -261,6 +268,23 @@ model Payment {
   student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@map("payments")
+}
+
+model PaymentClaim {
+  id             String      @id @default(cuid())
+  studentId      String
+  studentName    String
+  category       String
+  amount         Float
+  transactionRef String
+  status         ClaimStatus @default(awaiting_approval)
+  adminNote      String?
+  submittedAt    DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("payment_claims")
 }
 
 // ─── Shop ────────────────────────────────────────────────────────────────────

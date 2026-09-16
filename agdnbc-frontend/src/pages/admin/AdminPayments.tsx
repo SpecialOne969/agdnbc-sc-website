@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react'
-import { Search, CheckCircle, Clock, XCircle, Download, ThumbsUp, ThumbsDown } from 'lucide-react'
+import { useState, useEffect, useCallback } from 'react'
+import { Search, CheckCircle, Clock, XCircle, ThumbsUp, ThumbsDown, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { api } from '../../services/api'
 
 interface PaymentClaim {
   id: string
-  studentId: string
   studentName: string
   category: string
   amount: number
   transactionRef: string
   submittedAt: string
   status: 'awaiting_approval' | 'approved' | 'rejected'
-  reviewedAt?: string
-  adminNote?: string
+  adminNote?: string | null
+  student?: { schoolId: string; email?: string }
 }
 
 const statusConfig = {
@@ -21,53 +21,65 @@ const statusConfig = {
   rejected: { icon: XCircle, color: 'text-red-600 bg-red-100', label: 'Rejected' },
 }
 
-function loadClaims(): PaymentClaim[] {
-  try { return JSON.parse(localStorage.getItem('agdnbc-payment-claims') || '[]') } catch { return [] }
-}
-
-function saveClaims(claims: PaymentClaim[]) {
-  localStorage.setItem('agdnbc-payment-claims', JSON.stringify(claims))
-}
-
 export default function AdminPayments() {
   const [claims, setClaims] = useState<PaymentClaim[]>([])
+  const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [tab, setTab] = useState<'pending' | 'all'>('pending')
   const [rejectId, setRejectId] = useState<string | null>(null)
   const [rejectNote, setRejectNote] = useState('')
+  const [acting, setActing] = useState<string | null>(null)
 
-  useEffect(() => { setClaims(loadClaims()) }, [])
+  const fetchClaims = useCallback(async () => {
+    try {
+      const res = await api.get('/payments/claims')
+      setClaims(res.data)
+    } catch {
+      toast.error('Failed to load payment claims')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
-  const refresh = () => setClaims(loadClaims())
+  useEffect(() => { fetchClaims() }, [fetchClaims])
 
-  const approve = (id: string) => {
-    const updated = loadClaims().map(c =>
-      c.id === id ? { ...c, status: 'approved' as const, reviewedAt: new Date().toISOString() } : c
-    )
-    saveClaims(updated)
-    refresh()
-    toast.success('Payment approved')
+  const approve = async (id: string) => {
+    setActing(id)
+    try {
+      await api.patch(`/payments/claims/${id}/approve`)
+      await fetchClaims()
+      toast.success('Payment approved — student notified by email')
+    } catch {
+      toast.error('Failed to approve')
+    } finally {
+      setActing(null)
+    }
   }
 
-  const reject = (id: string) => {
-    const updated = loadClaims().map(c =>
-      c.id === id
-        ? { ...c, status: 'rejected' as const, adminNote: rejectNote.trim() || 'Rejected by admin', reviewedAt: new Date().toISOString() }
-        : c
-    )
-    saveClaims(updated)
-    refresh()
-    setRejectId(null)
-    setRejectNote('')
-    toast.success('Payment rejected')
+  const reject = async (id: string) => {
+    setActing(id)
+    try {
+      await api.patch(`/payments/claims/${id}/reject`, { adminNote: rejectNote.trim() || undefined })
+      await fetchClaims()
+      setRejectId(null)
+      setRejectNote('')
+      toast.success('Payment rejected — student notified by email')
+    } catch {
+      toast.error('Failed to reject')
+    } finally {
+      setActing(null)
+    }
   }
 
   const pending = claims.filter(c => c.status === 'awaiting_approval')
-  const displayed = (tab === 'pending' ? pending : claims).filter(c =>
-    c.studentName.toLowerCase().includes(search.toLowerCase()) ||
-    c.studentId.toLowerCase().includes(search.toLowerCase()) ||
-    c.category.toLowerCase().includes(search.toLowerCase())
-  )
+  const displayed = (tab === 'pending' ? pending : claims).filter(c => {
+    const q = search.toLowerCase()
+    return (
+      c.studentName.toLowerCase().includes(q) ||
+      (c.student?.schoolId || '').toLowerCase().includes(q) ||
+      c.category.toLowerCase().includes(q)
+    )
+  })
 
   const totalApproved = claims.filter(c => c.status === 'approved').reduce((s, c) => s + c.amount, 0)
 
@@ -75,7 +87,6 @@ export default function AdminPayments() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <h2 className="text-xl font-bold text-[#1a1a2e]">Payment Records</h2>
-        <button className="btn-outline text-sm py-2.5"><Download size={16} /> Export CSV</button>
       </div>
 
       {/* Stats */}
@@ -130,7 +141,11 @@ export default function AdminPayments() {
 
       {/* Table */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        {displayed.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-16">
+            <Loader2 size={24} className="animate-spin text-[#0f3460]" />
+          </div>
+        ) : displayed.length === 0 ? (
           <div className="p-12 text-center text-gray-400 text-sm">
             {tab === 'pending' ? 'No pending payment approvals.' : 'No payment records found.'}
           </div>
@@ -156,7 +171,7 @@ export default function AdminPayments() {
                     <tr key={claim.id} className="border-b border-gray-50 hover:bg-[#f7f9fc]">
                       <td className="px-6 py-4">
                         <div className="font-medium text-sm text-[#1a1a2e]">{claim.studentName}</div>
-                        <div className="text-xs font-mono text-gray-400">{claim.studentId}</div>
+                        <div className="text-xs font-mono text-gray-400">{claim.student?.schoolId}</div>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">{claim.category}</td>
                       <td className="px-6 py-4 font-mono text-xs text-gray-500">{claim.transactionRef}</td>
@@ -168,22 +183,26 @@ export default function AdminPayments() {
                         <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${cfg.color}`}>
                           <Icon size={11} /> {cfg.label}
                         </span>
-                        {claim.adminNote && <p className="text-xs text-red-500 mt-1 max-w-[140px] mx-auto">{claim.adminNote}</p>}
+                        {claim.adminNote && (
+                          <p className="text-xs text-red-500 mt-1 max-w-[140px] mx-auto">{claim.adminNote}</p>
+                        )}
                       </td>
                       <td className="px-6 py-4 text-center">
                         {claim.status === 'awaiting_approval' ? (
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => approve(claim.id)}
+                              disabled={acting === claim.id}
                               title="Approve"
-                              className="bg-green-100 text-green-700 hover:bg-green-200 p-2 rounded-lg transition-colors"
+                              className="bg-green-100 text-green-700 hover:bg-green-200 p-2 rounded-lg transition-colors disabled:opacity-50"
                             >
-                              <ThumbsUp size={15} />
+                              {acting === claim.id ? <Loader2 size={15} className="animate-spin" /> : <ThumbsUp size={15} />}
                             </button>
                             <button
                               onClick={() => setRejectId(claim.id)}
+                              disabled={acting === claim.id}
                               title="Reject"
-                              className="bg-red-100 text-red-600 hover:bg-red-200 p-2 rounded-lg transition-colors"
+                              className="bg-red-100 text-red-600 hover:bg-red-200 p-2 rounded-lg transition-colors disabled:opacity-50"
                             >
                               <ThumbsDown size={15} />
                             </button>
@@ -206,7 +225,7 @@ export default function AdminPayments() {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full">
             <h3 className="font-bold text-[#0f3460] mb-1">Reject Payment</h3>
-            <p className="text-sm text-gray-400 mb-4">Optionally provide a reason — it will be shown to the student.</p>
+            <p className="text-sm text-gray-400 mb-4">Optionally provide a reason — it will be emailed to the student.</p>
             <textarea
               className="input-field resize-none h-24"
               placeholder="e.g. Could not verify this transaction reference"
@@ -222,8 +241,10 @@ export default function AdminPayments() {
               </button>
               <button
                 onClick={() => reject(rejectId)}
-                className="flex-1 bg-[#e94560] text-white py-2.5 rounded-xl font-semibold hover:bg-[#c73550] text-sm"
+                disabled={!!acting}
+                className="flex-1 bg-[#e94560] text-white py-2.5 rounded-xl font-semibold hover:bg-[#c73550] text-sm disabled:opacity-50 flex items-center justify-center gap-2"
               >
+                {acting ? <Loader2 size={15} className="animate-spin" /> : null}
                 Confirm Reject
               </button>
             </div>

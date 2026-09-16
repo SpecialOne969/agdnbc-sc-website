@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BookOpen, FileText, ClipboardList,
   CreditCard, ShoppingBag, FileEdit, LogOut, Menu, Shield, Library
 } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
+import { api } from '../../services/api'
 
 const adminLinks = [
   { label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard },
@@ -20,18 +21,18 @@ const adminLinks = [
 
 function usePendingPayments() {
   const [count, setCount] = useState(0)
-  useEffect(() => {
-    const read = () => {
-      try {
-        const claims = JSON.parse(localStorage.getItem('agdnbc-payment-claims') || '[]')
-        setCount(claims.filter((c: { status: string }) => c.status === 'awaiting_approval').length)
-      } catch { setCount(0) }
-    }
-    read()
-    window.addEventListener('storage', read)
-    const timer = setInterval(read, 10000)
-    return () => { window.removeEventListener('storage', read); clearInterval(timer) }
+  const fetch = useCallback(async () => {
+    try {
+      const res = await api.get('/payments/claims')
+      const pending = res.data.filter((c: { status: string }) => c.status === 'awaiting_approval').length
+      setCount(pending)
+    } catch { /* not an admin or not logged in yet */ }
   }, [])
+  useEffect(() => {
+    fetch()
+    const timer = setInterval(fetch, 30000)
+    return () => clearInterval(timer)
+  }, [fetch])
   return count
 }
 

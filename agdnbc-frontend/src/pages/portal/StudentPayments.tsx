@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Building2, Copy, CheckCircle, Clock, XCircle, Plus, Send, Banknote } from 'lucide-react'
+import { useState, useEffect, useCallback } from 'react'
+import { Building2, Copy, CheckCircle, Clock, XCircle, Plus, Send, Banknote, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { useAuthStore } from '../../store/authStore'
+import { api } from '../../services/api'
 
 const BANK_DETAILS = {
   bankName: 'Guaranty Trust Bank (GTBank)',
@@ -20,14 +20,12 @@ const paymentCategories = [
 
 interface PaymentClaim {
   id: string
-  studentId: string
-  studentName: string
   category: string
   amount: number
   transactionRef: string
   submittedAt: string
   status: 'awaiting_approval' | 'approved' | 'rejected'
-  adminNote?: string
+  adminNote?: string | null
 }
 
 const statusConfig = {
@@ -36,22 +34,27 @@ const statusConfig = {
   rejected: { icon: XCircle, color: 'text-red-600 bg-red-100', label: 'Rejected' },
 }
 
-function loadClaims(): PaymentClaim[] {
-  try { return JSON.parse(localStorage.getItem('agdnbc-payment-claims') || '[]') } catch { return [] }
-}
-
 export default function StudentPayments() {
-  const { user } = useAuthStore()
   const [claims, setClaims] = useState<PaymentClaim[]>([])
+  const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [selected, setSelected] = useState(paymentCategories[0])
   const [transRef, setTransRef] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  useEffect(() => {
-    setClaims(loadClaims().filter(c => c.studentId === user?.schoolId))
-  }, [user?.schoolId])
+  const fetchClaims = useCallback(async () => {
+    try {
+      const res = await api.get('/payments/claims/mine')
+      setClaims(res.data)
+    } catch {
+      // silently fail — student may just have no claims yet
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => { fetchClaims() }, [fetchClaims])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(BANK_DETAILS.accountNumber)
@@ -59,27 +62,24 @@ export default function StudentPayments() {
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!transRef.trim()) { toast.error('Please enter your transaction reference'); return }
     setSubmitting(true)
-    const claim: PaymentClaim = {
-      id: `claim-${Date.now()}`,
-      studentId: user?.schoolId || '',
-      studentName: user?.name || '',
-      category: selected.label,
-      amount: selected.amount,
-      transactionRef: transRef.trim(),
-      submittedAt: new Date().toISOString(),
-      status: 'awaiting_approval',
+    try {
+      await api.post('/payments/claims', {
+        category: selected.label,
+        amount: selected.amount,
+        transactionRef: transRef.trim(),
+      })
+      await fetchClaims()
+      setShowModal(false)
+      setTransRef('')
+      toast.success('Submitted! Admin will verify and approve shortly. You will be notified by email.')
+    } catch {
+      toast.error('Failed to submit. Please try again.')
+    } finally {
+      setSubmitting(false)
     }
-    const all = loadClaims()
-    all.push(claim)
-    localStorage.setItem('agdnbc-payment-claims', JSON.stringify(all))
-    setClaims(all.filter(c => c.studentId === user?.schoolId))
-    setShowModal(false)
-    setTransRef('')
-    setSubmitting(false)
-    toast.success('Submitted! Admin will review and approve shortly.')
   }
 
   const totalApproved = claims.filter(c => c.status === 'approved').reduce((s, c) => s + c.amount, 0)
@@ -145,7 +145,7 @@ export default function StudentPayments() {
         </div>
       </div>
 
-      {/* Payment categories reference */}
+      {/* Fee schedule */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-gray-100">
           <h3 className="font-bold text-[#0f3460]">Fee Schedule</h3>
@@ -161,7 +161,11 @@ export default function StudentPayments() {
       </div>
 
       {/* Submissions history */}
-      {claims.length > 0 && (
+      {loading ? (
+        <div className="flex justify-center py-10">
+          <Loader2 size={24} className="animate-spin text-[#0f3460]" />
+        </div>
+      ) : claims.length > 0 ? (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="p-5 border-b border-gray-100">
             <h3 className="font-bold text-[#0f3460]">My Payment Submissions</h3>
@@ -204,9 +208,7 @@ export default function StudentPayments() {
             </table>
           </div>
         </div>
-      )}
-
-      {claims.length === 0 && (
+      ) : (
         <div className="bg-white rounded-2xl p-12 text-center border border-gray-100">
           <Banknote size={40} className="mx-auto text-gray-200 mb-3" />
           <p className="text-gray-400 text-sm">No submissions yet. Make a transfer and click "I've Made a Payment".</p>
@@ -261,7 +263,8 @@ export default function StudentPayments() {
                 Cancel
               </button>
               <button onClick={handleSubmit} disabled={submitting} className="btn-primary flex-1 justify-center">
-                <Send size={16} /> {submitting ? 'Sending...' : "I've Paid — Notify Admin"}
+                {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                {submitting ? 'Sending...' : "I've Paid — Notify Admin"}
               </button>
             </div>
           </div>
