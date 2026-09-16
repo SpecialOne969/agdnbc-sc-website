@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, User, BookOpen, FileText, ClipboardList,
-  CreditCard, Bell, LogOut, Menu, X, GraduationCap
+  CreditCard, Bell, LogOut, Menu, X, GraduationCap, Library
 } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 
@@ -13,6 +13,7 @@ const sidebarLinks = [
   { label: 'Results', to: '/portal/results', icon: FileText },
   { label: 'Examinations', to: '/portal/exams', icon: ClipboardList },
   { label: 'Payments', to: '/portal/payments', icon: CreditCard },
+  { label: 'Library', to: '/portal/library', icon: Library },
 ]
 
 export default function PortalLayout() {

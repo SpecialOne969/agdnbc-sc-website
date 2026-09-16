@@ -25,6 +25,7 @@ import StudentCourses from './pages/portal/StudentCourses'
 import StudentResults from './pages/portal/StudentResults'
 import StudentExams from './pages/portal/StudentExams'
 import StudentPayments from './pages/portal/StudentPayments'
+import StudentLibrary from './pages/portal/StudentLibrary'
 import TakeExam from './pages/portal/TakeExam'
 
 // Admin pages
@@ -37,6 +38,7 @@ import AdminExams from './pages/admin/AdminExams'
 import AdminPayments from './pages/admin/AdminPayments'
 import AdminShop from './pages/admin/AdminShop'
 import AdminContent from './pages/admin/AdminContent'
+import AdminBooks from './pages/admin/AdminBooks'
 
 export default function App() {
   return (
@@ -68,6 +70,7 @@ export default function App() {
           <Route path="exams" element={<StudentExams />} />
           <Route path="exams/:examId/take" element={<TakeExam />} />
           <Route path="payments" element={<StudentPayments />} />
+          <Route path="library" element={<StudentLibrary />} />
         </Route>
 
         {/* Admin Panel */}
@@ -81,6 +84,7 @@ export default function App() {
           <Route path="exams" element={<AdminExams />} />
           <Route path="payments" element={<AdminPayments />} />
           <Route path="shop" element={<AdminShop />} />
+          <Route path="library" element={<AdminBooks />} />
           <Route path="content" element={<AdminContent />} />
         </Route>
 
