@@ -1,4 +1,4 @@
-import { PrismaClient, StudentStatus } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
@@ -184,7 +184,7 @@ async function main() {
         level: 'Year 2',
         admissionYear: '2024',
         session: '2024/2025',
-        status: StudentStatus.active,
+        status: 'active',
         // Grant portal access until end of 2026/2027 session
         portalAccessExpiry: new Date('2027-07-31'),
         firstLogin: true,
