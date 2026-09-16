@@ -4,6 +4,7 @@ import {
   ArrowRight, BookOpen, Users, Award, Globe, ChevronRight,
   Star, Quote, Calendar, Clock, FileText, ClipboardList, CreditCard, Images
 } from 'lucide-react'
+import Animate from '../../components/ui/Animate'
 
 import carousel1 from '../../assets/Images/_EWC0240.jpg'
 import carousel2 from '../../assets/Images/IMG_3783.jpg'
@@ -84,8 +85,6 @@ export default function Home() {
     <div>
       {/* ── Hero with background carousel ── */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-
-        {/* Carousel backgrounds — crossfade */}
         {carouselImages.map((img, i) => (
           <div
             key={i}
@@ -95,11 +94,7 @@ export default function Home() {
             <img src={img} alt="" className="w-full h-full object-cover" />
           </div>
         ))}
-
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#0f3460]/75" />
-
-        {/* Static text content */}
         <div className="max-w-7xl mx-auto px-4 py-24 relative z-10 w-full">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-[#e94560]/20 border border-[#e94560]/30 text-[#e94560] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
@@ -121,8 +116,6 @@ export default function Home() {
                 View Programmes <ChevronRight size={18} />
               </Link>
             </div>
-
-            {/* Dot indicators */}
             <div className="flex gap-2">
               {carouselImages.map((_, i) => (
                 <button
@@ -134,7 +127,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10" />
       </section>
 
@@ -142,11 +134,11 @@ export default function Home() {
       <section className="bg-white py-12 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map(({ value, label }) => (
-              <div key={label} className="text-center">
+            {stats.map(({ value, label }, i) => (
+              <Animate key={label} delay={i * 100} className="text-center">
                 <div className="text-3xl md:text-4xl font-extrabold text-[#0f3460] mb-1">{value}</div>
                 <div className="text-sm text-gray-500">{label}</div>
-              </div>
+              </Animate>
             ))}
           </div>
         </div>
@@ -156,7 +148,7 @@ export default function Home() {
       <section className="py-20 bg-[#f7f9fc]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <Animate from="left">
               <p className="section-subtitle">Who We Are</p>
               <h2 className="section-title">A Centre of Biblical Excellence</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
@@ -187,21 +179,22 @@ export default function Home() {
               <Link to="/about" className="btn-primary">
                 Learn More About Us <ArrowRight size={16} />
               </Link>
-            </div>
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl">
-                <img src={aboutImg} alt="Academic leadership at AGDNBC" className="w-full h-[420px] object-cover" />
+            </Animate>
+            <Animate from="right">
+              <div className="relative">
+                <div className="rounded-2xl overflow-hidden shadow-xl">
+                  <img src={aboutImg} alt="Academic leadership at AGDNBC" className="w-full h-[420px] object-cover" />
+                </div>
+                <div className="absolute bottom-6 left-6 right-6 bg-[#0f3460]/95 backdrop-blur-sm rounded-xl p-5 text-white shadow-2xl">
+                  <h4 className="font-bold mb-1">Our Mission</h4>
+                  <p className="text-blue-200 text-sm leading-relaxed">
+                    To raise up a generation of Kingdom ambassadors grounded in the Word, filled with the Spirit,
+                    and committed to transforming their world for Christ.
+                  </p>
+                </div>
+                <div className="absolute -bottom-3 -right-3 w-20 h-20 bg-[#e94560] rounded-2xl -z-10" />
               </div>
-              {/* Mission overlay card */}
-              <div className="absolute bottom-6 left-6 right-6 bg-[#0f3460]/95 backdrop-blur-sm rounded-xl p-5 text-white shadow-2xl">
-                <h4 className="font-bold mb-1">Our Mission</h4>
-                <p className="text-blue-200 text-sm leading-relaxed">
-                  To raise up a generation of Kingdom ambassadors grounded in the Word, filled with the Spirit,
-                  and committed to transforming their world for Christ.
-                </p>
-              </div>
-              <div className="absolute -bottom-3 -right-3 w-20 h-20 bg-[#e94560] rounded-2xl -z-10" />
-            </div>
+            </Animate>
           </div>
         </div>
       </section>
@@ -209,26 +202,28 @@ export default function Home() {
       {/* ── Programmes ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
+          <Animate from="fade" className="text-center mb-12">
             <p className="section-subtitle">What We Offer</p>
             <h2 className="section-title">Our Academic Programmes</h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
               Choose from a range of biblically grounded programmes designed to equip you for ministry,
               leadership, and Kingdom service.
             </p>
-          </div>
+          </Animate>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {programmes.map(({ title, duration, level, icon: Icon }) => (
-              <div key={title} className="card p-6 group hover:-translate-y-1 transition-transform duration-200">
-                <div className="w-12 h-12 bg-[#0f3460]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#0f3460] transition-colors">
-                  <Icon size={22} className="text-[#0f3460] group-hover:text-white transition-colors" />
+            {programmes.map(({ title, duration, level, icon: Icon }, i) => (
+              <Animate key={title} delay={i * 100}>
+                <div className="card p-6 group hover:-translate-y-1 transition-transform duration-200 h-full">
+                  <div className="w-12 h-12 bg-[#0f3460]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#0f3460] transition-colors">
+                    <Icon size={22} className="text-[#0f3460] group-hover:text-white transition-colors" />
+                  </div>
+                  <div className="text-xs font-bold text-[#e94560] uppercase tracking-wider mb-2">{level}</div>
+                  <h3 className="font-bold text-[#0f3460] mb-2 leading-snug">{title}</h3>
+                  <p className="text-sm text-gray-500 flex items-center gap-1">
+                    <Clock size={12} /> {duration}
+                  </p>
                 </div>
-                <div className="text-xs font-bold text-[#e94560] uppercase tracking-wider mb-2">{level}</div>
-                <h3 className="font-bold text-[#0f3460] mb-2 leading-snug">{title}</h3>
-                <p className="text-sm text-gray-500 flex items-center gap-1">
-                  <Clock size={12} /> {duration}
-                </p>
-              </div>
+              </Animate>
             ))}
           </div>
           <div className="text-center mt-8">
@@ -241,7 +236,7 @@ export default function Home() {
 
       {/* ── Admissions CTA ── */}
       <section className="py-16 bg-[#e94560]">
-        <div className="max-w-7xl mx-auto px-4 text-center text-white">
+        <Animate from="scale" className="max-w-7xl mx-auto px-4 text-center text-white">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Begin Your Journey?</h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
             Applications for the 2026/2027 academic session are now open. Take the first step toward
@@ -261,26 +256,28 @@ export default function Home() {
               Ask a Question
             </Link>
           </div>
-        </div>
+        </Animate>
       </section>
 
       {/* ── Testimonials ── */}
       <section className="py-20 bg-[#f7f9fc]">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
+          <Animate from="fade" className="text-center mb-12">
             <p className="section-subtitle">Student Voices</p>
             <h2 className="section-title">What Our Alumni Say</h2>
-          </div>
+          </Animate>
           <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map(({ name, programme, text }) => (
-              <div key={name} className="card p-6">
-                <Quote size={32} className="text-[#e94560]/30 mb-4" />
-                <p className="text-gray-600 italic leading-relaxed mb-5">"{text}"</p>
-                <div className="border-t border-gray-100 pt-4">
-                  <div className="font-bold text-[#0f3460]">{name}</div>
-                  <div className="text-xs text-[#e94560]">{programme}</div>
+            {testimonials.map(({ name, programme, text }, i) => (
+              <Animate key={name} delay={i * 120}>
+                <div className="card p-6 h-full">
+                  <Quote size={32} className="text-[#e94560]/30 mb-4" />
+                  <p className="text-gray-600 italic leading-relaxed mb-5">"{text}"</p>
+                  <div className="border-t border-gray-100 pt-4">
+                    <div className="font-bold text-[#0f3460]">{name}</div>
+                    <div className="text-xs text-[#e94560]">{programme}</div>
+                  </div>
                 </div>
-              </div>
+              </Animate>
             ))}
           </div>
         </div>
@@ -289,7 +286,7 @@ export default function Home() {
       {/* ── Gallery Preview ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <Animate from="fade" className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <p className="section-subtitle">Life at AGDNBC</p>
               <h2 className="section-title mb-0">Photo Gallery</h2>
@@ -297,13 +294,15 @@ export default function Home() {
             <Link to="/gallery" className="btn-outline text-sm py-2.5">
               <Images size={15} /> View All Photos <ArrowRight size={15} />
             </Link>
-          </div>
+          </Animate>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {[gal1, gal2, gal3, gal4, gal5, gal6].map((src, i) => (
-              <Link key={i} to="/gallery" className="group relative overflow-hidden rounded-xl aspect-[4/3] block">
-                <img src={src} alt={`Gallery photo ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-[#0f3460]/0 group-hover:bg-[#0f3460]/40 transition-colors duration-300" />
-              </Link>
+              <Animate key={i} delay={i * 70} className="aspect-[4/3]">
+                <Link to="/gallery" className="group relative overflow-hidden rounded-xl block h-full">
+                  <img src={src} alt={`Gallery photo ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-[#0f3460]/0 group-hover:bg-[#0f3460]/40 transition-colors duration-300" />
+                </Link>
+              </Animate>
             ))}
           </div>
         </div>
@@ -312,7 +311,7 @@ export default function Home() {
       {/* ── News & Events ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
+          <Animate from="fade" className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
             <div>
               <p className="section-subtitle">Stay Updated</p>
               <h2 className="section-title mb-0">Latest News & Events</h2>
@@ -320,26 +319,28 @@ export default function Home() {
             <Link to="/news-events" className="btn-outline text-sm py-2.5">
               View All <ArrowRight size={15} />
             </Link>
-          </div>
+          </Animate>
           <div className="grid md:grid-cols-3 gap-6">
-            {news.map(({ date, title, excerpt, category }) => (
-              <div key={title} className="card overflow-hidden group">
-                <div className="bg-[#0f3460] h-3" />
-                <div className="p-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs bg-[#e94560]/10 text-[#e94560] font-semibold px-3 py-1 rounded-full">
-                      {category}
-                    </span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1">
-                      <Calendar size={11} /> {date}
-                    </span>
+            {news.map(({ date, title, excerpt, category }, i) => (
+              <Animate key={title} delay={i * 100}>
+                <div className="card overflow-hidden group h-full">
+                  <div className="bg-[#0f3460] h-3" />
+                  <div className="p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs bg-[#e94560]/10 text-[#e94560] font-semibold px-3 py-1 rounded-full">
+                        {category}
+                      </span>
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <Calendar size={11} /> {date}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-[#0f3460] mb-2 group-hover:text-[#e94560] transition-colors">
+                      {title}
+                    </h3>
+                    <p className="text-sm text-gray-500">{excerpt}</p>
                   </div>
-                  <h3 className="font-bold text-[#0f3460] mb-2 group-hover:text-[#e94560] transition-colors">
-                    {title}
-                  </h3>
-                  <p className="text-sm text-gray-500">{excerpt}</p>
                 </div>
-              </div>
+              </Animate>
             ))}
           </div>
         </div>
@@ -348,25 +349,26 @@ export default function Home() {
       {/* ── Portal Quick Access ── */}
       <section className="py-16 bg-[#0f3460]">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-10">
+          <Animate from="fade" className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Student Quick Access</h2>
             <p className="text-blue-300">Everything you need, in one place.</p>
-          </div>
+          </Animate>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: 'Student Portal', icon: Users, to: '/portal/login' },
               { label: 'Check Results', icon: FileText, to: '/portal/results' },
               { label: 'Take Exam', icon: ClipboardList, to: '/portal/exams' },
               { label: 'Make Payment', icon: CreditCard, to: '/portal/payments' },
-            ].map(({ label, icon: Icon, to }) => (
-              <Link
-                key={label}
-                to={to}
-                className="bg-white/10 hover:bg-[#e94560] border border-white/20 rounded-xl p-5 text-white text-center transition-all group"
-              >
-                <Icon size={28} className="mx-auto mb-2" />
-                <div className="text-sm font-semibold">{label}</div>
-              </Link>
+            ].map(({ label, icon: Icon, to }, i) => (
+              <Animate key={label} delay={i * 80}>
+                <Link
+                  to={to}
+                  className="bg-white/10 hover:bg-[#e94560] border border-white/20 rounded-xl p-5 text-white text-center transition-all group block"
+                >
+                  <Icon size={28} className="mx-auto mb-2" />
+                  <div className="text-sm font-semibold">{label}</div>
+                </Link>
+              </Animate>
             ))}
           </div>
         </div>
@@ -374,4 +376,3 @@ export default function Home() {
     </div>
   )
 }
-

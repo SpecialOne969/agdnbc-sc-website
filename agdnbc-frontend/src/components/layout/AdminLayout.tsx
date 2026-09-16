@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom'
+import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BookOpen, FileText, ClipboardList,
   CreditCard, ShoppingBag, FileEdit, LogOut, Menu, Shield, Library
@@ -40,6 +40,7 @@ export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { user, clearAuth } = useAuthStore()
   const navigate = useNavigate()
+  const location = useLocation()
   const pendingPayments = usePendingPayments()
 
   const handleLogout = () => {
@@ -122,7 +123,7 @@ export default function AdminLayout() {
           </div>
         </header>
 
-        <main className="flex-1 p-6">
+        <main key={location.pathname} className="flex-1 p-6 page-transition">
           <Outlet />
         </main>
       </div>
