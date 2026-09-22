@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { submitContactForm } from '../../services/api'
+import admissionFlyer from '../../assets/admission-flyer.jpg'
 
 const schema = z.object({
   email: z.string().email('Valid email required'),
@@ -33,13 +34,13 @@ const BANK = {
   name: 'Greater Evangelical',
   bank: 'Access Bank',
   account: '0054970243',
-  amount: '₦10,000',
+  amount: 'â‚¦10,000',
   whatsapp: '08183771136',
 }
 
 const steps = [
   { step: '01', title: 'Fill Application', desc: 'Complete all fields in the registration form below.' },
-  { step: '02', title: 'Pay Registration Fee', desc: 'Pay the non-refundable ₦10,000 registration fee.' },
+  { step: '02', title: 'Pay Registration Fee', desc: 'Pay the non-refundable â‚¦10,000 registration fee.' },
   { step: '03', title: 'Submit & Confirm', desc: 'Submit your form and send your receipt via WhatsApp.' },
   { step: '04', title: 'Document Submission', desc: 'Bring required documents (certificates, passport photo).' },
   { step: '05', title: 'Admission Letter', desc: 'Receive your official admission letter and begin.' },
@@ -90,12 +91,23 @@ export default function Admissions() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4 text-center">
-        <p className="section-subtitle text-[#e94560]">Join Our Community</p>
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Student Registration</h1>
-        <p className="text-blue-200 text-lg max-w-2xl mx-auto">
-          Begin your journey at AGDNBC Satellite Campus. Complete the form below — all fields are required.
-        </p>
+      <section className=”bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-20 px-4”>
+        <div className=”max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center”>
+          <div className=”text-center md:text-left”>
+            <p className=”section-subtitle text-[#c49a1a]”>Join Our Community</p>
+            <h1 className=”text-4xl md:text-5xl font-extrabold mb-6”>Student Registration</h1>
+            <p className=”text-blue-200 text-lg”>
+              Begin your journey at AGDNBC Satellite Campus. Complete the form below — all fields are required.
+            </p>
+          </div>
+          <div className=”flex justify-center”>
+            <img
+              src={admissionFlyer}
+              alt=”Admission is Open”
+              className=”w-64 md:w-80 rounded-2xl shadow-2xl border-4 border-[#c49a1a]/40”
+            />
+          </div>
+        </div>
       </section>
 
       {/* Steps */}
@@ -108,10 +120,10 @@ export default function Admissions() {
           <div className="grid md:grid-cols-5 gap-4">
             {steps.map(({ step, title, desc }) => (
               <div key={step} className="text-center">
-                <div className="w-14 h-14 bg-[#0f3460] text-white rounded-full flex items-center justify-center text-lg font-bold mx-auto mb-4">
+                <div className="w-14 h-14 bg-[#1b2473] text-white rounded-full flex items-center justify-center text-lg font-bold mx-auto mb-4">
                   {step}
                 </div>
-                <h4 className="font-bold text-[#0f3460] mb-2 text-sm">{title}</h4>
+                <h4 className="font-bold text-[#1b2473] mb-2 text-sm">{title}</h4>
                 <p className="text-xs text-gray-500">{desc}</p>
               </div>
             ))}
@@ -124,7 +136,7 @@ export default function Admissions() {
         <div className="max-w-7xl mx-auto flex items-center gap-3">
           <AlertCircle size={20} className="text-amber-600 shrink-0" />
           <p className="text-sm text-amber-800">
-            <strong>Registration Fee:</strong> A non-refundable fee of <strong>₦10,000</strong> is required to process your application.
+            <strong>Registration Fee:</strong> A non-refundable fee of <strong>â‚¦10,000</strong> is required to process your application.
             Payment details will appear after you complete the form.
           </p>
         </div>
@@ -139,11 +151,11 @@ export default function Admissions() {
               <h3 className="font-bold text-green-800 text-2xl mb-3">Application Submitted!</h3>
               <p className="text-green-700 mb-4">
                 Thank you for registering with AGDNBC Satellite Campus. Our admissions team will review
-                your application and contact you within 3–5 working days.
+                your application and contact you within 3â€“5 working days.
               </p>
               <div className="bg-green-100 rounded-xl p-4 text-sm text-green-800 text-left">
-                <p className="font-semibold mb-1">Next Step — Send Payment Receipt</p>
-                <p>Send your ₦10,000 payment receipt to <strong>{BANK.whatsapp}</strong> on WhatsApp to confirm your registration.</p>
+                <p className="font-semibold mb-1">Next Step â€” Send Payment Receipt</p>
+                <p>Send your â‚¦10,000 payment receipt to <strong>{BANK.whatsapp}</strong> on WhatsApp to confirm your registration.</p>
               </div>
             </div>
           ) : (
@@ -181,7 +193,7 @@ export default function Admissions() {
                   <div className="flex gap-6 mt-2">
                     {(['M', 'F'] as const).map((s) => (
                       <label key={s} className="flex items-center gap-2 cursor-pointer">
-                        <input {...register('sex')} type="radio" value={s} className="accent-[#0f3460]" />
+                        <input {...register('sex')} type="radio" value={s} className="accent-[#1b2473]" />
                         <span className="text-sm font-medium text-gray-700">{s === 'M' ? 'Male (M)' : 'Female (F)'}</span>
                       </label>
                     ))}
@@ -225,7 +237,7 @@ export default function Admissions() {
                   <div className="flex gap-6 mt-2">
                     {(['Yes', 'No'] as const).map((v) => (
                       <label key={v} className="flex items-center gap-2 cursor-pointer">
-                        <input {...register('bornAgain')} type="radio" value={v} className="accent-[#0f3460]" />
+                        <input {...register('bornAgain')} type="radio" value={v} className="accent-[#1b2473]" />
                         <span className="text-sm font-medium text-gray-700">{v}</span>
                       </label>
                     ))}
@@ -249,7 +261,7 @@ export default function Admissions() {
                   <div className="flex gap-6 mt-2">
                     {(['Yes', 'No'] as const).map((v) => (
                       <label key={v} className="flex items-center gap-2 cursor-pointer">
-                        <input {...register('baptized')} type="radio" value={v} className="accent-[#0f3460]" />
+                        <input {...register('baptized')} type="radio" value={v} className="accent-[#1b2473]" />
                         <span className="text-sm font-medium text-gray-700">{v}</span>
                       </label>
                     ))}
@@ -318,7 +330,7 @@ export default function Admissions() {
                   {label('Do you agree to abide by the rules governing the Bible College?')}
                   <div className="flex gap-6 mt-2">
                     <label className="flex items-center gap-2 cursor-pointer">
-                      <input {...register('agreeToRules')} type="radio" value="Yes" className="accent-[#0f3460]" />
+                      <input {...register('agreeToRules')} type="radio" value="Yes" className="accent-[#1b2473]" />
                       <span className="text-sm font-medium text-gray-700">Yes, I agree</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -335,7 +347,7 @@ export default function Admissions() {
                   className="btn-accent w-full justify-center text-base py-4 mt-2"
                 >
                   <FileText size={18} />
-                  {isSubmitting ? 'Processing...' : 'Register — Proceed to Payment'}
+                  {isSubmitting ? 'Processing...' : 'Register â€” Proceed to Payment'}
                 </button>
               </form>
             </>
@@ -343,12 +355,12 @@ export default function Admissions() {
         </div>
       </section>
 
-      {/* ── Payment Modal ── */}
+      {/* â”€â”€ Payment Modal â”€â”€ */}
       {showPayment && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
             {/* Header */}
-            <div className="bg-[#0f3460] text-white px-6 py-5 flex items-center justify-between">
+            <div className="bg-[#1b2473] text-white px-6 py-5 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <CreditCard size={22} />
                 <div>
@@ -363,9 +375,9 @@ export default function Admissions() {
 
             <div className="p-6 space-y-5">
               {/* Amount banner */}
-              <div className="bg-[#e94560]/10 border border-[#e94560]/30 rounded-xl p-4 text-center">
+              <div className="bg-[#c49a1a]/10 border border-[#c49a1a]/30 rounded-xl p-4 text-center">
                 <p className="text-sm text-gray-500 mb-1">Amount Due</p>
-                <p className="text-4xl font-extrabold text-[#e94560]">₦10,000</p>
+                <p className="text-4xl font-extrabold text-[#c49a1a]">â‚¦10,000</p>
                 <p className="text-xs text-gray-400 mt-1">Non-refundable registration fee</p>
               </div>
 
@@ -375,16 +387,16 @@ export default function Admissions() {
                 <div className="bg-[#f7f9fc] rounded-xl divide-y divide-gray-100 border border-gray-100">
                   <div className="flex justify-between items-center px-4 py-3 text-sm">
                     <span className="text-gray-500">Account Name</span>
-                    <span className="font-semibold text-[#0f3460]">{BANK.name}</span>
+                    <span className="font-semibold text-[#1b2473]">{BANK.name}</span>
                   </div>
                   <div className="flex justify-between items-center px-4 py-3 text-sm">
                     <span className="text-gray-500">Bank</span>
-                    <span className="font-semibold text-[#0f3460]">{BANK.bank}</span>
+                    <span className="font-semibold text-[#1b2473]">{BANK.bank}</span>
                   </div>
                   <div className="flex justify-between items-center px-4 py-3 text-sm">
                     <span className="text-gray-500">Account Number</span>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-[#0f3460] font-mono text-base">{BANK.account}</span>
+                      <span className="font-bold text-[#1b2473] font-mono text-base">{BANK.account}</span>
                       <button
                         onClick={copyAccount}
                         className={`p-1.5 rounded-lg transition-colors ${copied ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
@@ -413,7 +425,7 @@ export default function Admissions() {
                   className="btn-accent flex-1 justify-center py-3"
                 >
                   <CheckCircle size={16} />
-                  {confirming ? 'Submitting...' : "I've Paid — Submit"}
+                  {confirming ? 'Submitting...' : "I've Paid â€” Submit"}
                 </button>
               </div>
             </div>

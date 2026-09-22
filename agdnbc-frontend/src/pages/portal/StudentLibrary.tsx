@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { BookOpen, Search, X, Lock, ChevronLeft, ChevronRight, Library } from 'lucide-react'
 
 const STORAGE_KEY = 'agdnbc-library-books'
@@ -17,7 +17,7 @@ function loadBooks(): Book[] {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') } catch { return [] }
 }
 
-// ── PDF Reader Modal ───────────────────────────────────────────────────────────
+// â”€â”€ PDF Reader Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClose: () => void }) {
   const overlayRef = useRef<HTMLDivElement>(null)
 
@@ -38,13 +38,13 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
     return () => window.removeEventListener('keydown', handler)
   }, [onClose])
 
-  // Build viewer URL — wrap in Google Docs Viewer to disable native download toolbar
+  // Build viewer URL â€” wrap in Google Docs Viewer to disable native download toolbar
   const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(current.pdfUrl)}&embedded=true`
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-black">
       {/* Reader header */}
-      <div className="bg-[#0f3460] text-white px-5 py-3 flex items-center justify-between shrink-0">
+      <div className="bg-[#1b2473] text-white px-5 py-3 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3 min-w-0">
           <BookOpen size={18} className="shrink-0 text-blue-300" />
           <div className="min-w-0">
@@ -55,7 +55,7 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
 
         <div className="flex items-center gap-2 shrink-0">
           {/* View-only badge */}
-          <div className="hidden sm:flex items-center gap-1 text-xs bg-[#e94560]/20 text-[#e94560] border border-[#e94560]/30 px-3 py-1 rounded-full font-semibold">
+          <div className="hidden sm:flex items-center gap-1 text-xs bg-[#c49a1a]/20 text-[#c49a1a] border border-[#c49a1a]/30 px-3 py-1 rounded-full font-semibold">
             <Lock size={10} /> View Only
           </div>
 
@@ -92,7 +92,7 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
           sandbox="allow-scripts allow-same-origin allow-popups"
         />
 
-        {/* Invisible overlay — blocks right-click on the iframe edge,
+        {/* Invisible overlay â€” blocks right-click on the iframe edge,
             intentionally thin to preserve scroll in the iframe body */}
         <div
           className="absolute inset-x-0 top-0 h-10 z-10"
@@ -108,14 +108,14 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
 
       {/* Footer bar */}
       <div className="bg-[#1a1a2e] text-gray-400 text-xs px-5 py-2 flex items-center justify-between shrink-0">
-        <span className="flex items-center gap-1.5"><Lock size={10} /> This document is protected — downloading is disabled.</span>
+        <span className="flex items-center gap-1.5"><Lock size={10} /> This document is protected â€” downloading is disabled.</span>
         <span className="text-gray-600">AGDNBC Digital Library</span>
       </div>
     </div>
   )
 }
 
-// ── Main Component ─────────────────────────────────────────────────────────────
+// â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function StudentLibrary() {
   const allBooks = loadBooks().filter(b => b.available)
   const [search, setSearch] = useState('')
@@ -140,8 +140,8 @@ export default function StudentLibrary() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-[#0f3460]">Library</h2>
-        <p className="text-sm text-gray-500 mt-0.5">Course materials and resources — view only, downloading is disabled.</p>
+        <h2 className="text-xl font-bold text-[#1b2473]">Library</h2>
+        <p className="text-sm text-gray-500 mt-0.5">Course materials and resources â€” view only, downloading is disabled.</p>
       </div>
 
       {/* Search */}
@@ -169,8 +169,8 @@ export default function StudentLibrary() {
               onClick={() => setActiveSection(s)}
               className={`text-xs px-3 py-1.5 rounded-full font-medium transition-all whitespace-nowrap ${
                 activeSection === s
-                  ? 'bg-[#0f3460] text-white'
-                  : 'bg-white border border-gray-200 text-gray-500 hover:border-[#0f3460] hover:text-[#0f3460]'
+                  ? 'bg-[#1b2473] text-white'
+                  : 'bg-white border border-gray-200 text-gray-500 hover:border-[#1b2473] hover:text-[#1b2473]'
               }`}
             >
               {s}
@@ -196,10 +196,10 @@ export default function StudentLibrary() {
           {filtered.map((book) => (
             <div
               key={book.id}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:border-[#0f3460]/20 hover:shadow-md transition-all flex flex-col"
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:border-[#1b2473]/20 hover:shadow-md transition-all flex flex-col"
             >
               {/* Book icon */}
-              <div className="w-12 h-12 bg-gradient-to-br from-[#0f3460] to-[#1a4a8a] rounded-xl flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#1b2473] to-[#1a4a8a] rounded-xl flex items-center justify-center mb-4">
                 <BookOpen size={22} className="text-white" />
               </div>
 
@@ -208,7 +208,7 @@ export default function StudentLibrary() {
                 {book.description && (
                   <p className="text-xs text-gray-400 mb-2 line-clamp-2">{book.description}</p>
                 )}
-                <span className="inline-block text-xs font-semibold bg-[#0f3460]/8 text-[#0f3460] px-2 py-0.5 rounded-lg">
+                <span className="inline-block text-xs font-semibold bg-[#1b2473]/8 text-[#1b2473] px-2 py-0.5 rounded-lg">
                   {book.section}
                 </span>
               </div>

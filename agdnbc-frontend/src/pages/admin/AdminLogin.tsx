@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+﻿import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useNavigate, Link } from 'react-router-dom'
@@ -40,7 +40,7 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-[#e94560] rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-[#c49a1a] rounded-full flex items-center justify-center mx-auto mb-4">
             <Shield size={28} className="text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Admin Access</h1>
@@ -57,7 +57,7 @@ export default function AdminLogin() {
             <div>
               <label className="label"><Lock size={14} className="inline mr-1" /> Password</label>
               <div className="relative">
-                <input {...register('password')} type={showPwd ? 'text' : 'password'} className="input-field pr-12" placeholder="••••••••" />
+                <input {...register('password')} type={showPwd ? 'text' : 'password'} className="input-field pr-12" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" />
                 <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -69,7 +69,7 @@ export default function AdminLogin() {
             </button>
           </form>
           <div className="text-center mt-5">
-            <Link to="/" className="text-xs text-gray-400 hover:text-[#0f3460]">← Back to Website</Link>
+            <Link to="/" className="text-xs text-gray-400 hover:text-[#1b2473]">â† Back to Website</Link>
           </div>
         </div>
       </div>

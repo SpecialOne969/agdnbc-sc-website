@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Clock, AlertTriangle, ChevronLeft, ChevronRight, Send, CheckCircle, XCircle, Award, BookOpen } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
@@ -7,7 +7,7 @@ import { getExam, submitExam } from '../../services/api'
 
 const mockExam = {
   id: '1',
-  title: 'Introduction to the Bible – Final Exam',
+  title: 'Introduction to the Bible â€“ Final Exam',
   duration: 60,
   questions: [
     { id: 'q1', text: 'How many books are in the Old Testament?', type: 'mcq', options: ['39', '27', '66', '50'], correctAnswer: '39' },
@@ -43,7 +43,7 @@ export default function TakeExam() {
     try {
       await submitExam(examId!, answers)
     } catch {
-      // Non-fatal — still show results from local calculation
+      // Non-fatal â€” still show results from local calculation
     }
 
     // Calculate instant results from MCQ answers
@@ -80,7 +80,7 @@ export default function TakeExam() {
   const isLow = timeLeft < 300
   const progress = Math.round((Object.keys(answers).length / questions.length) * 100)
 
-  // ── Results Screen ─────────────────────────────────────────
+  // â”€â”€ Results Screen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (submitted && results) {
     const pct = results.mcqTotal > 0 ? Math.round((results.score / results.mcqTotal) * 100) : 0
     const { grade, label, color, bg } = getGrade(pct)
@@ -93,12 +93,12 @@ export default function TakeExam() {
             <div className={`w-24 h-24 ${bg} rounded-full flex items-center justify-center mx-auto mb-4`}>
               <span className={`text-4xl font-black ${color}`}>{grade}</span>
             </div>
-            <h2 className="text-2xl font-bold text-[#0f3460] mb-1">Exam Submitted!</h2>
+            <h2 className="text-2xl font-bold text-[#1b2473] mb-1">Exam Submitted!</h2>
             <p className="text-gray-500 text-sm mb-6">{exam.title}</p>
 
             <div className="grid grid-cols-3 gap-4 mb-6">
               <div className="bg-[#f7f9fc] rounded-xl p-4">
-                <div className="text-3xl font-black text-[#0f3460]">{results.score}<span className="text-lg text-gray-400">/{results.mcqTotal}</span></div>
+                <div className="text-3xl font-black text-[#1b2473]">{results.score}<span className="text-lg text-gray-400">/{results.mcqTotal}</span></div>
                 <div className="text-xs text-gray-500 mt-1">MCQ Score</div>
               </div>
               <div className="bg-[#f7f9fc] rounded-xl p-4">
@@ -119,7 +119,7 @@ export default function TakeExam() {
 
           {/* Per-question breakdown */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <h3 className="font-bold text-[#0f3460] mb-4 flex items-center gap-2">
+            <h3 className="font-bold text-[#1b2473] mb-4 flex items-center gap-2">
               <Award size={18} /> Question Review
             </h3>
             <div className="space-y-3">
@@ -184,17 +184,17 @@ export default function TakeExam() {
     )
   }
 
-  // ── Exam Taking View ───────────────────────────────────────
+  // â”€â”€ Exam Taking View â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const q = questions[currentQ]
 
   return (
     <div className="min-h-screen bg-[#f7f9fc]">
-      <header className="bg-[#0f3460] text-white px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+      <header className="bg-[#1b2473] text-white px-6 py-4 flex items-center justify-between sticky top-0 z-30">
         <div>
           <h1 className="font-bold">{exam.title}</h1>
           <p className="text-blue-300 text-xs">{questions.length} Questions</p>
         </div>
-        <div className={`flex items-center gap-2 font-mono text-2xl font-bold px-5 py-2 rounded-xl ${isLow ? 'bg-[#e94560] animate-pulse' : 'bg-white/20'}`}>
+        <div className={`flex items-center gap-2 font-mono text-2xl font-bold px-5 py-2 rounded-xl ${isLow ? 'bg-[#c49a1a] animate-pulse' : 'bg-white/20'}`}>
           <Clock size={20} /> {mins}:{secs}
         </div>
       </header>
@@ -206,7 +206,7 @@ export default function TakeExam() {
             <span>{progress}%</span>
           </div>
           <div className="h-2 bg-gray-200 rounded-full">
-            <div className="h-2 bg-[#e94560] rounded-full transition-all" style={{ width: `${progress}%` }} />
+            <div className="h-2 bg-[#c49a1a] rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
           <div className="flex gap-2 flex-wrap mt-3">
             {questions.map((_: unknown, i: number) => (
@@ -214,7 +214,7 @@ export default function TakeExam() {
                 key={i}
                 onClick={() => setCurrentQ(i)}
                 className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                  i === currentQ ? 'bg-[#0f3460] text-white' :
+                  i === currentQ ? 'bg-[#1b2473] text-white' :
                   answers[questions[i]?.id] ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                 }`}
               >
@@ -232,10 +232,10 @@ export default function TakeExam() {
               </div>
             )}
             <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-8 bg-[#0f3460] text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-8 h-8 bg-[#1b2473] text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">
                 {currentQ + 1}
               </span>
-              <p className="font-semibold text-[#0f3460] text-base leading-relaxed">{q.text}</p>
+              <p className="font-semibold text-[#1b2473] text-base leading-relaxed">{q.text}</p>
             </div>
 
             {q.type === 'mcq' ? (
@@ -246,7 +246,7 @@ export default function TakeExam() {
                     onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: opt }))}
                     className={`w-full text-left px-5 py-3.5 rounded-xl border-2 text-sm font-medium transition-all ${
                       answers[q.id] === opt
-                        ? 'border-[#0f3460] bg-[#0f3460]/5 text-[#0f3460]'
+                        ? 'border-[#1b2473] bg-[#1b2473]/5 text-[#1b2473]'
                         : 'border-gray-200 hover:border-gray-300 text-gray-700'
                     }`}
                   >

@@ -1,11 +1,11 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { FileEdit, Plus, Bell, Newspaper, Calendar } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 type TabType = 'announcements' | 'news' | 'events'
 
 const mockAnnouncements = [
-  { id: '1', title: 'Portal Maintenance – Saturday', body: 'The student portal will be down for maintenance on Saturday from 12am to 4am.', target: 'All Students', date: '2026-07-25' },
+  { id: '1', title: 'Portal Maintenance â€“ Saturday', body: 'The student portal will be down for maintenance on Saturday from 12am to 4am.', target: 'All Students', date: '2026-07-25' },
   { id: '2', title: 'Exam Schedule Released', body: 'The 1st semester exam timetable has been uploaded. Check your portal for details.', target: 'All Students', date: '2026-07-22' },
 ]
 
@@ -37,7 +37,7 @@ export default function AdminContent() {
           <button
             key={key}
             onClick={() => setTab(key)}
-            className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold capitalize transition-all ${tab === key ? 'bg-[#0f3460] text-white' : 'bg-white text-gray-500 border border-gray-200'}`}
+            className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold capitalize transition-all ${tab === key ? 'bg-[#1b2473] text-white' : 'bg-white text-gray-500 border border-gray-200'}`}
           >
             <Icon size={14} /> {key}
           </button>
@@ -48,8 +48,8 @@ export default function AdminContent() {
         {tab === 'announcements' && mockAnnouncements.map((a) => (
           <div key={a.id} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-start justify-between gap-4">
             <div className="flex gap-3">
-              <div className="w-10 h-10 bg-[#e94560]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Bell size={18} className="text-[#e94560]" />
+              <div className="w-10 h-10 bg-[#c49a1a]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Bell size={18} className="text-[#c49a1a]" />
               </div>
               <div>
                 <h4 className="font-bold text-[#1a1a2e]">{a.title}</h4>

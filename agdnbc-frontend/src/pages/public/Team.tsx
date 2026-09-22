@@ -1,4 +1,4 @@
-import { Mail } from 'lucide-react'
+﻿import { Mail } from 'lucide-react'
 
 const team = [
   { name: 'Rev. Dr. A. Numbere', role: 'Principal / Provost', dept: 'Leadership', bio: 'A seasoned theologian with over 20 years in Christian ministry and biblical education.' },
@@ -28,8 +28,8 @@ function initials(name: string) {
 export default function Team() {
   return (
     <div>
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4 text-center">
-        <p className="section-subtitle text-[#e94560]">Our People</p>
+      <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-24 px-4 text-center">
+        <p className="section-subtitle text-[#c49a1a]">Our People</p>
         <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Meet the Team</h1>
         <p className="text-blue-200 text-lg max-w-2xl mx-auto">
           Dedicated servants of God committed to academic excellence and Kingdom ministry.
@@ -41,18 +41,18 @@ export default function Team() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map(({ name, role, dept, bio }) => (
               <div key={name} className="card p-6 text-center group">
-                <div className="w-20 h-20 bg-[#0f3460] rounded-full flex items-center justify-center mx-auto mb-4 text-white text-xl font-bold">
+                <div className="w-20 h-20 bg-[#1b2473] rounded-full flex items-center justify-center mx-auto mb-4 text-white text-xl font-bold">
                   {initials(name)}
                 </div>
                 <span className={`text-xs font-semibold px-3 py-1 rounded-full ${deptColors[dept] || 'bg-gray-100 text-gray-600'}`}>
                   {dept}
                 </span>
-                <h3 className="font-bold text-[#0f3460] mt-3 mb-1">{name}</h3>
-                <p className="text-xs text-[#e94560] font-semibold mb-3">{role}</p>
+                <h3 className="font-bold text-[#1b2473] mt-3 mb-1">{name}</h3>
+                <p className="text-xs text-[#c49a1a] font-semibold mb-3">{role}</p>
                 <p className="text-xs text-gray-500 leading-relaxed mb-4">{bio}</p>
                 <a
                   href="mailto:info@agdnbcsc.edu.ng"
-                  className="inline-flex items-center gap-1 text-xs text-[#0f3460] hover:text-[#e94560] transition-colors"
+                  className="inline-flex items-center gap-1 text-xs text-[#1b2473] hover:text-[#c49a1a] transition-colors"
                 >
                   <Mail size={12} /> Contact
                 </a>
@@ -65,7 +65,7 @@ export default function Team() {
       <section className="py-12 bg-[#f7f9fc] text-center px-4">
         <p className="text-gray-500 text-sm">
           Want to partner with us or join our faculty?{' '}
-          <a href="/contact" className="text-[#e94560] font-semibold hover:underline">Contact us today</a>.
+          <a href="/contact" className="text-[#c49a1a] font-semibold hover:underline">Contact us today</a>.
         </p>
       </section>
     </div>

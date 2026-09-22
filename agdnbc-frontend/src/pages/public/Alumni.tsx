@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -35,8 +35,8 @@ export default function Alumni() {
 
   return (
     <div>
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4 text-center">
-        <p className="section-subtitle text-[#e94560]">Our Community</p>
+      <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-24 px-4 text-center">
+        <p className="section-subtitle text-[#c49a1a]">Our Community</p>
         <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Alumni Community</h1>
         <p className="text-blue-200 text-lg max-w-2xl mx-auto">
           Stay connected with the AGDNBC family. Our alumni are making Kingdom impact across Nigeria and beyond.
@@ -58,10 +58,10 @@ export default function Alumni() {
               { icon: Calendar, title: 'Events', desc: 'Join exclusive alumni events, reunions, and leadership summits.' },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="card p-6 text-center">
-                <div className="w-12 h-12 bg-[#e94560]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Icon size={22} className="text-[#e94560]" />
+                <div className="w-12 h-12 bg-[#c49a1a]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Icon size={22} className="text-[#c49a1a]" />
                 </div>
-                <h4 className="font-bold text-[#0f3460] mb-2">{title}</h4>
+                <h4 className="font-bold text-[#1b2473] mb-2">{title}</h4>
                 <p className="text-sm text-gray-500">{desc}</p>
               </div>
             ))}
@@ -79,7 +79,7 @@ export default function Alumni() {
           {done ? (
             <div className="bg-white rounded-xl p-10 text-center shadow-sm border border-gray-100">
               <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg text-[#0f3460] mb-2">Welcome to the Alumni Network!</h3>
+              <h3 className="font-bold text-lg text-[#1b2473] mb-2">Welcome to the Alumni Network!</h3>
               <p className="text-sm text-gray-500">Your registration has been received. We'll reach out with your alumni membership details soon.</p>
             </div>
           ) : (

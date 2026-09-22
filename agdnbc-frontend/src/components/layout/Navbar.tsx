@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, ChevronDown, BookOpen, GraduationCap } from 'lucide-react'
+import { Menu, X, ChevronDown, BookOpen, GraduationCap, ClipboardCheck } from 'lucide-react'
+import logo from '../../assets/logo.jpg'
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -22,6 +23,7 @@ const navLinks = [
       { label: 'Financial Partnership', to: '/partnership' },
     ],
   },
+  { label: 'Attendance', to: '/attendance' },
   { label: 'Shop', to: '/shop' },
   { label: 'Contact Us', to: '/contact' },
 ]
@@ -50,14 +52,17 @@ export default function Navbar() {
       }`}
     >
       {/* Top bar */}
-      <div className="bg-[#0f3460] text-white text-xs py-2 px-4">
+      <div className="bg-[#1b2473] text-white text-xs py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <span>Apostle Geoffrey Dabibi Numbere Bible College – Satellite Campus</span>
           <div className="hidden md:flex gap-4 items-center">
-            <Link to="/portal/login" className="flex items-center gap-1 hover:text-[#e94560] transition-colors">
+            <Link to="/attendance" className="flex items-center gap-1 hover:text-[#c49a1a] transition-colors">
+              <ClipboardCheck size={12} /> Attendance
+            </Link>
+            <Link to="/portal/login" className="flex items-center gap-1 hover:text-[#c49a1a] transition-colors">
               <BookOpen size={12} /> Student Portal
             </Link>
-            <Link to="/admin/login" className="flex items-center gap-1 hover:text-[#e94560] transition-colors">
+            <Link to="/admin/login" className="flex items-center gap-1 hover:text-[#c49a1a] transition-colors">
               <GraduationCap size={12} /> Admin
             </Link>
           </div>
@@ -68,12 +73,14 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#0f3460] rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-sm">AG</span>
-          </div>
+          <img
+            src={logo}
+            alt="AGDNBC Logo"
+            className="w-12 h-12 rounded-full object-cover border-2 border-[#c49a1a]"
+          />
           <div className="hidden sm:block">
-            <div className="text-[#0f3460] font-bold text-sm leading-tight">AGDNBC</div>
-            <div className="text-[#e94560] text-xs font-medium">Satellite Campus</div>
+            <div className="text-[#1b2473] font-bold text-sm leading-tight">AGDNBC</div>
+            <div className="text-[#c49a1a] text-xs font-medium">Satellite Campus</div>
           </div>
         </Link>
 
@@ -87,7 +94,7 @@ export default function Navbar() {
                 onMouseEnter={() => setDropdown(link.label)}
                 onMouseLeave={() => setDropdown(null)}
               >
-                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#0f3460] rounded-lg hover:bg-gray-50 transition-all">
+                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#1b2473] rounded-lg hover:bg-gray-50 transition-all">
                   {link.label} <ChevronDown size={14} />
                 </button>
                 {dropdown === link.label && (
@@ -96,7 +103,7 @@ export default function Navbar() {
                       <NavLink
                         key={child.to}
                         to={child.to}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#f7f9fc] hover:text-[#0f3460] transition-colors"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#f7f9fc] hover:text-[#1b2473] transition-colors"
                       >
                         {child.label}
                       </NavLink>
@@ -111,8 +118,8 @@ export default function Navbar() {
                   className={({ isActive }) =>
                     `px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                       isActive
-                        ? 'text-[#e94560] bg-red-50'
-                        : 'text-gray-700 hover:text-[#0f3460] hover:bg-gray-50'
+                        ? 'text-[#c49a1a] bg-amber-50'
+                        : 'text-gray-700 hover:text-[#1b2473] hover:bg-gray-50'
                     }`
                   }
                 >
@@ -143,14 +150,14 @@ export default function Navbar() {
           {navLinks.map((link) =>
             link.children ? (
               <div key={link.label}>
-                <div className="px-3 py-2 text-xs font-bold text-[#e94560] uppercase tracking-wider">
+                <div className="px-3 py-2 text-xs font-bold text-[#c49a1a] uppercase tracking-wider">
                   {link.label}
                 </div>
                 {link.children.map((child) => (
                   <NavLink
                     key={child.to}
                     to={child.to}
-                    className="block pl-6 pr-3 py-2 text-sm text-gray-700 hover:text-[#0f3460] rounded-lg"
+                    className="block pl-6 pr-3 py-2 text-sm text-gray-700 hover:text-[#1b2473] rounded-lg"
                   >
                     {child.label}
                   </NavLink>
@@ -162,7 +169,7 @@ export default function Navbar() {
                 to={link.to!}
                 className={({ isActive }) =>
                   `block px-3 py-2 text-sm font-medium rounded-lg ${
-                    isActive ? 'text-[#e94560] bg-red-50' : 'text-gray-700 hover:bg-gray-50'
+                    isActive ? 'text-[#c49a1a] bg-amber-50' : 'text-gray-700 hover:bg-gray-50'
                   }`
                 }
               >
@@ -171,6 +178,9 @@ export default function Navbar() {
             )
           )}
           <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
+            <Link to="/attendance" className="btn-outline text-sm py-2 justify-center">
+              <ClipboardCheck size={15} /> Attendance
+            </Link>
             <Link to="/portal/login" className="btn-outline text-sm py-2 justify-center">
               Student Portal
             </Link>

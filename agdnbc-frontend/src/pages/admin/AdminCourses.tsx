@@ -1,9 +1,9 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { BookOpen, Plus, Edit, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const mockCourses = [
-  // ── Year 1 ──────────────────────────────────────────────────────────────
+  // â”€â”€ Year 1 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   { id: '1',  code: 'SPF101', name: 'Spiritual Formation',                    year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
   { id: '2',  code: 'ESM102', name: 'Essentials of Supportive Ministry',      year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
   { id: '3',  code: 'HMT103', name: 'Hermeneutics',                           year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
@@ -19,7 +19,7 @@ const mockCourses = [
   { id: '13', code: 'FMM113', name: 'Family, Marriage, and Ministry',         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
   { id: '14', code: 'FOG114', name: 'Fundamentals of GEWC',                   year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
   { id: '15', code: 'KDH115', name: 'Kingdom Honour',                         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
-  // ── Year 2 ──────────────────────────────────────────────────────────────
+  // â”€â”€ Year 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   { id: '16', code: 'PNM201', name: 'Pneumatology',                           year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
   { id: '17', code: 'RMG202', name: 'Research Methodology',                   year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
   { id: '18', code: 'WRS203', name: 'World Religions',                        year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
@@ -75,15 +75,15 @@ export default function AdminCourses() {
             <tbody>
               {mockCourses.map((course) => (
                 <tr key={course.id} className="border-b border-gray-50 hover:bg-[#f7f9fc]">
-                  <td className="px-6 py-4 font-mono text-sm font-bold text-[#0f3460]">{course.code}</td>
+                  <td className="px-6 py-4 font-mono text-sm font-bold text-[#1b2473]">{course.code}</td>
                   <td className="px-6 py-4 text-sm text-gray-700 font-medium">{course.name}</td>
                   <td className="px-6 py-4 text-xs text-gray-500">{(course as typeof mockCourses[0]).year}</td>
                   <td className="px-6 py-4 text-center text-sm">{course.semester}</td>
-                  <td className="px-6 py-4 text-center text-sm font-bold text-[#0f3460]">{course.credits}</td>
+                  <td className="px-6 py-4 text-center text-sm font-bold text-[#1b2473]">{course.credits}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{course.lecturer}</td>
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <button className="p-1.5 hover:bg-gray-100 rounded text-gray-400 hover:text-[#0f3460]"><Edit size={14} /></button>
+                      <button className="p-1.5 hover:bg-gray-100 rounded text-gray-400 hover:text-[#1b2473]"><Edit size={14} /></button>
                       <button className="p-1.5 hover:bg-gray-100 rounded text-gray-400 hover:text-red-500"><Trash2 size={14} /></button>
                     </div>
                   </td>

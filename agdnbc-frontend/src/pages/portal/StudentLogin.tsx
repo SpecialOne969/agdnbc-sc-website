@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+﻿import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useNavigate, Link } from 'react-router-dom'
@@ -83,15 +83,15 @@ export default function StudentLogin() {
         {/* Header */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3 mb-6">
-            <div className="w-14 h-14 bg-[#0f3460] rounded-full flex items-center justify-center">
+            <div className="w-14 h-14 bg-[#1b2473] rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-lg">AG</span>
             </div>
             <div className="text-left">
-              <div className="font-bold text-[#0f3460]">AGDNBC</div>
-              <div className="text-xs text-[#e94560]">Student Portal</div>
+              <div className="font-bold text-[#1b2473]">AGDNBC</div>
+              <div className="text-xs text-[#c49a1a]">Student Portal</div>
             </div>
           </Link>
-          <h1 className="text-2xl font-bold text-[#0f3460] mb-2">Welcome Back</h1>
+          <h1 className="text-2xl font-bold text-[#1b2473] mb-2">Welcome Back</h1>
           <p className="text-gray-500 text-sm">Sign in to access your student dashboard</p>
         </div>
 
@@ -100,7 +100,7 @@ export default function StudentLogin() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex gap-3">
             <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
             <div className="text-xs text-amber-700">
-              <strong>Portal Access</strong> is included in your school fees (₦105,000 – Year 1 / ₦155,000 – Year 2). Ensure your fees are paid to retain full access.
+              <strong>Portal Access</strong> is included in your school fees (â‚¦105,000 â€“ Year 1 / â‚¦155,000 â€“ Year 2). Ensure your fees are paid to retain full access.
             </div>
           </div>
 
@@ -110,14 +110,14 @@ export default function StudentLogin() {
               <label className="label">School ID Number</label>
 
               {/* Unified input bar */}
-              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden focus-within:border-[#0f3460] focus-within:ring-2 focus-within:ring-[#0f3460]/10 transition-all">
+              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden focus-within:border-[#1b2473] focus-within:ring-2 focus-within:ring-[#1b2473]/10 transition-all">
                 <span className="bg-gray-100 text-gray-500 text-sm font-mono px-3 py-3 border-r border-gray-200 shrink-0 whitespace-nowrap select-none">
                   AGDNBCSC/
                 </span>
                 <select
                   value={idYear}
                   onChange={(e) => setIdYear(e.target.value)}
-                  className="text-sm font-mono font-semibold text-[#0f3460] px-2 py-3 border-r border-gray-200 bg-white focus:outline-none shrink-0"
+                  className="text-sm font-mono font-semibold text-[#1b2473] px-2 py-3 border-r border-gray-200 bg-white focus:outline-none shrink-0"
                   style={{ width: '84px' }}
                 >
                   <option value="2024">2024</option>
@@ -134,7 +134,7 @@ export default function StudentLogin() {
                   autoComplete="username"
                 />
                 {campusName && (
-                  <span className="text-xs text-[#e94560] font-semibold px-3 shrink-0 flex items-center gap-1 whitespace-nowrap">
+                  <span className="text-xs text-[#c49a1a] font-semibold px-3 shrink-0 flex items-center gap-1 whitespace-nowrap">
                     <MapPin size={10} /> {campusName}
                   </span>
                 )}
@@ -144,7 +144,7 @@ export default function StudentLogin() {
                 Enter your 3-digit number + campus code: <span className="font-mono font-medium">BY</span> (Yenagoa) or <span className="font-mono font-medium">PH</span> (Port Harcourt)
               </p>
               <p className="text-xs text-gray-400">
-                Full ID: <span className="font-mono font-semibold text-[#0f3460]">{fullId}</span>
+                Full ID: <span className="font-mono font-semibold text-[#1b2473]">{fullId}</span>
               </p>
               {idError && <p className="text-red-500 text-xs mt-1">{idError}</p>}
             </div>
@@ -159,7 +159,7 @@ export default function StudentLogin() {
                   {...register('password')}
                   type={showPwd ? 'text' : 'password'}
                   className="input-field pr-12 font-mono tracking-widest"
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   maxLength={8}
                   autoComplete="current-password"
                 />
@@ -182,7 +182,7 @@ export default function StudentLogin() {
           <div className="mt-6 pt-5 border-t border-gray-100 text-center">
             <p className="text-xs text-gray-500">
               Forgot your password or School ID?{' '}
-              <Link to="/contact" className="text-[#e94560] font-semibold hover:underline">
+              <Link to="/contact" className="text-[#c49a1a] font-semibold hover:underline">
                 Contact the Registrar
               </Link>
             </p>
@@ -192,14 +192,14 @@ export default function StudentLogin() {
         {/* Demo hint */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4 text-xs text-blue-700">
           <p className="font-bold mb-1">Demo Access</p>
-          <p>Year: <span className="font-mono font-semibold">2024</span> &nbsp;·&nbsp; Number: <span className="font-mono font-semibold">001PH</span></p>
+          <p>Year: <span className="font-mono font-semibold">2024</span> &nbsp;Â·&nbsp; Number: <span className="font-mono font-semibold">001PH</span></p>
           <p>Password: <span className="font-mono font-semibold">0987654</span></p>
           <p className="mt-1 text-blue-500">Full ID: <span className="font-mono font-semibold">AGDNBCSC/2024/001PH</span></p>
         </div>
 
         <div className="text-center mt-4">
-          <Link to="/" className="text-sm text-gray-400 hover:text-[#0f3460]">
-            ← Back to College Website
+          <Link to="/" className="text-sm text-gray-400 hover:text-[#1b2473]">
+            â† Back to College Website
           </Link>
         </div>
       </div>

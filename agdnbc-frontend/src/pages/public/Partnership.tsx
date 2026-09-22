@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -45,8 +45,8 @@ export default function Partnership() {
 
   return (
     <div>
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4 text-center">
-        <p className="section-subtitle text-[#e94560]">Support the Vision</p>
+      <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-24 px-4 text-center">
+        <p className="section-subtitle text-[#c49a1a]">Support the Vision</p>
         <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Financial Partnership</h1>
         <p className="text-blue-200 text-lg max-w-2xl mx-auto">
           Partner with us in raising godly ministers for the harvest. Your investment is an investment in eternity.
@@ -76,8 +76,8 @@ export default function Partnership() {
                   { icon: Heart, label: 'Ministry Support' },
                 ].map(({ icon: Icon, label }) => (
                   <div key={label} className="flex items-center gap-2 text-sm text-gray-700">
-                    <div className="w-8 h-8 bg-[#e94560]/10 rounded-lg flex items-center justify-center">
-                      <Icon size={14} className="text-[#e94560]" />
+                    <div className="w-8 h-8 bg-[#c49a1a]/10 rounded-lg flex items-center justify-center">
+                      <Icon size={14} className="text-[#c49a1a]" />
                     </div>
                     {label}
                   </div>
@@ -85,8 +85,8 @@ export default function Partnership() {
               </div>
             </div>
             <div className="space-y-4">
-              <div className="bg-[#0f3460] text-white rounded-2xl p-6">
-                <h4 className="font-bold mb-4 text-[#e94560]">Partnership Account Details</h4>
+              <div className="bg-[#1b2473] text-white rounded-2xl p-6">
+                <h4 className="font-bold mb-4 text-[#c49a1a]">Partnership Account Details</h4>
                 {bankDetails.map(({ bank, accountName, accountNumber }) => (
                   <div key={bank} className="bg-white/10 rounded-xl p-4 mb-3">
                     <div className="text-xs text-blue-300 mb-1">{bank}</div>
@@ -95,7 +95,7 @@ export default function Partnership() {
                       <span className="text-lg font-bold tracking-wider">{accountNumber}</span>
                       <button
                         onClick={() => copyToClipboard(accountNumber)}
-                        className="text-xs bg-[#e94560] px-3 py-1 rounded-lg flex items-center gap-1 hover:bg-[#c73550]"
+                        className="text-xs bg-[#c49a1a] px-3 py-1 rounded-lg flex items-center gap-1 hover:bg-[#a07c0d]"
                       >
                         <Copy size={11} /> Copy
                       </button>
@@ -121,7 +121,7 @@ export default function Partnership() {
           {done ? (
             <div className="bg-white rounded-xl p-10 text-center shadow-sm">
               <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg text-[#0f3460] mb-2">Thank You for Your Partnership!</h3>
+              <h3 className="font-bold text-lg text-[#1b2473] mb-2">Thank You for Your Partnership!</h3>
               <p className="text-sm text-gray-500">Our team will reach out to you shortly to confirm your partnership.</p>
             </div>
           ) : (
@@ -162,7 +162,7 @@ export default function Partnership() {
               </div>
               <div>
                 <label className="label">Intended Amount (Optional)</label>
-                <input {...register('intendedAmount')} className="input-field" placeholder="e.g. ₦50,000" />
+                <input {...register('intendedAmount')} className="input-field" placeholder="e.g. â‚¦50,000" />
               </div>
               <div>
                 <label className="label">Message / Questions</label>

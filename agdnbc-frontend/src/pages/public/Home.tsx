@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, BookOpen, Users, Award, Globe, ChevronRight,
@@ -61,7 +61,7 @@ const news = [
   },
   {
     date: 'July 10, 2026',
-    title: 'Convocation Ceremony — Class of 2026',
+    title: 'Convocation Ceremony â€” Class of 2026',
     excerpt: 'Join us as we celebrate our graduating class at this year\'s convocation ceremony.',
     category: 'Events',
   },
@@ -83,7 +83,7 @@ export default function Home() {
 
   return (
     <div>
-      {/* ── Hero with background carousel ── */}
+      {/* â”€â”€ Hero with background carousel â”€â”€ */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {carouselImages.map((img, i) => (
           <div
@@ -94,19 +94,19 @@ export default function Home() {
             <img src={img} alt="" className="w-full h-full object-cover" />
           </div>
         ))}
-        <div className="absolute inset-0 bg-[#0f3460]/75" />
+        <div className="absolute inset-0 bg-[#1b2473]/75" />
         <div className="max-w-7xl mx-auto px-4 py-24 relative z-10 w-full">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-[#e94560]/20 border border-[#e94560]/30 text-[#e94560] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-[#c49a1a]/20 border border-[#c49a1a]/30 text-[#c49a1a] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
               <Star size={12} /> Apostle G.D Numbere Bible College
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
               Equipping Believers<br />
-              <span className="text-[#e94560]">for Kingdom Impact</span>
+              <span className="text-[#c49a1a]">for Kingdom Impact</span>
             </h1>
             <p className="text-blue-200 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
               Join a community of faith where sound biblical education, spiritual formation, and practical
-              ministry training converge — preparing you to make a lasting impact for God's Kingdom.
+              ministry training converge â€” preparing you to make a lasting impact for God's Kingdom.
             </p>
             <div className="flex flex-wrap gap-4 mb-12">
               <Link to="/admissions" className="btn-accent text-base py-3.5 px-8">
@@ -121,7 +121,7 @@ export default function Home() {
                 <button
                   key={i}
                   onClick={() => setSlide(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${i === slide ? 'w-8 bg-[#e94560]' : 'w-2 bg-white/40 hover:bg-white/60'}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${i === slide ? 'w-8 bg-[#c49a1a]' : 'w-2 bg-white/40 hover:bg-white/60'}`}
                 />
               ))}
             </div>
@@ -130,13 +130,13 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10" />
       </section>
 
-      {/* ── Stats ── */}
+      {/* â”€â”€ Stats â”€â”€ */}
       <section className="bg-white py-12 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map(({ value, label }, i) => (
               <Animate key={label} delay={i * 100} className="text-center">
-                <div className="text-3xl md:text-4xl font-extrabold text-[#0f3460] mb-1">{value}</div>
+                <div className="text-3xl md:text-4xl font-extrabold text-[#1b2473] mb-1">{value}</div>
                 <div className="text-sm text-gray-500">{label}</div>
               </Animate>
             ))}
@@ -144,7 +144,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── About snippet ── */}
+      {/* â”€â”€ About snippet â”€â”€ */}
       <section className="py-20 bg-[#f7f9fc]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -158,7 +158,7 @@ export default function Home() {
               </p>
               <p className="text-gray-600 leading-relaxed mb-6">
                 Our programmes combine academic rigour with deep spiritual formation, producing graduates who
-                are not just learned, but genuinely transformed — ready to serve in churches, missions,
+                are not just learned, but genuinely transformed â€” ready to serve in churches, missions,
                 community development, and beyond.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -169,8 +169,8 @@ export default function Home() {
                   'Community Development',
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-sm text-gray-700">
-                    <div className="w-5 h-5 bg-[#e94560] rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-white text-xs">✓</span>
+                    <div className="w-5 h-5 bg-[#c49a1a] rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-white text-xs">âœ“</span>
                     </div>
                     {item}
                   </div>
@@ -185,21 +185,21 @@ export default function Home() {
                 <div className="rounded-2xl overflow-hidden shadow-xl">
                   <img src={aboutImg} alt="Academic leadership at AGDNBC" className="w-full h-[420px] object-cover" />
                 </div>
-                <div className="absolute bottom-6 left-6 right-6 bg-[#0f3460]/95 backdrop-blur-sm rounded-xl p-5 text-white shadow-2xl">
+                <div className="absolute bottom-6 left-6 right-6 bg-[#1b2473]/95 backdrop-blur-sm rounded-xl p-5 text-white shadow-2xl">
                   <h4 className="font-bold mb-1">Our Mission</h4>
                   <p className="text-blue-200 text-sm leading-relaxed">
                     To raise up a generation of Kingdom ambassadors grounded in the Word, filled with the Spirit,
                     and committed to transforming their world for Christ.
                   </p>
                 </div>
-                <div className="absolute -bottom-3 -right-3 w-20 h-20 bg-[#e94560] rounded-2xl -z-10" />
+                <div className="absolute -bottom-3 -right-3 w-20 h-20 bg-[#c49a1a] rounded-2xl -z-10" />
               </div>
             </Animate>
           </div>
         </div>
       </section>
 
-      {/* ── Programmes ── */}
+      {/* â”€â”€ Programmes â”€â”€ */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="text-center mb-12">
@@ -214,11 +214,11 @@ export default function Home() {
             {programmes.map(({ title, duration, level, icon: Icon }, i) => (
               <Animate key={title} delay={i * 100}>
                 <div className="card p-6 group hover:-translate-y-1 transition-transform duration-200 h-full">
-                  <div className="w-12 h-12 bg-[#0f3460]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#0f3460] transition-colors">
-                    <Icon size={22} className="text-[#0f3460] group-hover:text-white transition-colors" />
+                  <div className="w-12 h-12 bg-[#1b2473]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#1b2473] transition-colors">
+                    <Icon size={22} className="text-[#1b2473] group-hover:text-white transition-colors" />
                   </div>
-                  <div className="text-xs font-bold text-[#e94560] uppercase tracking-wider mb-2">{level}</div>
-                  <h3 className="font-bold text-[#0f3460] mb-2 leading-snug">{title}</h3>
+                  <div className="text-xs font-bold text-[#c49a1a] uppercase tracking-wider mb-2">{level}</div>
+                  <h3 className="font-bold text-[#1b2473] mb-2 leading-snug">{title}</h3>
                   <p className="text-sm text-gray-500 flex items-center gap-1">
                     <Clock size={12} /> {duration}
                   </p>
@@ -234,8 +234,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Admissions CTA ── */}
-      <section className="py-16 bg-[#e94560]">
+      {/* â”€â”€ Admissions CTA â”€â”€ */}
+      <section className="py-16 bg-[#c49a1a]">
         <Animate from="scale" className="max-w-7xl mx-auto px-4 text-center text-white">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Begin Your Journey?</h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
@@ -245,7 +245,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
               to="/admissions"
-              className="bg-white text-[#e94560] font-bold px-8 py-3.5 rounded-lg hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+              className="bg-white text-[#c49a1a] font-bold px-8 py-3.5 rounded-lg hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
             >
               Apply Now <ArrowRight size={18} />
             </Link>
@@ -259,7 +259,7 @@ export default function Home() {
         </Animate>
       </section>
 
-      {/* ── Testimonials ── */}
+      {/* â”€â”€ Testimonials â”€â”€ */}
       <section className="py-20 bg-[#f7f9fc]">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="text-center mb-12">
@@ -270,11 +270,11 @@ export default function Home() {
             {testimonials.map(({ name, programme, text }, i) => (
               <Animate key={name} delay={i * 120}>
                 <div className="card p-6 h-full">
-                  <Quote size={32} className="text-[#e94560]/30 mb-4" />
+                  <Quote size={32} className="text-[#c49a1a]/30 mb-4" />
                   <p className="text-gray-600 italic leading-relaxed mb-5">"{text}"</p>
                   <div className="border-t border-gray-100 pt-4">
-                    <div className="font-bold text-[#0f3460]">{name}</div>
-                    <div className="text-xs text-[#e94560]">{programme}</div>
+                    <div className="font-bold text-[#1b2473]">{name}</div>
+                    <div className="text-xs text-[#c49a1a]">{programme}</div>
                   </div>
                 </div>
               </Animate>
@@ -283,7 +283,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Gallery Preview ── */}
+      {/* â”€â”€ Gallery Preview â”€â”€ */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
@@ -300,7 +300,7 @@ export default function Home() {
               <Animate key={i} delay={i * 70} className="aspect-[4/3]">
                 <Link to="/gallery" className="group relative overflow-hidden rounded-xl block h-full">
                   <img src={src} alt={`Gallery photo ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-[#0f3460]/0 group-hover:bg-[#0f3460]/40 transition-colors duration-300" />
+                  <div className="absolute inset-0 bg-[#1b2473]/0 group-hover:bg-[#1b2473]/40 transition-colors duration-300" />
                 </Link>
               </Animate>
             ))}
@@ -308,7 +308,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── News & Events ── */}
+      {/* â”€â”€ News & Events â”€â”€ */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
@@ -324,17 +324,17 @@ export default function Home() {
             {news.map(({ date, title, excerpt, category }, i) => (
               <Animate key={title} delay={i * 100}>
                 <div className="card overflow-hidden group h-full">
-                  <div className="bg-[#0f3460] h-3" />
+                  <div className="bg-[#1b2473] h-3" />
                   <div className="p-5">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs bg-[#e94560]/10 text-[#e94560] font-semibold px-3 py-1 rounded-full">
+                      <span className="text-xs bg-[#c49a1a]/10 text-[#c49a1a] font-semibold px-3 py-1 rounded-full">
                         {category}
                       </span>
                       <span className="text-xs text-gray-400 flex items-center gap-1">
                         <Calendar size={11} /> {date}
                       </span>
                     </div>
-                    <h3 className="font-bold text-[#0f3460] mb-2 group-hover:text-[#e94560] transition-colors">
+                    <h3 className="font-bold text-[#1b2473] mb-2 group-hover:text-[#c49a1a] transition-colors">
                       {title}
                     </h3>
                     <p className="text-sm text-gray-500">{excerpt}</p>
@@ -346,8 +346,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Portal Quick Access ── */}
-      <section className="py-16 bg-[#0f3460]">
+      {/* â”€â”€ Portal Quick Access â”€â”€ */}
+      <section className="py-16 bg-[#1b2473]">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Student Quick Access</h2>
@@ -363,7 +363,7 @@ export default function Home() {
               <Animate key={label} delay={i * 80}>
                 <Link
                   to={to}
-                  className="bg-white/10 hover:bg-[#e94560] border border-white/20 rounded-xl p-5 text-white text-center transition-all group block"
+                  className="bg-white/10 hover:bg-[#c49a1a] border border-white/20 rounded-xl p-5 text-white text-center transition-all group block"
                 >
                   <Icon size={28} className="mx-auto mb-2" />
                   <div className="text-sm font-semibold">{label}</div>

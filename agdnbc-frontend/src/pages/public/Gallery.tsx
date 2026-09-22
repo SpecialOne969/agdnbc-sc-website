@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { X, ChevronLeft, ChevronRight, Images } from 'lucide-react'
 
 import img1 from '../../assets/Images/IMG_3782.jpg'
@@ -42,8 +42,8 @@ export default function Gallery() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4 text-center">
-        <p className="section-subtitle text-[#e94560]">Life at AGDNBC</p>
+      <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-24 px-4 text-center">
+        <p className="section-subtitle text-[#c49a1a]">Life at AGDNBC</p>
         <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Photo Gallery</h1>
         <p className="text-blue-200 text-lg max-w-2xl mx-auto">
           Moments of faith, excellence, and celebration from the Apostle Geoffrey Dabibi Numbere Bible College, Satellite Campus.
@@ -53,9 +53,9 @@ export default function Gallery() {
       {/* Event Label */}
       <section className="bg-white border-b border-gray-100 py-5 px-4">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
-          <Images size={20} className="text-[#e94560]" />
-          <span className="font-bold text-[#0f3460]">Convocation Ceremony</span>
-          <span className="text-gray-400 text-sm">· Class of 2025 · {photos.length} photos</span>
+          <Images size={20} className="text-[#c49a1a]" />
+          <span className="font-bold text-[#1b2473]">Convocation Ceremony</span>
+          <span className="text-gray-400 text-sm">Â· Class of 2025 Â· {photos.length} photos</span>
         </div>
       </section>
 

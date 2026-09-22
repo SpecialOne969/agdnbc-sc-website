@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BookOpen, FileText, ClipboardList,
@@ -56,7 +56,7 @@ export default function AdminLayout() {
       >
         <div className="p-5 border-b border-white/10">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#e94560] rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-[#c49a1a] rounded-full flex items-center justify-center">
               <Shield size={18} />
             </div>
             <div>
@@ -69,7 +69,7 @@ export default function AdminLayout() {
         <div className="p-4 border-b border-white/10">
           <div className="text-xs text-gray-400 mb-1">Logged in as</div>
           <div className="text-sm font-semibold">{user?.name || 'Administrator'}</div>
-          <div className="text-xs text-[#e94560] capitalize">{user?.role?.replace('_', ' ')}</div>
+          <div className="text-xs text-[#c49a1a] capitalize">{user?.role?.replace('_', ' ')}</div>
         </div>
 
         <nav className="flex-1 p-4 space-y-1">
@@ -79,13 +79,13 @@ export default function AdminLayout() {
               to={to}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
-                ${isActive ? 'bg-[#e94560] text-white' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`
+                ${isActive ? 'bg-[#c49a1a] text-white' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`
               }
             >
               <Icon size={18} />
               <span className="flex-1">{label}</span>
               {label === 'Payments' && pendingPayments > 0 && (
-                <span className="bg-[#e94560] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                <span className="bg-[#c49a1a] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
                   {pendingPayments}
                 </span>
               )}
@@ -116,7 +116,7 @@ export default function AdminLayout() {
             <h1 className="text-base font-bold text-[#1a1a2e]">Admin Dashboard</h1>
           </div>
           <div className="flex items-center gap-3">
-            <Link to="/" className="text-xs text-[#0f3460] hover:underline">View Website</Link>
+            <Link to="/" className="text-xs text-[#1b2473] hover:underline">View Website</Link>
             <button onClick={handleLogout} className="hidden md:flex items-center gap-2 text-sm text-gray-500 hover:text-red-500">
               <LogOut size={15} /> Logout
             </button>

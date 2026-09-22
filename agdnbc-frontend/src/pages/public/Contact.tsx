@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -33,8 +33,8 @@ export default function Contact() {
 
   return (
     <div>
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4 text-center">
-        <p className="section-subtitle text-[#e94560]">Get in Touch</p>
+      <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-24 px-4 text-center">
+        <p className="section-subtitle text-[#c49a1a]">Get in Touch</p>
         <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Contact Us</h1>
         <p className="text-blue-200 text-lg max-w-2xl mx-auto">
           Have a question? We would love to hear from you. Send us a message and we will respond within 24 hours.
@@ -56,14 +56,14 @@ export default function Contact() {
                 { icon: MapPin, title: 'Address', content: 'AGDNBC Satellite Campus, Nigeria' },
                 { icon: Phone, title: 'Phone', content: '+234 XXX XXX XXXX' },
                 { icon: Mail, title: 'Email', content: 'info@agdnbcsc.edu.ng' },
-                { icon: Clock, title: 'Office Hours', content: 'Mon – Fri: 8am – 5pm\nSat: 9am – 1pm' },
+                { icon: Clock, title: 'Office Hours', content: 'Mon â€“ Fri: 8am â€“ 5pm\nSat: 9am â€“ 1pm' },
               ].map(({ icon: Icon, title, content }) => (
                 <div key={title} className="flex gap-4">
-                  <div className="w-11 h-11 bg-[#0f3460]/10 rounded-xl flex items-center justify-center shrink-0">
-                    <Icon size={18} className="text-[#0f3460]" />
+                  <div className="w-11 h-11 bg-[#1b2473]/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Icon size={18} className="text-[#1b2473]" />
                   </div>
                   <div>
-                    <div className="font-semibold text-sm text-[#0f3460]">{title}</div>
+                    <div className="font-semibold text-sm text-[#1b2473]">{title}</div>
                     <div className="text-sm text-gray-500 whitespace-pre-line">{content}</div>
                   </div>
                 </div>
@@ -73,7 +73,7 @@ export default function Contact() {
             {/* Map placeholder */}
             <div className="mt-8 bg-[#f7f9fc] rounded-xl h-52 flex items-center justify-center border border-gray-200">
               <div className="text-center text-gray-400">
-                <MapPin size={32} className="mx-auto mb-2 text-[#0f3460]" />
+                <MapPin size={32} className="mx-auto mb-2 text-[#1b2473]" />
                 <p className="text-sm">Google Maps will appear here</p>
               </div>
             </div>

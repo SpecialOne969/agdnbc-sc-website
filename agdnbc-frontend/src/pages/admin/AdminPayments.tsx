@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { Search, CheckCircle, Clock, XCircle, ThumbsUp, ThumbsDown, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { api } from '../../services/api'
@@ -48,7 +48,7 @@ export default function AdminPayments() {
     try {
       await api.patch(`/payments/claims/${id}/approve`)
       await fetchClaims()
-      toast.success('Payment approved — student notified by email')
+      toast.success('Payment approved â€” student notified by email')
     } catch {
       toast.error('Failed to approve')
     } finally {
@@ -63,7 +63,7 @@ export default function AdminPayments() {
       await fetchClaims()
       setRejectId(null)
       setRejectNote('')
-      toast.success('Payment rejected — student notified by email')
+      toast.success('Payment rejected â€” student notified by email')
     } catch {
       toast.error('Failed to reject')
     } finally {
@@ -93,7 +93,7 @@ export default function AdminPayments() {
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-green-50 border border-green-200 rounded-xl p-5">
           <div className="text-xs text-green-600 font-semibold">Total Approved</div>
-          <div className="text-2xl font-bold text-green-700 mt-1">₦{totalApproved.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-green-700 mt-1">â‚¦{totalApproved.toLocaleString()}</div>
         </div>
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-5">
           <div className="text-xs text-orange-600 font-semibold">Pending Review</div>
@@ -101,7 +101,7 @@ export default function AdminPayments() {
         </div>
         <div className="bg-[#f7f9fc] border border-gray-200 rounded-xl p-5">
           <div className="text-xs text-gray-500 font-semibold">Total Submissions</div>
-          <div className="text-2xl font-bold text-[#0f3460] mt-1">{claims.length}</div>
+          <div className="text-2xl font-bold text-[#1b2473] mt-1">{claims.length}</div>
         </div>
       </div>
 
@@ -111,11 +111,11 @@ export default function AdminPayments() {
           <button
             onClick={() => setTab('pending')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2
-              ${tab === 'pending' ? 'bg-white text-[#0f3460] shadow-sm' : 'text-gray-500 hover:text-[#0f3460]'}`}
+              ${tab === 'pending' ? 'bg-white text-[#1b2473] shadow-sm' : 'text-gray-500 hover:text-[#1b2473]'}`}
           >
             Pending Review
             {pending.length > 0 && (
-              <span className="bg-[#e94560] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+              <span className="bg-[#c49a1a] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
                 {pending.length}
               </span>
             )}
@@ -123,7 +123,7 @@ export default function AdminPayments() {
           <button
             onClick={() => setTab('all')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors
-              ${tab === 'all' ? 'bg-white text-[#0f3460] shadow-sm' : 'text-gray-500 hover:text-[#0f3460]'}`}
+              ${tab === 'all' ? 'bg-white text-[#1b2473] shadow-sm' : 'text-gray-500 hover:text-[#1b2473]'}`}
           >
             All Records
           </button>
@@ -143,7 +143,7 @@ export default function AdminPayments() {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-16">
-            <Loader2 size={24} className="animate-spin text-[#0f3460]" />
+            <Loader2 size={24} className="animate-spin text-[#1b2473]" />
           </div>
         ) : displayed.length === 0 ? (
           <div className="p-12 text-center text-gray-400 text-sm">
@@ -178,7 +178,7 @@ export default function AdminPayments() {
                       <td className="px-6 py-4 text-sm text-gray-500">
                         {new Date(claim.submittedAt).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </td>
-                      <td className="px-6 py-4 text-right font-bold text-[#0f3460]">₦{claim.amount.toLocaleString()}</td>
+                      <td className="px-6 py-4 text-right font-bold text-[#1b2473]">â‚¦{claim.amount.toLocaleString()}</td>
                       <td className="px-6 py-4 text-center">
                         <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${cfg.color}`}>
                           <Icon size={11} /> {cfg.label}
@@ -208,7 +208,7 @@ export default function AdminPayments() {
                             </button>
                           </div>
                         ) : (
-                          <span className="text-xs text-gray-300">—</span>
+                          <span className="text-xs text-gray-300">â€”</span>
                         )}
                       </td>
                     </tr>
@@ -224,8 +224,8 @@ export default function AdminPayments() {
       {rejectId && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full">
-            <h3 className="font-bold text-[#0f3460] mb-1">Reject Payment</h3>
-            <p className="text-sm text-gray-400 mb-4">Optionally provide a reason — it will be emailed to the student.</p>
+            <h3 className="font-bold text-[#1b2473] mb-1">Reject Payment</h3>
+            <p className="text-sm text-gray-400 mb-4">Optionally provide a reason â€” it will be emailed to the student.</p>
             <textarea
               className="input-field resize-none h-24"
               placeholder="e.g. Could not verify this transaction reference"
@@ -242,7 +242,7 @@ export default function AdminPayments() {
               <button
                 onClick={() => reject(rejectId)}
                 disabled={!!acting}
-                className="flex-1 bg-[#e94560] text-white py-2.5 rounded-xl font-semibold hover:bg-[#c73550] text-sm disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 bg-[#c49a1a] text-white py-2.5 rounded-xl font-semibold hover:bg-[#a07c0d] text-sm disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {acting ? <Loader2 size={15} className="animate-spin" /> : null}
                 Confirm Reject

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Upload, Download, Search } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -30,7 +30,7 @@ export default function AdminResults() {
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-700">
-        <strong>CSV Format:</strong> School ID, Course Code, Score, Semester, Academic Year — one student per row.
+        <strong>CSV Format:</strong> School ID, Course Code, Score, Semester, Academic Year â€” one student per row.
         Download the template to get started.
       </div>
 
@@ -58,8 +58,8 @@ export default function AdminResults() {
                 <tr key={r.id} className="border-b border-gray-50 hover:bg-[#f7f9fc]">
                   <td className="px-6 py-4 font-medium text-sm text-[#1a1a2e]">{r.name}</td>
                   <td className="px-6 py-4 font-mono text-xs text-gray-500">{r.studentId}</td>
-                  <td className="px-6 py-4 text-center text-sm font-bold text-[#0f3460]">{r.course}</td>
-                  <td className="px-6 py-4 text-center font-bold text-[#0f3460]">{r.score}%</td>
+                  <td className="px-6 py-4 text-center text-sm font-bold text-[#1b2473]">{r.course}</td>
+                  <td className="px-6 py-4 text-center font-bold text-[#1b2473]">{r.score}%</td>
                   <td className="px-6 py-4 text-center">
                     <span className="bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full">{r.grade}</span>
                   </td>

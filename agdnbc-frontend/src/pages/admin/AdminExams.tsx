@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import {
   Plus, ClipboardList, Clock, Users, Edit, Trash2,
   ChevronLeft, CheckCircle, BookOpen, HelpCircle
@@ -37,7 +37,7 @@ const courses = [
 
 const initialExams: Exam[] = [
   {
-    id: '1', title: 'Hermeneutics – Final Exam', course: 'HMT103',
+    id: '1', title: 'Hermeneutics â€“ Final Exam', course: 'HMT103',
     date: '2026-09-20', startTime: '09:00', endTime: '11:00', duration: 60,
     status: 'scheduled', submissions: 0,
     questions: [
@@ -47,7 +47,7 @@ const initialExams: Exam[] = [
     ],
   },
   {
-    id: '2', title: 'Pneumatology – Mid-Semester', course: 'PNM201',
+    id: '2', title: 'Pneumatology â€“ Mid-Semester', course: 'PNM201',
     date: '2026-09-25', startTime: '10:00', endTime: '11:00', duration: 60,
     status: 'scheduled', submissions: 0, questions: [],
   },
@@ -83,7 +83,7 @@ export default function AdminExams() {
   const [editingQ, setEditingQ] = useState<Question | null>(null)
   const [qForm, setQForm] = useState(blankQForm)
 
-  // ── Exam CRUD ──────────────────────────────────────────────
+  // â”€â”€ Exam CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const openCreate = () => { setEditingExam(null); setExamForm(blankExamForm); setShowExamModal(true) }
 
   const openEdit = (exam: Exam, e: React.MouseEvent) => {
@@ -116,7 +116,7 @@ export default function AdminExams() {
     toast.success('Exam deleted')
   }
 
-  // ── Question CRUD ──────────────────────────────────────────
+  // â”€â”€ Question CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const openAddQ = () => { setEditingQ(null); setQForm(blankQForm); setShowQModal(true) }
 
   const openEditQ = (q: Question) => {
@@ -159,7 +159,7 @@ export default function AdminExams() {
     toast.success('Question deleted')
   }
 
-  // ── Question Manager View ──────────────────────────────────
+  // â”€â”€ Question Manager View â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (selectedExam) {
     const totalMarks = selectedExam.questions.reduce((s, q) => s + q.points, 0)
     return (
@@ -171,7 +171,7 @@ export default function AdminExams() {
             </button>
             <div>
               <h2 className="text-xl font-bold text-[#1a1a2e]">{selectedExam.title}</h2>
-              <p className="text-sm text-gray-500">{selectedExam.course} · {selectedExam.date} · {selectedExam.duration} mins</p>
+              <p className="text-sm text-gray-500">{selectedExam.course} Â· {selectedExam.date} Â· {selectedExam.duration} mins</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -192,7 +192,7 @@ export default function AdminExams() {
             { label: 'Submissions', value: selectedExam.submissions },
           ].map(({ label, value }) => (
             <div key={label} className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-              <div className="text-2xl font-bold text-[#0f3460]">{value}</div>
+              <div className="text-2xl font-bold text-[#1b2473]">{value}</div>
               <div className="text-xs text-gray-500 mt-0.5">{label}</div>
             </div>
           ))}
@@ -211,7 +211,7 @@ export default function AdminExams() {
               <div key={q.id} className="bg-white rounded-xl border border-gray-100 p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-3 flex-1 min-w-0">
-                    <span className="w-7 h-7 bg-[#0f3460] text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                    <span className="w-7 h-7 bg-[#1b2473] text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                       {i + 1}
                     </span>
                     <div className="flex-1">
@@ -225,14 +225,14 @@ export default function AdminExams() {
                           ))}
                         </div>
                       ) : (
-                        <p className="text-xs text-gray-400 italic bg-gray-50 rounded-lg px-3 py-2">Essay question — manually graded</p>
+                        <p className="text-xs text-gray-400 italic bg-gray-50 rounded-lg px-3 py-2">Essay question â€” manually graded</p>
                       )}
                     </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-xs bg-[#0f3460]/10 text-[#0f3460] px-2 py-1 rounded-lg font-semibold">{q.points} pt{q.points !== 1 ? 's' : ''}</span>
+                    <span className="text-xs bg-[#1b2473]/10 text-[#1b2473] px-2 py-1 rounded-lg font-semibold">{q.points} pt{q.points !== 1 ? 's' : ''}</span>
                     <span className={`text-xs px-2 py-1 rounded-lg font-semibold ${q.type === 'mcq' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'}`}>{q.type.toUpperCase()}</span>
-                    <button onClick={() => openEditQ(q)} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#0f3460] transition-colors"><Edit size={14} /></button>
+                    <button onClick={() => openEditQ(q)} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#1b2473] transition-colors"><Edit size={14} /></button>
                     <button onClick={() => deleteQuestion(q.id)} className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-500 transition-colors"><Trash2 size={14} /></button>
                   </div>
                 </div>
@@ -247,7 +247,7 @@ export default function AdminExams() {
             <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
               <div className="p-6 border-b border-gray-100 flex items-center justify-between">
                 <h3 className="text-lg font-bold text-[#1a1a2e]">{editingQ ? 'Edit Question' : 'Add Question'}</h3>
-                <button onClick={() => setShowQModal(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">✕</button>
+                <button onClick={() => setShowQModal(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">âœ•</button>
               </div>
               <div className="p-6 space-y-4">
                 <div>
@@ -316,7 +316,7 @@ export default function AdminExams() {
     )
   }
 
-  // ── Exam List View ─────────────────────────────────────────
+  // â”€â”€ Exam List View â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -338,18 +338,18 @@ export default function AdminExams() {
             <div
               key={exam.id}
               onClick={() => setSelectedExam(exam)}
-              className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 hover:border-[#0f3460]/30 hover:shadow-md transition-all cursor-pointer"
+              className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 hover:border-[#1b2473]/30 hover:shadow-md transition-all cursor-pointer"
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4 min-w-0">
-                  <div className="w-12 h-12 bg-[#0f3460]/10 rounded-xl flex items-center justify-center shrink-0">
-                    <ClipboardList size={20} className="text-[#0f3460]" />
+                  <div className="w-12 h-12 bg-[#1b2473]/10 rounded-xl flex items-center justify-center shrink-0">
+                    <ClipboardList size={20} className="text-[#1b2473]" />
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-bold text-[#1a1a2e] truncate">{exam.title}</h4>
                     <div className="flex items-center gap-4 mt-1 text-xs text-gray-500 flex-wrap">
-                      <span className="font-bold text-[#e94560]">{exam.course}</span>
-                      <span className="flex items-center gap-1"><Clock size={10} /> {exam.date} · {exam.startTime}–{exam.endTime}</span>
+                      <span className="font-bold text-[#c49a1a]">{exam.course}</span>
+                      <span className="flex items-center gap-1"><Clock size={10} /> {exam.date} Â· {exam.startTime}â€“{exam.endTime}</span>
                       <span className="flex items-center gap-1"><BookOpen size={10} /> {exam.questions.length} questions</span>
                       <span className="flex items-center gap-1"><Users size={10} /> {exam.submissions} submissions</span>
                     </div>
@@ -359,7 +359,7 @@ export default function AdminExams() {
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full ${statusColors[exam.status]}`}>
                     {exam.status}
                   </span>
-                  <button onClick={(e) => openEdit(exam, e)} className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#0f3460] transition-colors">
+                  <button onClick={(e) => openEdit(exam, e)} className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#1b2473] transition-colors">
                     <Edit size={15} />
                   </button>
                   <button onClick={(e) => deleteExam(exam.id, e)} className="p-2 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-500 transition-colors">

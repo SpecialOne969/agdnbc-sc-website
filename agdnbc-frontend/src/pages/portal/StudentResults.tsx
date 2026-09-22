@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { Download, Printer, FileText, TrendingUp } from 'lucide-react'
 import { getMyResults } from '../../services/api'
 
@@ -35,14 +35,14 @@ export default function StudentResults() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[#0f3460]">Examination Results</h2>
+        <h2 className="text-xl font-bold text-[#1b2473]">Examination Results</h2>
       </div>
 
       {results.map((semester: typeof mockResults[0]) => {
         const gpa = calcGPA(semester.courses)
         return (
           <div key={semester.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="bg-[#0f3460] text-white px-6 py-4 flex items-center justify-between">
+            <div className="bg-[#1b2473] text-white px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <FileText size={18} />
                 <h3 className="font-bold">{semester.semester}</h3>
@@ -54,7 +54,7 @@ export default function StudentResults() {
                 >
                   <Printer size={12} /> Print
                 </button>
-                <button className="text-xs bg-[#e94560] hover:bg-[#c73550] px-3 py-1.5 rounded-lg flex items-center gap-1">
+                <button className="text-xs bg-[#c49a1a] hover:bg-[#a07c0d] px-3 py-1.5 rounded-lg flex items-center gap-1">
                   <Download size={12} /> Download PDF
                 </button>
               </div>
@@ -73,9 +73,9 @@ export default function StudentResults() {
                 <tbody>
                   {semester.courses.map((course) => (
                     <tr key={course.code} className="border-b border-gray-50 hover:bg-[#f7f9fc] transition-colors">
-                      <td className="px-6 py-4 font-mono text-sm font-semibold text-[#0f3460]">{course.code}</td>
+                      <td className="px-6 py-4 font-mono text-sm font-semibold text-[#1b2473]">{course.code}</td>
                       <td className="px-6 py-4 text-sm text-gray-700">{course.name}</td>
-                      <td className="px-6 py-4 text-center font-bold text-[#0f3460]">{course.score}%</td>
+                      <td className="px-6 py-4 text-center font-bold text-[#1b2473]">{course.score}%</td>
                       <td className="px-6 py-4 text-center">
                         <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${gradeColor[course.grade]}`}>
                           {course.grade}
@@ -93,9 +93,9 @@ export default function StudentResults() {
             </div>
             <div className="px-6 py-4 bg-[#f7f9fc] flex items-center justify-between">
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                <TrendingUp size={16} className="text-[#e94560]" /> Semester GPA
+                <TrendingUp size={16} className="text-[#c49a1a]" /> Semester GPA
               </div>
-              <span className="text-xl font-extrabold text-[#0f3460]">{gpa} / 5.0</span>
+              <span className="text-xl font-extrabold text-[#1b2473]">{gpa} / 5.0</span>
             </div>
           </div>
         )

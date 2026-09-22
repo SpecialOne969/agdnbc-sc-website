@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard, User, BookOpen, FileText, ClipboardList,
@@ -31,18 +31,18 @@ export default function PortalLayout() {
     <div className="min-h-screen bg-[#f7f9fc] flex">
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#0f3460] text-white flex flex-col transform transition-transform duration-300
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#1b2473] text-white flex flex-col transform transition-transform duration-300
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         {/* Logo */}
         <div className="p-5 border-b border-white/10">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-              <span className="text-[#0f3460] font-bold text-sm">AG</span>
+              <span className="text-[#1b2473] font-bold text-sm">AG</span>
             </div>
             <div>
               <div className="font-bold text-sm">AGDNBC</div>
-              <div className="text-[#e94560] text-xs">Student Portal</div>
+              <div className="text-[#c49a1a] text-xs">Student Portal</div>
             </div>
           </Link>
         </div>
@@ -50,7 +50,7 @@ export default function PortalLayout() {
         {/* Student info */}
         <div className="p-5 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#e94560] rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-[#c49a1a] rounded-full flex items-center justify-center">
               <GraduationCap size={18} />
             </div>
             <div>
@@ -68,7 +68,7 @@ export default function PortalLayout() {
               to={to}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
-                ${isActive ? 'bg-[#e94560] text-white' : 'text-blue-200 hover:bg-white/10 hover:text-white'}`
+                ${isActive ? 'bg-[#c49a1a] text-white' : 'text-blue-200 hover:bg-white/10 hover:text-white'}`
               }
             >
               <Icon size={18} /> {label}
@@ -100,12 +100,12 @@ export default function PortalLayout() {
             <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 rounded-lg hover:bg-gray-100">
               <Menu size={20} />
             </button>
-            <h1 className="text-base font-bold text-[#0f3460]">Student Portal</h1>
+            <h1 className="text-base font-bold text-[#1b2473]">Student Portal</h1>
           </div>
           <div className="flex items-center gap-3">
             <button className="relative p-2 rounded-lg hover:bg-gray-100">
               <Bell size={20} className="text-gray-600" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-[#e94560] rounded-full" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-[#c49a1a] rounded-full" />
             </button>
             <button onClick={handleLogout} className="hidden md:flex items-center gap-2 text-sm text-gray-600 hover:text-red-500">
               <LogOut size={16} /> Logout

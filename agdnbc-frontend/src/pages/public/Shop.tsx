@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ShoppingCart, Package, Download, Truck, X, Plus, Minus } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -54,8 +54,8 @@ export default function Shop() {
 
   return (
     <div>
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4 text-center">
-        <p className="section-subtitle text-[#e94560]">Official College Store</p>
+      <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-24 px-4 text-center">
+        <p className="section-subtitle text-[#c49a1a]">Official College Store</p>
         <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Shop</h1>
         <p className="text-blue-200 text-lg max-w-2xl mx-auto">
           Purchase academic materials, merchandise, and more. Digital items are available for instant download.
@@ -72,7 +72,7 @@ export default function Shop() {
                   key={cat}
                   onClick={() => setFilter(cat)}
                   className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                    filter === cat ? 'bg-[#0f3460] text-white' : 'bg-white text-gray-600 hover:bg-gray-100'
+                    filter === cat ? 'bg-[#1b2473] text-white' : 'bg-white text-gray-600 hover:bg-gray-100'
                   }`}
                 >
                   {cat}
@@ -85,7 +85,7 @@ export default function Shop() {
             >
               <ShoppingCart size={18} /> Cart
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 w-5 h-5 bg-[#e94560] rounded-full text-xs flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 w-5 h-5 bg-[#c49a1a] rounded-full text-xs flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -96,10 +96,10 @@ export default function Shop() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((product) => (
               <div key={product.id} className="card overflow-hidden">
-                <div className="bg-[#0f3460] h-2" />
+                <div className="bg-[#1b2473] h-2" />
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-bold text-[#e94560] uppercase tracking-wider">{product.category}</span>
+                    <span className="text-xs font-bold text-[#c49a1a] uppercase tracking-wider">{product.category}</span>
                     <span className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full ${
                       product.type === 'digital' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
                     }`}>
@@ -107,11 +107,11 @@ export default function Shop() {
                       {product.type === 'digital' ? 'Soft Copy' : 'Hard Copy'}
                     </span>
                   </div>
-                  <h3 className="font-bold text-[#0f3460] text-lg mb-2">{product.name}</h3>
+                  <h3 className="font-bold text-[#1b2473] text-lg mb-2">{product.name}</h3>
                   <p className="text-sm text-gray-500 mb-4 leading-relaxed">{product.description}</p>
                   <div className="flex items-center justify-between">
-                    <span className="text-xl font-extrabold text-[#0f3460]">
-                      ₦{product.price.toLocaleString()}
+                    <span className="text-xl font-extrabold text-[#1b2473]">
+                      â‚¦{product.price.toLocaleString()}
                     </span>
                     <button onClick={() => addToCart(product)} className="btn-accent text-sm py-2">
                       <ShoppingCart size={15} /> Add to Cart
@@ -130,7 +130,7 @@ export default function Shop() {
           <div className="flex-1 bg-black/40" onClick={() => setCartOpen(false)} />
           <div className="w-full max-w-md bg-white flex flex-col shadow-2xl">
             <div className="flex items-center justify-between p-5 border-b">
-              <h2 className="font-bold text-[#0f3460] text-lg">Your Cart ({cartCount})</h2>
+              <h2 className="font-bold text-[#1b2473] text-lg">Your Cart ({cartCount})</h2>
               <button onClick={() => setCartOpen(false)} className="p-2 hover:bg-gray-100 rounded-full">
                 <X size={20} />
               </button>
@@ -142,7 +142,7 @@ export default function Shop() {
                 cart.map((item) => (
                   <div key={item.id} className="border border-gray-100 rounded-xl p-4">
                     <div className="flex justify-between mb-2">
-                      <div className="font-semibold text-[#0f3460] text-sm">{item.name}</div>
+                      <div className="font-semibold text-[#1b2473] text-sm">{item.name}</div>
                       <button onClick={() => removeFromCart(item.id)} className="text-gray-400 hover:text-red-500">
                         <X size={14} />
                       </button>
@@ -157,7 +157,7 @@ export default function Shop() {
                           <Plus size={12} />
                         </button>
                       </div>
-                      <span className="font-bold text-[#0f3460]">₦{(item.price * item.qty).toLocaleString()}</span>
+                      <span className="font-bold text-[#1b2473]">â‚¦{(item.price * item.qty).toLocaleString()}</span>
                     </div>
                     {item.type === 'physical' && (
                       <div className="mt-3">
@@ -166,7 +166,7 @@ export default function Shop() {
                           <button
                             onClick={() => setDelivery(item.id, 'pickup')}
                             className={`flex-1 text-xs py-1.5 rounded-lg border font-medium transition-all ${
-                              item.deliveryType === 'pickup' ? 'bg-[#0f3460] text-white border-[#0f3460]' : 'bg-white text-gray-600 border-gray-200'
+                              item.deliveryType === 'pickup' ? 'bg-[#1b2473] text-white border-[#1b2473]' : 'bg-white text-gray-600 border-gray-200'
                             }`}
                           >
                             <Package size={10} className="inline mr-1" /> Pickup (Free)
@@ -174,10 +174,10 @@ export default function Shop() {
                           <button
                             onClick={() => setDelivery(item.id, 'delivery')}
                             className={`flex-1 text-xs py-1.5 rounded-lg border font-medium transition-all ${
-                              item.deliveryType === 'delivery' ? 'bg-[#0f3460] text-white border-[#0f3460]' : 'bg-white text-gray-600 border-gray-200'
+                              item.deliveryType === 'delivery' ? 'bg-[#1b2473] text-white border-[#1b2473]' : 'bg-white text-gray-600 border-gray-200'
                             }`}
                           >
-                            <Truck size={10} className="inline mr-1" /> Delivery (₦2,000)
+                            <Truck size={10} className="inline mr-1" /> Delivery (â‚¦2,000)
                           </button>
                         </div>
                       </div>
@@ -189,15 +189,15 @@ export default function Shop() {
             {cart.length > 0 && (
               <div className="border-t p-5 space-y-2">
                 <div className="flex justify-between text-sm text-gray-600">
-                  <span>Subtotal</span><span>₦{subtotal.toLocaleString()}</span>
+                  <span>Subtotal</span><span>â‚¦{subtotal.toLocaleString()}</span>
                 </div>
                 {deliveryFee > 0 && (
                   <div className="flex justify-between text-sm text-gray-600">
-                    <span>Delivery</span><span>₦{deliveryFee.toLocaleString()}</span>
+                    <span>Delivery</span><span>â‚¦{deliveryFee.toLocaleString()}</span>
                   </div>
                 )}
-                <div className="flex justify-between font-bold text-[#0f3460] text-lg pt-2 border-t">
-                  <span>Total</span><span>₦{total.toLocaleString()}</span>
+                <div className="flex justify-between font-bold text-[#1b2473] text-lg pt-2 border-t">
+                  <span>Total</span><span>â‚¦{total.toLocaleString()}</span>
                 </div>
                 <button
                   onClick={() => { setCartOpen(false); toast('Redirecting to payment...') }}

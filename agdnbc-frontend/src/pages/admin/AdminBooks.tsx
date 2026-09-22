@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { BookOpen, Plus, Edit, Trash2, Eye, EyeOff, ExternalLink, Library } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -17,40 +17,40 @@ interface Book {
 const sections = [
   'General Resources',
   // Year 1
-  'SPF101 – Spiritual Formation',
-  'ESM102 – Essentials of Supportive Ministry',
-  'HMT103 – Hermeneutics',
-  'PPS104 – Prayer Principles',
-  'ECC105 – Ecclesiology',
-  'MSG106 – Missiology',
-  'BLG107 – Bible Language (Greek)',
-  'PTM108 – Practical Theology of Ministry',
-  'BLH109 – Bible Language (Hebrew)',
-  'MNE110 – Ministerial Ethics/Etiquettes',
-  'BBF111 – Biblical Faith',
-  'CAL112 – Church Admin/Leadership',
-  'FMM113 – Family, Marriage, and Ministry',
-  'FOG114 – Fundamentals of GEWC',
-  'KDH115 – Kingdom Honour',
+  'SPF101 â€“ Spiritual Formation',
+  'ESM102 â€“ Essentials of Supportive Ministry',
+  'HMT103 â€“ Hermeneutics',
+  'PPS104 â€“ Prayer Principles',
+  'ECC105 â€“ Ecclesiology',
+  'MSG106 â€“ Missiology',
+  'BLG107 â€“ Bible Language (Greek)',
+  'PTM108 â€“ Practical Theology of Ministry',
+  'BLH109 â€“ Bible Language (Hebrew)',
+  'MNE110 â€“ Ministerial Ethics/Etiquettes',
+  'BBF111 â€“ Biblical Faith',
+  'CAL112 â€“ Church Admin/Leadership',
+  'FMM113 â€“ Family, Marriage, and Ministry',
+  'FOG114 â€“ Fundamentals of GEWC',
+  'KDH115 â€“ Kingdom Honour',
   // Year 2
-  'PNM201 – Pneumatology',
-  'RMG202 – Research Methodology',
-  'WRS203 – World Religions',
-  'STG204 – Systematic Theology',
-  'APG205 – Apologetics',
-  'CHT206 – Church History',
-  'HML207 – Homiletics',
-  'OTL208 – Old Testament Literature',
-  'NTL209 – New Testament Literature',
-  'APE210 – Apocalypse/Eschatology',
-  'ECP211 – Essentials of Christian Perfection',
-  'CHC212 – Christian Counselling',
-  'IRM213 – Itinerant Ministry',
-  'TYM214 – Teens/Youth Ministry',
-  'WSM215 – Worship Ministry',
-  'PJM216 – Project Management',
-  'PNP217 – Pioneering Principles',
-  'EFM218 – Excellence in Facilities and Management',
+  'PNM201 â€“ Pneumatology',
+  'RMG202 â€“ Research Methodology',
+  'WRS203 â€“ World Religions',
+  'STG204 â€“ Systematic Theology',
+  'APG205 â€“ Apologetics',
+  'CHT206 â€“ Church History',
+  'HML207 â€“ Homiletics',
+  'OTL208 â€“ Old Testament Literature',
+  'NTL209 â€“ New Testament Literature',
+  'APE210 â€“ Apocalypse/Eschatology',
+  'ECP211 â€“ Essentials of Christian Perfection',
+  'CHC212 â€“ Christian Counselling',
+  'IRM213 â€“ Itinerant Ministry',
+  'TYM214 â€“ Teens/Youth Ministry',
+  'WSM215 â€“ Worship Ministry',
+  'PJM216 â€“ Project Management',
+  'PNP217 â€“ Pioneering Principles',
+  'EFM218 â€“ Excellence in Facilities and Management',
 ]
 
 const blank: Omit<Book, 'id' | 'addedAt'> = {
@@ -127,7 +127,7 @@ export default function AdminBooks() {
               key={s}
               onClick={() => setFilterSection(s)}
               className={`text-xs px-3 py-1.5 rounded-full font-medium transition-all ${
-                filterSection === s ? 'bg-[#0f3460] text-white' : 'bg-white border border-gray-200 text-gray-500 hover:border-[#0f3460]'
+                filterSection === s ? 'bg-[#1b2473] text-white' : 'bg-white border border-gray-200 text-gray-500 hover:border-[#1b2473]'
               }`}
             >
               {s}
@@ -144,7 +144,7 @@ export default function AdminBooks() {
           { label: 'Hidden', value: books.filter(b => !b.available).length },
         ].map(({ label, value }) => (
           <div key={label} className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-            <div className="text-2xl font-bold text-[#0f3460]">{value}</div>
+            <div className="text-2xl font-bold text-[#1b2473]">{value}</div>
             <div className="text-xs text-gray-500 mt-0.5">{label}</div>
           </div>
         ))}
@@ -177,8 +177,8 @@ export default function AdminBooks() {
                 <tr key={book.id} className="border-b border-gray-50 hover:bg-[#f7f9fc] transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-[#0f3460]/10 rounded-lg flex items-center justify-center shrink-0">
-                        <BookOpen size={16} className="text-[#0f3460]" />
+                      <div className="w-9 h-9 bg-[#1b2473]/10 rounded-lg flex items-center justify-center shrink-0">
+                        <BookOpen size={16} className="text-[#1b2473]" />
                       </div>
                       <div>
                         <div className="font-semibold text-[#1a1a2e] text-sm">{book.title}</div>
@@ -189,7 +189,7 @@ export default function AdminBooks() {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-xs font-semibold bg-[#0f3460]/10 text-[#0f3460] px-2 py-1 rounded-lg">
+                    <span className="text-xs font-semibold bg-[#1b2473]/10 text-[#1b2473] px-2 py-1 rounded-lg">
                       {book.section}
                     </span>
                   </td>
@@ -215,19 +215,19 @@ export default function AdminBooks() {
                         href={book.pdfUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#0f3460] transition-colors"
+                        className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#1b2473] transition-colors"
                         title="Preview PDF"
                       >
                         <ExternalLink size={14} />
                       </a>
                       <button
                         onClick={() => toggle(book.id)}
-                        className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#0f3460] transition-colors"
+                        className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#1b2473] transition-colors"
                         title={book.available ? 'Hide from students' : 'Show to students'}
                       >
                         {book.available ? <Eye size={14} /> : <EyeOff size={14} />}
                       </button>
-                      <button onClick={() => openEdit(book)} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#0f3460] transition-colors">
+                      <button onClick={() => openEdit(book)} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#1b2473] transition-colors">
                         <Edit size={14} />
                       </button>
                       <button onClick={() => remove(book.id)} className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-500 transition-colors">
@@ -248,10 +248,10 @@ export default function AdminBooks() {
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-100 flex items-center justify-between">
               <h3 className="text-lg font-bold text-[#1a1a2e] flex items-center gap-2">
-                <BookOpen size={18} className="text-[#0f3460]" />
+                <BookOpen size={18} className="text-[#1b2473]" />
                 {editingBook ? 'Edit Book' : 'Add Book to Library'}
               </h3>
-              <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">✕</button>
+              <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">âœ•</button>
             </div>
             <div className="p-6 space-y-4">
               <div>
@@ -278,7 +278,7 @@ export default function AdminBooks() {
                   type="url"
                 />
                 <p className="text-xs text-gray-400 mt-1">
-                  Use a publicly accessible PDF URL (Google Drive, Dropbox, etc.). Students will read it in a protected viewer — downloading is disabled.
+                  Use a publicly accessible PDF URL (Google Drive, Dropbox, etc.). Students will read it in a protected viewer â€” downloading is disabled.
                 </p>
               </div>
               <div className="flex items-center gap-3 p-4 bg-[#f7f9fc] rounded-xl">

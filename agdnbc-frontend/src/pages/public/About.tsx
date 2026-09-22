@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { ArrowRight, Target, Eye, Heart } from 'lucide-react'
 
 const values = [
@@ -12,9 +12,9 @@ export default function About() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0f3460] to-[#16213e] text-white py-24 px-4">
+      <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="section-subtitle text-[#e94560]">Our Story</p>
+          <p className="section-subtitle text-[#c49a1a]">Our Story</p>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6">About AGDNBC</h1>
           <p className="text-blue-200 text-lg leading-relaxed">
             Founded on the vision of Apostle Geoffrey Dabibi Numbere, our college stands as a beacon
@@ -31,7 +31,7 @@ export default function About() {
             <h2 className="section-title">Our History & Foundation</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               The Apostle Geoffrey Dabibi Numbere Bible College was established to carry forward the
-              legacy of one of Nigeria's foremost apostles — a man whose life was marked by unwavering
+              legacy of one of Nigeria's foremost apostles â€” a man whose life was marked by unwavering
               faith, sacrificial service, and an unquenchable passion for souls.
             </p>
             <p className="text-gray-600 leading-relaxed mb-4">
@@ -53,7 +53,7 @@ export default function About() {
                 { value: '10+', label: 'Faculty Members' },
               ].map((item) => (
                 <div key={item.label} className="text-center">
-                  <div className="text-3xl font-extrabold text-[#0f3460] mb-1">{item.year || item.value}</div>
+                  <div className="text-3xl font-extrabold text-[#1b2473] mb-1">{item.year || item.value}</div>
                   <div className="text-sm text-gray-500">{item.label}</div>
                 </div>
               ))}
@@ -84,10 +84,10 @@ export default function About() {
               },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 text-center">
-                <div className="w-14 h-14 bg-[#0f3460] rounded-full flex items-center justify-center mx-auto mb-5">
+                <div className="w-14 h-14 bg-[#1b2473] rounded-full flex items-center justify-center mx-auto mb-5">
                   <Icon size={24} className="text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0f3460] mb-4">{title}</h3>
+                <h3 className="text-xl font-bold text-[#1b2473] mb-4">{title}</h3>
                 <p className="text-gray-600 leading-relaxed text-sm">{text}</p>
               </div>
             ))}
@@ -100,8 +100,8 @@ export default function About() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map(({ title, desc }) => (
-              <div key={title} className="bg-white rounded-xl p-6 border-l-4 border-[#e94560] shadow-sm">
-                <h4 className="font-bold text-[#0f3460] mb-2">{title}</h4>
+              <div key={title} className="bg-white rounded-xl p-6 border-l-4 border-[#c49a1a] shadow-sm">
+                <h4 className="font-bold text-[#1b2473] mb-2">{title}</h4>
                 <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -110,7 +110,7 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-[#0f3460] text-white text-center px-4">
+      <section className="py-16 bg-[#1b2473] text-white text-center px-4">
         <h2 className="text-3xl font-bold mb-4">Be Part of Our Story</h2>
         <p className="text-blue-200 mb-8 max-w-xl mx-auto">
           Join thousands of believers who have been transformed through the ministry of the Word at AGDNBC.

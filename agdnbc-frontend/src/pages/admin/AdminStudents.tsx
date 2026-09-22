@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Search, Plus, User, CheckCircle, XCircle, Edit, Eye } from 'lucide-react'
 import { adminGetStudents, adminCreateStudent } from '../../services/api'
@@ -147,7 +147,7 @@ export default function AdminStudents() {
                 <tr key={student.id} className="border-b border-gray-50 hover:bg-[#f7f9fc] transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-[#0f3460] rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0">
+                      <div className="w-9 h-9 bg-[#1b2473] rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0">
                         {student.name.charAt(0)}
                       </div>
                       <div>
@@ -157,8 +157,8 @@ export default function AdminStudents() {
                     </div>
                   </td>
                   <td className="px-6 py-4 font-mono text-xs text-gray-600">{student.schoolId}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{(student as typeof mockStudents[0]).campus ?? '—'}</td>
-                  <td className="px-6 py-4 text-center text-sm text-[#0f3460] font-semibold">{student.level}</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">{(student as typeof mockStudents[0]).campus ?? 'â€”'}</td>
+                  <td className="px-6 py-4 text-center text-sm text-[#1b2473] font-semibold">{student.level}</td>
                   <td className="px-6 py-4 text-center">
                     {student.portalAccess
                       ? <CheckCircle size={16} className="text-green-500 mx-auto" />
@@ -173,8 +173,8 @@ export default function AdminStudents() {
                   </td>
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-[#0f3460]"><Eye size={15} /></button>
-                      <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-[#e94560]"><Edit size={15} /></button>
+                      <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-[#1b2473]"><Eye size={15} /></button>
+                      <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-[#c49a1a]"><Edit size={15} /></button>
                     </div>
                   </td>
                 </tr>

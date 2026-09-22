@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { Users, CreditCard, ClipboardList, TrendingUp, BookOpen, AlertCircle } from 'lucide-react'
 import { adminGetDashboardStats } from '../../services/api'
 
@@ -25,7 +25,7 @@ export default function AdminDashboard() {
 
   const cards = [
     { label: 'Total Students', value: stats.totalStudents, icon: Users, color: 'bg-blue-50 text-blue-700', change: '+12 this month' },
-    { label: 'Revenue Collected', value: `₦${(stats.totalRevenue / 1000000).toFixed(1)}M`, icon: CreditCard, color: 'bg-green-50 text-green-700', change: '₦840K this month' },
+    { label: 'Revenue Collected', value: `â‚¦${(stats.totalRevenue / 1000000).toFixed(1)}M`, icon: CreditCard, color: 'bg-green-50 text-green-700', change: 'â‚¦840K this month' },
     { label: 'Pending Payments', value: stats.pendingPayments, icon: AlertCircle, color: 'bg-orange-50 text-orange-700', change: 'Needs attention' },
     { label: 'Active Exams', value: stats.activeExams, icon: ClipboardList, color: 'bg-purple-50 text-purple-700', change: '3 in progress' },
     { label: 'Active Students', value: stats.activeStudents, icon: TrendingUp, color: 'bg-teal-50 text-teal-700', change: '94% of enrolled' },
@@ -90,9 +90,9 @@ export default function AdminDashboard() {
               <a
                 key={label}
                 href={to}
-                className="flex items-center gap-2 p-3 bg-[#f7f9fc] rounded-xl text-sm font-medium text-[#1a1a2e] hover:bg-[#0f3460] hover:text-white transition-all group"
+                className="flex items-center gap-2 p-3 bg-[#f7f9fc] rounded-xl text-sm font-medium text-[#1a1a2e] hover:bg-[#1b2473] hover:text-white transition-all group"
               >
-                <Icon size={16} className="text-[#e94560] group-hover:text-white" /> {label}
+                <Icon size={16} className="text-[#c49a1a] group-hover:text-white" /> {label}
               </a>
             ))}
           </div>

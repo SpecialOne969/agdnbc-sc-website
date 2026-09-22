@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { BookOpen, Clock, User } from 'lucide-react'
 import { getMyCourses } from '../../services/api'
 
@@ -22,13 +22,13 @@ export default function StudentCourses() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[#0f3460]">My Registered Courses</h2>
-        <span className="text-sm text-gray-500">{courses.length} courses · 2025/2026 Session</span>
+        <h2 className="text-xl font-bold text-[#1b2473]">My Registered Courses</h2>
+        <span className="text-sm text-gray-500">{courses.length} courses Â· 2025/2026 Session</span>
       </div>
 
       {semesters.map((sem) => (
         <div key={sem as string}>
-          <h3 className="font-semibold text-[#e94560] text-sm uppercase tracking-wider mb-3">{sem as string}</h3>
+          <h3 className="font-semibold text-[#c49a1a] text-sm uppercase tracking-wider mb-3">{sem as string}</h3>
           <div className="grid md:grid-cols-2 gap-4">
             {courses
               .filter((c: typeof mockCourses[0]) => c.semester === sem)
@@ -36,12 +36,12 @@ export default function StudentCourses() {
                 <div key={course.id} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-[#0f3460]/10 rounded-xl flex items-center justify-center">
-                        <BookOpen size={18} className="text-[#0f3460]" />
+                      <div className="w-10 h-10 bg-[#1b2473]/10 rounded-xl flex items-center justify-center">
+                        <BookOpen size={18} className="text-[#1b2473]" />
                       </div>
                       <div>
-                        <span className="text-xs font-bold text-[#e94560]">{course.code}</span>
-                        <h4 className="font-bold text-[#0f3460] text-sm">{course.name}</h4>
+                        <span className="text-xs font-bold text-[#c49a1a]">{course.code}</span>
+                        <h4 className="font-bold text-[#1b2473] text-sm">{course.name}</h4>
                       </div>
                     </div>
                     <span className={`text-xs px-2 py-1 rounded-full font-semibold ${
@@ -62,7 +62,7 @@ export default function StudentCourses() {
 
       <div className="bg-[#f7f9fc] rounded-xl p-4 flex items-center justify-between">
         <span className="text-sm text-gray-600">Total Credit Units</span>
-        <span className="font-bold text-[#0f3460] text-lg">
+        <span className="font-bold text-[#1b2473] text-lg">
           {courses.reduce((sum: number, c: typeof mockCourses[0]) => sum + c.credit, 0)} Units
         </span>
       </div>

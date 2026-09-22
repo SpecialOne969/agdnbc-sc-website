@@ -16,6 +16,7 @@ import NewsEvents from './pages/public/NewsEvents'
 import Partnership from './pages/public/Partnership'
 import Shop from './pages/public/Shop'
 import Gallery from './pages/public/Gallery'
+import Attendance from './pages/public/Attendance'
 
 // Portal pages
 import StudentLogin from './pages/portal/StudentLogin'
@@ -57,6 +58,7 @@ export default function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/attendance" element={<Attendance />} />
         </Route>
 
         {/* Student Portal */}

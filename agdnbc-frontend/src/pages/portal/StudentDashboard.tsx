@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { BookOpen, FileText, ClipboardList, CreditCard, Bell, AlertCircle, CheckCircle, ChevronRight } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
@@ -26,10 +26,10 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-6">
       {/* Welcome */}
-      <div className="bg-gradient-to-r from-[#0f3460] to-[#16213e] rounded-2xl p-6 text-white">
-        <h2 className="text-xl font-bold mb-1">Welcome back, {user?.name?.split(' ')[0] || 'Student'} 👋</h2>
+      <div className="bg-gradient-to-r from-[#1b2473] to-[#16213e] rounded-2xl p-6 text-white">
+        <h2 className="text-xl font-bold mb-1">Welcome back, {user?.name?.split(' ')[0] || 'Student'} ðŸ‘‹</h2>
         <p className="text-blue-200 text-sm">
-          {user?.programme || 'Diploma in Biblical Studies'} · {user?.level || 'Year 1'} · {user?.schoolId}
+          {user?.programme || 'Diploma in Biblical Studies'} Â· {user?.level || 'Year 1'} Â· {user?.schoolId}
         </p>
       </div>
 
@@ -40,7 +40,7 @@ export default function StudentDashboard() {
           <div className="flex-1">
             <p className="font-semibold text-amber-800 text-sm">School Fees Required for Portal Access</p>
             <p className="text-xs text-amber-700 mt-1">
-              Your portal access is activated when school fees are paid. Year 1: ₦105,000 · Year 2: ₦155,000 (includes portal access).
+              Your portal access is activated when school fees are paid. Year 1: â‚¦105,000 Â· Year 2: â‚¦155,000 (includes portal access).
             </p>
           </div>
           <Link to="/portal/payments" className="text-xs bg-amber-600 text-white px-3 py-1.5 rounded-lg hover:bg-amber-700 whitespace-nowrap">
@@ -64,7 +64,7 @@ export default function StudentDashboard() {
 
       {/* Quick Links */}
       <div>
-        <h3 className="font-bold text-[#0f3460] mb-4">Quick Access</h3>
+        <h3 className="font-bold text-[#1b2473] mb-4">Quick Access</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {quickLinks.map(({ label, icon: Icon, to, color }) => (
             <Link key={to} to={to} className={`${color} rounded-xl p-5 flex flex-col items-center gap-3 hover:opacity-80 transition-opacity group`}>
@@ -79,10 +79,10 @@ export default function StudentDashboard() {
       <div className="grid md:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
           <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-            <h3 className="font-bold text-[#0f3460] flex items-center gap-2">
+            <h3 className="font-bold text-[#1b2473] flex items-center gap-2">
               <ClipboardList size={18} /> Upcoming Exams
             </h3>
-            <Link to="/portal/exams" className="text-xs text-[#e94560] hover:underline flex items-center gap-1">
+            <Link to="/portal/exams" className="text-xs text-[#c49a1a] hover:underline flex items-center gap-1">
               View All <ChevronRight size={12} />
             </Link>
           </div>
@@ -97,10 +97,10 @@ export default function StudentDashboard() {
                 {upcomingExams.slice(0, 3).map((exam: { id: string; title: string; date: string; duration: number }) => (
                   <div key={exam.id} className="flex items-center justify-between p-3 bg-[#f7f9fc] rounded-lg">
                     <div>
-                      <p className="text-sm font-semibold text-[#0f3460]">{exam.title}</p>
-                      <p className="text-xs text-gray-400">{exam.date} · {exam.duration} mins</p>
+                      <p className="text-sm font-semibold text-[#1b2473]">{exam.title}</p>
+                      <p className="text-xs text-gray-400">{exam.date} Â· {exam.duration} mins</p>
                     </div>
-                    <Link to={`/portal/exams/${exam.id}/take`} className="text-xs bg-[#0f3460] text-white px-3 py-1 rounded-lg">
+                    <Link to={`/portal/exams/${exam.id}/take`} className="text-xs bg-[#1b2473] text-white px-3 py-1 rounded-lg">
                       Take Exam
                     </Link>
                   </div>
@@ -112,7 +112,7 @@ export default function StudentDashboard() {
 
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
           <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-            <h3 className="font-bold text-[#0f3460] flex items-center gap-2">
+            <h3 className="font-bold text-[#1b2473] flex items-center gap-2">
               <Bell size={18} /> Announcements
             </h3>
           </div>
@@ -126,9 +126,9 @@ export default function StudentDashboard() {
               <div className="space-y-3">
                 {announcementList.slice(0, 4).map((a: { id: string; title: string; body: string; createdAt: string }) => (
                   <div key={a.id} className="flex gap-3 p-3 bg-[#f7f9fc] rounded-lg">
-                    <CheckCircle size={16} className="text-[#e94560] shrink-0 mt-0.5" />
+                    <CheckCircle size={16} className="text-[#c49a1a] shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-semibold text-[#0f3460]">{a.title}</p>
+                      <p className="text-sm font-semibold text-[#1b2473]">{a.title}</p>
                       <p className="text-xs text-gray-500 mt-0.5">{a.body}</p>
                     </div>
                   </div>

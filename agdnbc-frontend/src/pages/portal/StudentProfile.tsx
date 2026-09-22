@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { User, Mail, Phone, BookOpen, Hash, Calendar, Save, Camera } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -56,7 +56,7 @@ export default function StudentProfile() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-bold text-[#0f3460]">My Profile</h2>
+      <h2 className="text-xl font-bold text-[#1b2473]">My Profile</h2>
 
       <div className="grid md:grid-cols-3 gap-6">
         {/* Avatar card */}
@@ -64,7 +64,7 @@ export default function StudentProfile() {
           {/* Clickable photo avatar */}
           <div className="relative w-24 h-24 mx-auto mb-4">
             <div
-              className="w-24 h-24 rounded-full overflow-hidden cursor-pointer ring-4 ring-[#0f3460]/10 hover:ring-[#e94560]/30 transition-all"
+              className="w-24 h-24 rounded-full overflow-hidden cursor-pointer ring-4 ring-[#1b2473]/10 hover:ring-[#c49a1a]/30 transition-all"
               onClick={() => fileInputRef.current?.click()}
               onMouseEnter={() => setPhotoHover(true)}
               onMouseLeave={() => setPhotoHover(false)}
@@ -72,7 +72,7 @@ export default function StudentProfile() {
               {photo ? (
                 <img src={photo} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full bg-[#0f3460] flex items-center justify-center text-white text-3xl font-bold">
+                <div className="w-full h-full bg-[#1b2473] flex items-center justify-center text-white text-3xl font-bold">
                   {user?.name?.charAt(0) || 'S'}
                 </div>
               )}
@@ -88,7 +88,7 @@ export default function StudentProfile() {
             {/* Camera badge */}
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="absolute bottom-0 right-0 w-7 h-7 bg-[#e94560] rounded-full flex items-center justify-center shadow-md hover:bg-[#c73652] transition-colors"
+              className="absolute bottom-0 right-0 w-7 h-7 bg-[#c49a1a] rounded-full flex items-center justify-center shadow-md hover:bg-[#c73652] transition-colors"
             >
               <Camera size={13} className="text-white" />
             </button>
@@ -105,8 +105,8 @@ export default function StudentProfile() {
 
           <p className="text-xs text-gray-400 mb-3">Click photo to change</p>
 
-          <h3 className="font-bold text-[#0f3460] text-lg">{user?.name}</h3>
-          <p className="text-[#e94560] text-sm font-mono">{user?.schoolId}</p>
+          <h3 className="font-bold text-[#1b2473] text-lg">{user?.name}</h3>
+          <p className="text-[#c49a1a] text-sm font-mono">{user?.schoolId}</p>
           <div className="mt-4 space-y-2 text-left">
             {[
               { label: 'Level', value: profile.level || user?.level || 'Year 1' },
@@ -116,7 +116,7 @@ export default function StudentProfile() {
             ].map(({ label, value }) => (
               <div key={label} className="flex justify-between text-sm">
                 <span className="text-gray-500">{label}</span>
-                <span className="font-semibold text-[#0f3460]">{value}</span>
+                <span className="font-semibold text-[#1b2473]">{value}</span>
               </div>
             ))}
           </div>
@@ -126,7 +126,7 @@ export default function StudentProfile() {
         <div className="md:col-span-2 space-y-5">
           {/* Read-only info */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <h4 className="font-bold text-[#0f3460] mb-4">Academic Information</h4>
+            <h4 className="font-bold text-[#1b2473] mb-4">Academic Information</h4>
             <div className="grid grid-cols-2 gap-4">
               {[
                 { icon: Hash, label: 'School ID', value: user?.schoolId },
@@ -138,7 +138,7 @@ export default function StudentProfile() {
                   <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
                     <Icon size={12} /> {label}
                   </div>
-                  <div className="font-semibold text-[#0f3460] text-sm font-mono">{value}</div>
+                  <div className="font-semibold text-[#1b2473] text-sm font-mono">{value}</div>
                 </div>
               ))}
             </div>
@@ -146,7 +146,7 @@ export default function StudentProfile() {
 
           {/* Editable info */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <h4 className="font-bold text-[#0f3460] mb-4">Contact Information <span className="text-xs font-normal text-gray-400">(editable)</span></h4>
+            <h4 className="font-bold text-[#1b2473] mb-4">Contact Information <span className="text-xs font-normal text-gray-400">(editable)</span></h4>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
