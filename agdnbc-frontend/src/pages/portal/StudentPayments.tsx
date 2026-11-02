@@ -11,10 +11,10 @@ const BANK_DETAILS = {
 
 const paymentCategories = [
   { label: 'Registration Fee', amount: 10000 },
-  { label: 'School Fees â€“ Year 1 (1st Installment)', amount: 52500 },
-  { label: 'School Fees â€“ Year 1 (2nd Installment)', amount: 52500 },
-  { label: 'School Fees â€“ Year 2 (1st Installment)', amount: 77500 },
-  { label: 'School Fees â€“ Year 2 (2nd Installment)', amount: 77500 },
+  { label: 'School Fees – Year 1 (1st Installment)', amount: 52500 },
+  { label: 'School Fees – Year 1 (2nd Installment)', amount: 52500 },
+  { label: 'School Fees – Year 2 (1st Installment)', amount: 77500 },
+  { label: 'School Fees – Year 2 (2nd Installment)', amount: 77500 },
   { label: 'Graduation Fee', amount: 10000 },
 ]
 
@@ -48,7 +48,7 @@ export default function StudentPayments() {
       const res = await api.get('/payments/claims/mine')
       setClaims(res.data)
     } catch {
-      // silently fail â€” student may just have no claims yet
+      // silently fail — student may just have no claims yet
     } finally {
       setLoading(false)
     }
@@ -98,7 +98,7 @@ export default function StudentPayments() {
       <div className="grid md:grid-cols-3 gap-4">
         <div className="bg-green-50 border border-green-200 rounded-xl p-5">
           <div className="text-xs text-green-600 font-semibold mb-1">Total Approved</div>
-          <div className="text-2xl font-bold text-green-700">â‚¦{totalApproved.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-green-700">₦{totalApproved.toLocaleString()}</div>
         </div>
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-5">
           <div className="text-xs text-orange-600 font-semibold mb-1">Awaiting Approval</div>
@@ -154,7 +154,7 @@ export default function StudentPayments() {
           {paymentCategories.map(cat => (
             <div key={cat.label} className="flex justify-between items-center px-6 py-4">
               <span className="text-sm text-gray-700">{cat.label}</span>
-              <span className="font-bold text-[#1b2473]">â‚¦{cat.amount.toLocaleString()}</span>
+              <span className="font-bold text-[#1b2473]">₦{cat.amount.toLocaleString()}</span>
             </div>
           ))}
         </div>
@@ -192,7 +192,7 @@ export default function StudentPayments() {
                       <td className="px-6 py-4 text-sm text-gray-500">
                         {new Date(claim.submittedAt).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </td>
-                      <td className="px-6 py-4 text-right font-bold text-[#1b2473]">â‚¦{claim.amount.toLocaleString()}</td>
+                      <td className="px-6 py-4 text-right font-bold text-[#1b2473]">₦{claim.amount.toLocaleString()}</td>
                       <td className="px-6 py-4 text-center">
                         <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${cfg.color}`}>
                           <Icon size={11} /> {cfg.label}
@@ -238,7 +238,7 @@ export default function StudentPayments() {
                   onChange={e => setSelected(paymentCategories.find(c => c.label === e.target.value)!)}
                 >
                   {paymentCategories.map(c => (
-                    <option key={c.label} value={c.label}>{c.label} â€” â‚¦{c.amount.toLocaleString()}</option>
+                    <option key={c.label} value={c.label}>{c.label} — ₦{c.amount.toLocaleString()}</option>
                   ))}
                 </select>
               </div>
@@ -254,7 +254,7 @@ export default function StudentPayments() {
               </div>
               <div className="bg-[#f7f9fc] rounded-xl p-3 flex justify-between items-center">
                 <span className="text-sm text-gray-500">Amount</span>
-                <span className="text-xl font-extrabold text-[#1b2473]">â‚¦{selected.amount.toLocaleString()}</span>
+                <span className="text-xl font-extrabold text-[#1b2473]">₦{selected.amount.toLocaleString()}</span>
               </div>
             </div>
 
@@ -264,7 +264,7 @@ export default function StudentPayments() {
               </button>
               <button onClick={handleSubmit} disabled={submitting} className="btn-primary flex-1 justify-center">
                 {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-                {submitting ? 'Sending...' : "I've Paid â€” Notify Admin"}
+                {submitting ? 'Sending...' : "I've Paid — Notify Admin"}
               </button>
             </div>
           </div>

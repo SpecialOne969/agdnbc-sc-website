@@ -162,7 +162,7 @@ export default function Partnership() {
               </div>
               <div>
                 <label className="label">Intended Amount (Optional)</label>
-                <input {...register('intendedAmount')} className="input-field" placeholder="e.g. â‚¦50,000" />
+                <input {...register('intendedAmount')} className="input-field" placeholder="e.g. ₦50,000" />
               </div>
               <div>
                 <label className="label">Message / Questions</label>

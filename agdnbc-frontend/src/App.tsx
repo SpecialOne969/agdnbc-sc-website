@@ -16,7 +16,6 @@ import NewsEvents from './pages/public/NewsEvents'
 import Partnership from './pages/public/Partnership'
 import Shop from './pages/public/Shop'
 import Gallery from './pages/public/Gallery'
-import Attendance from './pages/public/Attendance'
 
 // Portal pages
 import StudentLogin from './pages/portal/StudentLogin'
@@ -40,6 +39,7 @@ import AdminPayments from './pages/admin/AdminPayments'
 import AdminShop from './pages/admin/AdminShop'
 import AdminContent from './pages/admin/AdminContent'
 import AdminBooks from './pages/admin/AdminBooks'
+import AdminAttendance from './pages/admin/AdminAttendance'
 
 export default function App() {
   return (
@@ -58,7 +58,6 @@ export default function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/attendance" element={<Attendance />} />
         </Route>
 
         {/* Student Portal */}
@@ -87,6 +86,7 @@ export default function App() {
           <Route path="payments" element={<AdminPayments />} />
           <Route path="shop" element={<AdminShop />} />
           <Route path="library" element={<AdminBooks />} />
+          <Route path="attendance" element={<AdminAttendance />} />
           <Route path="content" element={<AdminContent />} />
         </Route>
 

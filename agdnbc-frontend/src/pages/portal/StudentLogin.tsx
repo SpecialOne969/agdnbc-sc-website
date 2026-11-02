@@ -100,7 +100,7 @@ export default function StudentLogin() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex gap-3">
             <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
             <div className="text-xs text-amber-700">
-              <strong>Portal Access</strong> is included in your school fees (â‚¦105,000 â€“ Year 1 / â‚¦155,000 â€“ Year 2). Ensure your fees are paid to retain full access.
+              <strong>Portal Access</strong> is included in your school fees (₦105,000 – Year 1 / ₦155,000 – Year 2). Ensure your fees are paid to retain full access.
             </div>
           </div>
 
@@ -159,7 +159,7 @@ export default function StudentLogin() {
                   {...register('password')}
                   type={showPwd ? 'text' : 'password'}
                   className="input-field pr-12 font-mono tracking-widest"
-                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                  placeholder="••••••••"
                   maxLength={8}
                   autoComplete="current-password"
                 />
@@ -192,14 +192,14 @@ export default function StudentLogin() {
         {/* Demo hint */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4 text-xs text-blue-700">
           <p className="font-bold mb-1">Demo Access</p>
-          <p>Year: <span className="font-mono font-semibold">2024</span> &nbsp;Â·&nbsp; Number: <span className="font-mono font-semibold">001PH</span></p>
+          <p>Year: <span className="font-mono font-semibold">2024</span> &nbsp;·&nbsp; Number: <span className="font-mono font-semibold">001PH</span></p>
           <p>Password: <span className="font-mono font-semibold">0987654</span></p>
           <p className="mt-1 text-blue-500">Full ID: <span className="font-mono font-semibold">AGDNBCSC/2024/001PH</span></p>
         </div>
 
         <div className="text-center mt-4">
           <Link to="/" className="text-sm text-gray-400 hover:text-[#1b2473]">
-            â† Back to College Website
+            ← Back to College Website
           </Link>
         </div>
       </div>

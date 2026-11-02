@@ -1,8 +1,8 @@
 import { ExternalLink } from 'lucide-react'
 
-export default function Attendance() {
+export default function AdminAttendance() {
   return (
-    <div className="min-h-[calc(100vh-88px)] flex flex-col">
+    <div className="flex flex-col h-[calc(100vh-130px)] bg-white rounded-2xl border border-gray-200 overflow-hidden">
       {/* Header bar */}
       <div className="bg-[#1b2473] text-white px-6 py-4 flex items-center justify-between shrink-0">
         <div>
@@ -24,7 +24,6 @@ export default function Attendance() {
         src="https://bibleschool-attendance.web.app"
         title="AGDNBC Attendance Portal"
         className="flex-1 w-full border-0"
-        style={{ minHeight: 'calc(100vh - 140px)' }}
         allow="fullscreen"
       />
     </div>

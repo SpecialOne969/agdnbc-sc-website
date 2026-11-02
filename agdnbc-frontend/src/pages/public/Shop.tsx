@@ -111,7 +111,7 @@ export default function Shop() {
                   <p className="text-sm text-gray-500 mb-4 leading-relaxed">{product.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xl font-extrabold text-[#1b2473]">
-                      â‚¦{product.price.toLocaleString()}
+                      ₦{product.price.toLocaleString()}
                     </span>
                     <button onClick={() => addToCart(product)} className="btn-accent text-sm py-2">
                       <ShoppingCart size={15} /> Add to Cart
@@ -157,7 +157,7 @@ export default function Shop() {
                           <Plus size={12} />
                         </button>
                       </div>
-                      <span className="font-bold text-[#1b2473]">â‚¦{(item.price * item.qty).toLocaleString()}</span>
+                      <span className="font-bold text-[#1b2473]">₦{(item.price * item.qty).toLocaleString()}</span>
                     </div>
                     {item.type === 'physical' && (
                       <div className="mt-3">
@@ -177,7 +177,7 @@ export default function Shop() {
                               item.deliveryType === 'delivery' ? 'bg-[#1b2473] text-white border-[#1b2473]' : 'bg-white text-gray-600 border-gray-200'
                             }`}
                           >
-                            <Truck size={10} className="inline mr-1" /> Delivery (â‚¦2,000)
+                            <Truck size={10} className="inline mr-1" /> Delivery (₦2,000)
                           </button>
                         </div>
                       </div>
@@ -189,15 +189,15 @@ export default function Shop() {
             {cart.length > 0 && (
               <div className="border-t p-5 space-y-2">
                 <div className="flex justify-between text-sm text-gray-600">
-                  <span>Subtotal</span><span>â‚¦{subtotal.toLocaleString()}</span>
+                  <span>Subtotal</span><span>₦{subtotal.toLocaleString()}</span>
                 </div>
                 {deliveryFee > 0 && (
                   <div className="flex justify-between text-sm text-gray-600">
-                    <span>Delivery</span><span>â‚¦{deliveryFee.toLocaleString()}</span>
+                    <span>Delivery</span><span>₦{deliveryFee.toLocaleString()}</span>
                   </div>
                 )}
                 <div className="flex justify-between font-bold text-[#1b2473] text-lg pt-2 border-t">
-                  <span>Total</span><span>â‚¦{total.toLocaleString()}</span>
+                  <span>Total</span><span>₦{total.toLocaleString()}</span>
                 </div>
                 <button
                   onClick={() => { setCartOpen(false); toast('Redirecting to payment...') }}

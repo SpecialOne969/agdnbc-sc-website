@@ -54,9 +54,9 @@ export default function Contact() {
             <div className="space-y-5">
               {[
                 { icon: MapPin, title: 'Address', content: 'AGDNBC Satellite Campus, Nigeria' },
-                { icon: Phone, title: 'Phone', content: '+234 XXX XXX XXXX' },
+                { icon: Phone, title: 'Phone', content: '+234 818 377 1136' },
                 { icon: Mail, title: 'Email', content: 'info@agdnbcsc.edu.ng' },
-                { icon: Clock, title: 'Office Hours', content: 'Mon â€“ Fri: 8am â€“ 5pm\nSat: 9am â€“ 1pm' },
+                { icon: Clock, title: 'Office Hours', content: 'Mon – Fri: 8am – 5pm\nSat: 9am – 1pm' },
               ].map(({ icon: Icon, title, content }) => (
                 <div key={title} className="flex gap-4">
                   <div className="w-11 h-11 bg-[#1b2473]/10 rounded-xl flex items-center justify-center shrink-0">

@@ -25,7 +25,7 @@ export default function AdminDashboard() {
 
   const cards = [
     { label: 'Total Students', value: stats.totalStudents, icon: Users, color: 'bg-blue-50 text-blue-700', change: '+12 this month' },
-    { label: 'Revenue Collected', value: `â‚¦${(stats.totalRevenue / 1000000).toFixed(1)}M`, icon: CreditCard, color: 'bg-green-50 text-green-700', change: 'â‚¦840K this month' },
+    { label: 'Revenue Collected', value: `₦${(stats.totalRevenue / 1000000).toFixed(1)}M`, icon: CreditCard, color: 'bg-green-50 text-green-700', change: '₦840K this month' },
     { label: 'Pending Payments', value: stats.pendingPayments, icon: AlertCircle, color: 'bg-orange-50 text-orange-700', change: 'Needs attention' },
     { label: 'Active Exams', value: stats.activeExams, icon: ClipboardList, color: 'bg-purple-50 text-purple-700', change: '3 in progress' },
     { label: 'Active Students', value: stats.activeStudents, icon: TrendingUp, color: 'bg-teal-50 text-teal-700', change: '94% of enrolled' },

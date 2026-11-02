@@ -23,7 +23,7 @@ export default function StudentCourses() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-[#1b2473]">My Registered Courses</h2>
-        <span className="text-sm text-gray-500">{courses.length} courses Â· 2025/2026 Session</span>
+        <span className="text-sm text-gray-500">{courses.length} courses · 2025/2026 Session</span>
       </div>
 
       {semesters.map((sem) => (

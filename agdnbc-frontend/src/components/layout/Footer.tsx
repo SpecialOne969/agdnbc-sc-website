@@ -18,7 +18,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-blue-200 text-sm leading-relaxed mb-4">
-              Apostle Geoffrey Dabibi Numbere Bible College â€” Equipping believers for Kingdom impact
+              Apostle Geoffrey Dabibi Numbere Bible College — Equipping believers for Kingdom impact
               through sound biblical education and spiritual formation.
             </p>
             <div className="flex gap-3">
@@ -88,7 +88,7 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <Phone size={16} className="shrink-0 text-[#c49a1a]" />
-                <a href="tel:+234XXXXXXXXXX" className="hover:text-white">+234 XXX XXX XXXX</a>
+                <a href="tel:+234 818 377 1136" className="hover:text-white">+234 818 377 1136</a>
               </li>
               <li className="flex gap-3">
                 <Mail size={16} className="shrink-0 text-[#c49a1a]" />
@@ -110,7 +110,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10 py-5">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-blue-300">
-          <span>Â© {new Date().getFullYear()} Apostle Geoffrey Dabibi Numbere Bible College, Satellite Campus. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Apostle Geoffrey Dabibi Numbere Bible College, Satellite Campus. All rights reserved.</span>
           <span>www.agdnbcsc.edu.ng</span>
         </div>
       </div>

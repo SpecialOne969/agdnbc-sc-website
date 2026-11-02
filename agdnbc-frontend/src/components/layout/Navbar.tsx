@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, ChevronDown, BookOpen, GraduationCap, ClipboardCheck } from 'lucide-react'
+import { Menu, X, ChevronDown, BookOpen, GraduationCap } from 'lucide-react'
 import logo from '../../assets/logo.jpg'
 
 const navLinks = [
@@ -23,7 +23,6 @@ const navLinks = [
       { label: 'Financial Partnership', to: '/partnership' },
     ],
   },
-  { label: 'Attendance', to: '/attendance' },
   { label: 'Shop', to: '/shop' },
   { label: 'Contact Us', to: '/contact' },
 ]
@@ -56,9 +55,6 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <span>Apostle Geoffrey Dabibi Numbere Bible College – Satellite Campus</span>
           <div className="hidden md:flex gap-4 items-center">
-            <Link to="/attendance" className="flex items-center gap-1 hover:text-[#c49a1a] transition-colors">
-              <ClipboardCheck size={12} /> Attendance
-            </Link>
             <Link to="/portal/login" className="flex items-center gap-1 hover:text-[#c49a1a] transition-colors">
               <BookOpen size={12} /> Student Portal
             </Link>
@@ -178,9 +174,6 @@ export default function Navbar() {
             )
           )}
           <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
-            <Link to="/attendance" className="btn-outline text-sm py-2 justify-center">
-              <ClipboardCheck size={15} /> Attendance
-            </Link>
             <Link to="/portal/login" className="btn-outline text-sm py-2 justify-center">
               Student Portal
             </Link>

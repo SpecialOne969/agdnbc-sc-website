@@ -2,7 +2,7 @@
 import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BookOpen, FileText, ClipboardList,
-  CreditCard, ShoppingBag, FileEdit, LogOut, Menu, Shield, Library
+  CreditCard, ShoppingBag, FileEdit, LogOut, Menu, Shield, Library, ClipboardCheck
 } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 import { api } from '../../services/api'
@@ -16,6 +16,7 @@ const adminLinks = [
   { label: 'Payments', to: '/admin/payments', icon: CreditCard },
   { label: 'Shop', to: '/admin/shop', icon: ShoppingBag },
   { label: 'Library', to: '/admin/library', icon: Library },
+  { label: 'Attendance', to: '/admin/attendance', icon: ClipboardCheck },
   { label: 'Content', to: '/admin/content', icon: FileEdit },
 ]
 

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast'
 type TabType = 'announcements' | 'news' | 'events'
 
 const mockAnnouncements = [
-  { id: '1', title: 'Portal Maintenance â€“ Saturday', body: 'The student portal will be down for maintenance on Saturday from 12am to 4am.', target: 'All Students', date: '2026-07-25' },
+  { id: '1', title: 'Portal Maintenance – Saturday', body: 'The student portal will be down for maintenance on Saturday from 12am to 4am.', target: 'All Students', date: '2026-07-25' },
   { id: '2', title: 'Exam Schedule Released', body: 'The 1st semester exam timetable has been uploaded. Check your portal for details.', target: 'All Students', date: '2026-07-22' },
 ]
 

@@ -27,9 +27,9 @@ export default function StudentDashboard() {
     <div className="space-y-6">
       {/* Welcome */}
       <div className="bg-gradient-to-r from-[#1b2473] to-[#16213e] rounded-2xl p-6 text-white">
-        <h2 className="text-xl font-bold mb-1">Welcome back, {user?.name?.split(' ')[0] || 'Student'} ðŸ‘‹</h2>
+        <h2 className="text-xl font-bold mb-1">Welcome back, {user?.name?.split(' ')[0] || 'Student'} 👋</h2>
         <p className="text-blue-200 text-sm">
-          {user?.programme || 'Diploma in Biblical Studies'} Â· {user?.level || 'Year 1'} Â· {user?.schoolId}
+          {user?.programme || 'Diploma in Biblical Studies'} · {user?.level || 'Year 1'} · {user?.schoolId}
         </p>
       </div>
 
@@ -40,7 +40,7 @@ export default function StudentDashboard() {
           <div className="flex-1">
             <p className="font-semibold text-amber-800 text-sm">School Fees Required for Portal Access</p>
             <p className="text-xs text-amber-700 mt-1">
-              Your portal access is activated when school fees are paid. Year 1: â‚¦105,000 Â· Year 2: â‚¦155,000 (includes portal access).
+              Your portal access is activated when school fees are paid. Year 1: ₦105,000 · Year 2: ₦155,000 (includes portal access).
             </p>
           </div>
           <Link to="/portal/payments" className="text-xs bg-amber-600 text-white px-3 py-1.5 rounded-lg hover:bg-amber-700 whitespace-nowrap">
@@ -98,7 +98,7 @@ export default function StudentDashboard() {
                   <div key={exam.id} className="flex items-center justify-between p-3 bg-[#f7f9fc] rounded-lg">
                     <div>
                       <p className="text-sm font-semibold text-[#1b2473]">{exam.title}</p>
-                      <p className="text-xs text-gray-400">{exam.date} Â· {exam.duration} mins</p>
+                      <p className="text-xs text-gray-400">{exam.date} · {exam.duration} mins</p>
                     </div>
                     <Link to={`/portal/exams/${exam.id}/take`} className="text-xs bg-[#1b2473] text-white px-3 py-1 rounded-lg">
                       Take Exam

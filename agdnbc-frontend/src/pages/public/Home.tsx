@@ -61,7 +61,7 @@ const news = [
   },
   {
     date: 'July 10, 2026',
-    title: 'Convocation Ceremony â€” Class of 2026',
+    title: 'Convocation Ceremony — Class of 2026',
     excerpt: 'Join us as we celebrate our graduating class at this year\'s convocation ceremony.',
     category: 'Events',
   },
@@ -83,7 +83,7 @@ export default function Home() {
 
   return (
     <div>
-      {/* â”€â”€ Hero with background carousel â”€â”€ */}
+      {/* ── Hero with background carousel ── */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {carouselImages.map((img, i) => (
           <div
@@ -106,7 +106,7 @@ export default function Home() {
             </h1>
             <p className="text-blue-200 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
               Join a community of faith where sound biblical education, spiritual formation, and practical
-              ministry training converge â€” preparing you to make a lasting impact for God's Kingdom.
+              ministry training converge — preparing you to make a lasting impact for God's Kingdom.
             </p>
             <div className="flex flex-wrap gap-4 mb-12">
               <Link to="/admissions" className="btn-accent text-base py-3.5 px-8">
@@ -130,7 +130,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10" />
       </section>
 
-      {/* â”€â”€ Stats â”€â”€ */}
+      {/* ── Stats ── */}
       <section className="bg-white py-12 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -144,7 +144,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ About snippet â”€â”€ */}
+      {/* ── About snippet ── */}
       <section className="py-20 bg-[#f7f9fc]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -158,7 +158,7 @@ export default function Home() {
               </p>
               <p className="text-gray-600 leading-relaxed mb-6">
                 Our programmes combine academic rigour with deep spiritual formation, producing graduates who
-                are not just learned, but genuinely transformed â€” ready to serve in churches, missions,
+                are not just learned, but genuinely transformed — ready to serve in churches, missions,
                 community development, and beyond.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -170,7 +170,7 @@ export default function Home() {
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-sm text-gray-700">
                     <div className="w-5 h-5 bg-[#c49a1a] rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-white text-xs">âœ“</span>
+                      <span className="text-white text-xs">✓</span>
                     </div>
                     {item}
                   </div>
@@ -199,7 +199,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ Programmes â”€â”€ */}
+      {/* ── Programmes ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="text-center mb-12">
@@ -234,7 +234,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ Admissions CTA â”€â”€ */}
+      {/* ── Admissions CTA ── */}
       <section className="py-16 bg-[#c49a1a]">
         <Animate from="scale" className="max-w-7xl mx-auto px-4 text-center text-white">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Begin Your Journey?</h2>
@@ -259,7 +259,7 @@ export default function Home() {
         </Animate>
       </section>
 
-      {/* â”€â”€ Testimonials â”€â”€ */}
+      {/* ── Testimonials ── */}
       <section className="py-20 bg-[#f7f9fc]">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="text-center mb-12">
@@ -283,7 +283,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ Gallery Preview â”€â”€ */}
+      {/* ── Gallery Preview ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
@@ -308,7 +308,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ News & Events â”€â”€ */}
+      {/* ── News & Events ── */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
@@ -346,7 +346,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* â”€â”€ Portal Quick Access â”€â”€ */}
+      {/* ── Portal Quick Access ── */}
       <section className="py-16 bg-[#1b2473]">
         <div className="max-w-7xl mx-auto px-4">
           <Animate from="fade" className="text-center mb-10">

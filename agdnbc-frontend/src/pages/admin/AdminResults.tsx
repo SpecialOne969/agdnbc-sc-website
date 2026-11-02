@@ -30,7 +30,7 @@ export default function AdminResults() {
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-700">
-        <strong>CSV Format:</strong> School ID, Course Code, Score, Semester, Academic Year â€” one student per row.
+        <strong>CSV Format:</strong> School ID, Course Code, Score, Semester, Academic Year — one student per row.
         Download the template to get started.
       </div>
 

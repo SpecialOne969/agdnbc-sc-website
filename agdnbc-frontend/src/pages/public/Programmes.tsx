@@ -2,14 +2,14 @@
 import { Clock, BookOpen, Users, Award, Globe, ArrowRight, CheckCircle } from 'lucide-react'
 
 const oneYearFees = [
-  { label: 'Registration Fee', amount: 'â‚¦10,000', sub: null },
-  { label: 'School Fees â€“ Year 1', amount: 'â‚¦105,000', sub: ['1st Installment: â‚¦52,500', '2nd Installment: â‚¦52,500'] },
+  { label: 'Registration Fee', amount: '₦10,000', sub: null },
+  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦52,500', '2nd Installment: ₦52,500'] },
 ]
 
 const twoYearFees = [
-  { label: 'Registration Fee', amount: 'â‚¦10,000', sub: null },
-  { label: 'School Fees â€“ Year 1', amount: 'â‚¦105,000', sub: ['1st Installment: â‚¦52,500', '2nd Installment: â‚¦52,500'] },
-  { label: 'School Fees â€“ Year 2', amount: 'â‚¦155,000', sub: ['1st Installment: â‚¦77,500', '2nd Installment: â‚¦77,500'] },
+  { label: 'Registration Fee', amount: '₦10,000', sub: null },
+  { label: 'School Fees – Year 1', amount: '₦105,000', sub: ['1st Installment: ₦52,500', '2nd Installment: ₦52,500'] },
+  { label: 'School Fees – Year 2', amount: '₦155,000', sub: ['1st Installment: ₦77,500', '2nd Installment: ₦77,500'] },
 ]
 
 const programmes = [
@@ -19,7 +19,7 @@ const programmes = [
     title: 'Certificate in Theology',
     duration: '1 Academic Year',
     fees: oneYearFees,
-    totalAmount: 'â‚¦115,000',
+    totalAmount: '₦115,000',
     description:
       'An introductory programme providing a solid foundation in theological principles, biblical interpretation, and Christian living.',
     modules: ['Introduction to the Bible', 'Old Testament Survey', 'New Testament Survey', 'Christian Doctrine', 'Church History', 'Homiletics'],
@@ -30,7 +30,7 @@ const programmes = [
     title: 'Diploma in Biblical Studies',
     duration: '2 Academic Years',
     fees: twoYearFees,
-    totalAmount: 'â‚¦270,000',
+    totalAmount: '₦270,000',
     description:
       'A comprehensive study of Scripture covering biblical languages, hermeneutics, systematic theology, and practical ministry.',
     modules: ['Biblical Hermeneutics', 'Systematic Theology', 'Biblical Languages (Greek/Hebrew Intro)', 'Pastoral Theology', 'Christian Ethics', 'Counselling'],
@@ -41,7 +41,7 @@ const programmes = [
     title: 'Christian Ministry & Leadership',
     duration: '2 Academic Years',
     fees: twoYearFees,
-    totalAmount: 'â‚¦270,000',
+    totalAmount: '₦270,000',
     description:
       'Focused training for those called to church leadership, covering leadership principles, administration, and ministry management.',
     modules: ['Leadership Principles', 'Church Administration', 'Preaching & Teaching', 'Discipleship & Mentoring', 'Conflict Resolution', 'Ministry Practicum'],
@@ -52,7 +52,7 @@ const programmes = [
     title: 'Mission & Evangelism',
     duration: '1 Academic Year',
     fees: oneYearFees,
-    totalAmount: 'â‚¦115,000',
+    totalAmount: '₦115,000',
     description:
       'A specialised programme equipping students for cross-cultural missions, evangelism strategies, and church planting.',
     modules: ['Missiology', 'Cross-Cultural Communication', 'Evangelism Strategies', 'Church Planting', 'World Religions', 'Field Practicum'],

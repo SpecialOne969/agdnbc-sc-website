@@ -7,7 +7,7 @@ import { getExam, submitExam } from '../../services/api'
 
 const mockExam = {
   id: '1',
-  title: 'Introduction to the Bible â€“ Final Exam',
+  title: 'Introduction to the Bible – Final Exam',
   duration: 60,
   questions: [
     { id: 'q1', text: 'How many books are in the Old Testament?', type: 'mcq', options: ['39', '27', '66', '50'], correctAnswer: '39' },
@@ -43,7 +43,7 @@ export default function TakeExam() {
     try {
       await submitExam(examId!, answers)
     } catch {
-      // Non-fatal â€” still show results from local calculation
+      // Non-fatal — still show results from local calculation
     }
 
     // Calculate instant results from MCQ answers
@@ -80,7 +80,7 @@ export default function TakeExam() {
   const isLow = timeLeft < 300
   const progress = Math.round((Object.keys(answers).length / questions.length) * 100)
 
-  // â”€â”€ Results Screen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Results Screen ─────────────────────────────────────────
   if (submitted && results) {
     const pct = results.mcqTotal > 0 ? Math.round((results.score / results.mcqTotal) * 100) : 0
     const { grade, label, color, bg } = getGrade(pct)
@@ -184,7 +184,7 @@ export default function TakeExam() {
     )
   }
 
-  // â”€â”€ Exam Taking View â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Exam Taking View ───────────────────────────────────────
   const q = questions[currentQ]
 
   return (

@@ -31,7 +31,7 @@ export default function About() {
             <h2 className="section-title">Our History & Foundation</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               The Apostle Geoffrey Dabibi Numbere Bible College was established to carry forward the
-              legacy of one of Nigeria's foremost apostles â€” a man whose life was marked by unwavering
+              legacy of one of Nigeria's foremost apostles — a man whose life was marked by unwavering
               faith, sacrificial service, and an unquenchable passion for souls.
             </p>
             <p className="text-gray-600 leading-relaxed mb-4">

@@ -17,40 +17,40 @@ interface Book {
 const sections = [
   'General Resources',
   // Year 1
-  'SPF101 â€“ Spiritual Formation',
-  'ESM102 â€“ Essentials of Supportive Ministry',
-  'HMT103 â€“ Hermeneutics',
-  'PPS104 â€“ Prayer Principles',
-  'ECC105 â€“ Ecclesiology',
-  'MSG106 â€“ Missiology',
-  'BLG107 â€“ Bible Language (Greek)',
-  'PTM108 â€“ Practical Theology of Ministry',
-  'BLH109 â€“ Bible Language (Hebrew)',
-  'MNE110 â€“ Ministerial Ethics/Etiquettes',
-  'BBF111 â€“ Biblical Faith',
-  'CAL112 â€“ Church Admin/Leadership',
-  'FMM113 â€“ Family, Marriage, and Ministry',
-  'FOG114 â€“ Fundamentals of GEWC',
-  'KDH115 â€“ Kingdom Honour',
+  'SPF101 – Spiritual Formation',
+  'ESM102 – Essentials of Supportive Ministry',
+  'HMT103 – Hermeneutics',
+  'PPS104 – Prayer Principles',
+  'ECC105 – Ecclesiology',
+  'MSG106 – Missiology',
+  'BLG107 – Bible Language (Greek)',
+  'PTM108 – Practical Theology of Ministry',
+  'BLH109 – Bible Language (Hebrew)',
+  'MNE110 – Ministerial Ethics/Etiquettes',
+  'BBF111 – Biblical Faith',
+  'CAL112 – Church Admin/Leadership',
+  'FMM113 – Family, Marriage, and Ministry',
+  'FOG114 – Fundamentals of GEWC',
+  'KDH115 – Kingdom Honour',
   // Year 2
-  'PNM201 â€“ Pneumatology',
-  'RMG202 â€“ Research Methodology',
-  'WRS203 â€“ World Religions',
-  'STG204 â€“ Systematic Theology',
-  'APG205 â€“ Apologetics',
-  'CHT206 â€“ Church History',
-  'HML207 â€“ Homiletics',
-  'OTL208 â€“ Old Testament Literature',
-  'NTL209 â€“ New Testament Literature',
-  'APE210 â€“ Apocalypse/Eschatology',
-  'ECP211 â€“ Essentials of Christian Perfection',
-  'CHC212 â€“ Christian Counselling',
-  'IRM213 â€“ Itinerant Ministry',
-  'TYM214 â€“ Teens/Youth Ministry',
-  'WSM215 â€“ Worship Ministry',
-  'PJM216 â€“ Project Management',
-  'PNP217 â€“ Pioneering Principles',
-  'EFM218 â€“ Excellence in Facilities and Management',
+  'PNM201 – Pneumatology',
+  'RMG202 – Research Methodology',
+  'WRS203 – World Religions',
+  'STG204 – Systematic Theology',
+  'APG205 – Apologetics',
+  'CHT206 – Church History',
+  'HML207 – Homiletics',
+  'OTL208 – Old Testament Literature',
+  'NTL209 – New Testament Literature',
+  'APE210 – Apocalypse/Eschatology',
+  'ECP211 – Essentials of Christian Perfection',
+  'CHC212 – Christian Counselling',
+  'IRM213 – Itinerant Ministry',
+  'TYM214 – Teens/Youth Ministry',
+  'WSM215 – Worship Ministry',
+  'PJM216 – Project Management',
+  'PNP217 – Pioneering Principles',
+  'EFM218 – Excellence in Facilities and Management',
 ]
 
 const blank: Omit<Book, 'id' | 'addedAt'> = {
@@ -251,7 +251,7 @@ export default function AdminBooks() {
                 <BookOpen size={18} className="text-[#1b2473]" />
                 {editingBook ? 'Edit Book' : 'Add Book to Library'}
               </h3>
-              <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">âœ•</button>
+              <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">✕</button>
             </div>
             <div className="p-6 space-y-4">
               <div>
@@ -278,7 +278,7 @@ export default function AdminBooks() {
                   type="url"
                 />
                 <p className="text-xs text-gray-400 mt-1">
-                  Use a publicly accessible PDF URL (Google Drive, Dropbox, etc.). Students will read it in a protected viewer â€” downloading is disabled.
+                  Use a publicly accessible PDF URL (Google Drive, Dropbox, etc.). Students will read it in a protected viewer — downloading is disabled.
                 </p>
               </div>
               <div className="flex items-center gap-3 p-4 bg-[#f7f9fc] rounded-xl">

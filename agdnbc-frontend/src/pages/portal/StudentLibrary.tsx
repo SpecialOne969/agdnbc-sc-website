@@ -17,7 +17,7 @@ function loadBooks(): Book[] {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') } catch { return [] }
 }
 
-// â”€â”€ PDF Reader Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── PDF Reader Modal ───────────────────────────────────────────────────────────
 function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClose: () => void }) {
   const overlayRef = useRef<HTMLDivElement>(null)
 
@@ -38,7 +38,7 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
     return () => window.removeEventListener('keydown', handler)
   }, [onClose])
 
-  // Build viewer URL â€” wrap in Google Docs Viewer to disable native download toolbar
+  // Build viewer URL — wrap in Google Docs Viewer to disable native download toolbar
   const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(current.pdfUrl)}&embedded=true`
 
   return (
@@ -92,7 +92,7 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
           sandbox="allow-scripts allow-same-origin allow-popups"
         />
 
-        {/* Invisible overlay â€” blocks right-click on the iframe edge,
+        {/* Invisible overlay — blocks right-click on the iframe edge,
             intentionally thin to preserve scroll in the iframe body */}
         <div
           className="absolute inset-x-0 top-0 h-10 z-10"
@@ -108,14 +108,14 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
 
       {/* Footer bar */}
       <div className="bg-[#1a1a2e] text-gray-400 text-xs px-5 py-2 flex items-center justify-between shrink-0">
-        <span className="flex items-center gap-1.5"><Lock size={10} /> This document is protected â€” downloading is disabled.</span>
+        <span className="flex items-center gap-1.5"><Lock size={10} /> This document is protected — downloading is disabled.</span>
         <span className="text-gray-600">AGDNBC Digital Library</span>
       </div>
     </div>
   )
 }
 
-// â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Main Component ─────────────────────────────────────────────────────────────
 export default function StudentLibrary() {
   const allBooks = loadBooks().filter(b => b.available)
   const [search, setSearch] = useState('')
@@ -141,7 +141,7 @@ export default function StudentLibrary() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-[#1b2473]">Library</h2>
-        <p className="text-sm text-gray-500 mt-0.5">Course materials and resources â€” view only, downloading is disabled.</p>
+        <p className="text-sm text-gray-500 mt-0.5">Course materials and resources — view only, downloading is disabled.</p>
       </div>
 
       {/* Search */}

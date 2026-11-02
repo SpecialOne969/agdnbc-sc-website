@@ -48,7 +48,7 @@ export default function AdminShop() {
               <h4 className="font-bold text-[#1b2473] text-sm mb-1">{p.name}</h4>
               <p className="text-xs text-gray-400 mb-3">{p.category}</p>
               <div className="flex items-center justify-between">
-                <span className="font-bold text-[#1b2473]">â‚¦{p.price.toLocaleString()}</span>
+                <span className="font-bold text-[#1b2473]">₦{p.price.toLocaleString()}</span>
                 {p.stock !== null && <span className="text-xs text-gray-400">{p.stock} in stock</span>}
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function AdminShop() {
                         {order.type === 'digital' ? 'Digital' : (order as { delivery?: string }).delivery || 'Physical'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-right font-bold text-[#1b2473]">â‚¦{order.amount.toLocaleString()}</td>
+                    <td className="px-6 py-4 text-right font-bold text-[#1b2473]">₦{order.amount.toLocaleString()}</td>
                     <td className="px-6 py-4 text-center text-sm text-gray-500">{order.date}</td>
                     <td className="px-6 py-4 text-center">
                       <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
@@ -116,7 +116,7 @@ export default function AdminShop() {
                 <div><label className="label">Type</label><select value={form.type} onChange={(e) => setForm({...form, type: e.target.value})} className="input-field"><option value="digital">Digital (Soft Copy)</option><option value="physical">Physical (Hard Copy)</option></select></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div><label className="label">Price (â‚¦)</label><input value={form.price} onChange={(e) => setForm({...form, price: e.target.value})} type="number" className="input-field" /></div>
+                <div><label className="label">Price (₦)</label><input value={form.price} onChange={(e) => setForm({...form, price: e.target.value})} type="number" className="input-field" /></div>
                 {form.type === 'physical' && <div><label className="label">Stock Qty</label><input value={form.stock} onChange={(e) => setForm({...form, stock: e.target.value})} type="number" className="input-field" /></div>}
               </div>
             </div>

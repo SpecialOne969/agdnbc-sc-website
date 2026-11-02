@@ -55,7 +55,7 @@ export default function Gallery() {
         <div className="max-w-7xl mx-auto flex items-center gap-3">
           <Images size={20} className="text-[#c49a1a]" />
           <span className="font-bold text-[#1b2473]">Convocation Ceremony</span>
-          <span className="text-gray-400 text-sm">Â· Class of 2025 Â· {photos.length} photos</span>
+          <span className="text-gray-400 text-sm">· Class of 2025 · {photos.length} photos</span>
         </div>
       </section>
 

@@ -3,7 +3,7 @@ import { BookOpen, Plus, Edit, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const mockCourses = [
-  // â”€â”€ Year 1 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Year 1 ──────────────────────────────────────────────────────────────
   { id: '1',  code: 'SPF101', name: 'Spiritual Formation',                    year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
   { id: '2',  code: 'ESM102', name: 'Essentials of Supportive Ministry',      year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
   { id: '3',  code: 'HMT103', name: 'Hermeneutics',                           year: 'Year 1', semester: '1st', credits: 3, lecturer: '' },
@@ -19,7 +19,7 @@ const mockCourses = [
   { id: '13', code: 'FMM113', name: 'Family, Marriage, and Ministry',         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
   { id: '14', code: 'FOG114', name: 'Fundamentals of GEWC',                   year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
   { id: '15', code: 'KDH115', name: 'Kingdom Honour',                         year: 'Year 1', semester: '2nd', credits: 3, lecturer: '' },
-  // â”€â”€ Year 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Year 2 ──────────────────────────────────────────────────────────────
   { id: '16', code: 'PNM201', name: 'Pneumatology',                           year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
   { id: '17', code: 'RMG202', name: 'Research Methodology',                   year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },
   { id: '18', code: 'WRS203', name: 'World Religions',                        year: 'Year 2', semester: '1st', credits: 3, lecturer: '' },

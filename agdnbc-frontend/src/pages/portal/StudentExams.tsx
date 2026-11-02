@@ -4,14 +4,14 @@ import { ClipboardList, Clock, Calendar, CheckCircle, Lock, Play } from 'lucide-
 import { getMyExams } from '../../services/api'
 
 const mockExams = [
-  { id: '1', title: 'Introduction to the Bible â€“ Final Exam', course: 'TH101', date: '2026-08-15', startTime: '09:00', endTime: '11:00', duration: 60, status: 'upcoming', score: null },
-  { id: '2', title: 'Old Testament Survey â€“ Mid-Semester Test', course: 'TH102', date: '2026-08-20', startTime: '10:00', endTime: '11:00', duration: 60, status: 'upcoming', score: null },
-  { id: '3', title: 'Christian Doctrine â€“ Quiz', course: 'TH104', date: '2026-07-10', startTime: '09:00', endTime: '10:00', duration: 60, status: 'completed', score: 78 },
+  { id: '1', title: 'Introduction to the Bible – Final Exam', course: 'TH101', date: '2026-08-15', startTime: '09:00', endTime: '11:00', duration: 60, status: 'upcoming', score: null },
+  { id: '2', title: 'Old Testament Survey – Mid-Semester Test', course: 'TH102', date: '2026-08-20', startTime: '10:00', endTime: '11:00', duration: 60, status: 'upcoming', score: null },
+  { id: '3', title: 'Christian Doctrine – Quiz', course: 'TH104', date: '2026-07-10', startTime: '09:00', endTime: '10:00', duration: 60, status: 'completed', score: 78 },
 ]
 
 const statusConfig: Record<string, { label: string; color: string; icon: typeof Clock }> = {
   upcoming: { label: 'Upcoming', color: 'bg-blue-100 text-blue-700', icon: Calendar },
-  active: { label: 'Active â€“ Take Now', color: 'bg-green-100 text-green-700', icon: Play },
+  active: { label: 'Active – Take Now', color: 'bg-green-100 text-green-700', icon: Play },
   completed: { label: 'Completed', color: 'bg-gray-100 text-gray-600', icon: CheckCircle },
   missed: { label: 'Missed', color: 'bg-red-100 text-red-600', icon: Lock },
 }
@@ -35,10 +35,10 @@ export default function StudentExams() {
       <div className="bg-[#1b2473] text-white rounded-xl p-5">
         <h4 className="font-bold mb-2 flex items-center gap-2"><ClipboardList size={18} /> Examination Guidelines</h4>
         <ul className="text-blue-200 text-sm space-y-1">
-          <li>â€¢ Exams are only accessible during the approved date and time window.</li>
-          <li>â€¢ Once started, the timer cannot be paused. Ensure you have a stable internet connection.</li>
-          <li>â€¢ Do not navigate away from the exam page â€” this may be flagged.</li>
-          <li>â€¢ Exams auto-submit when the time expires.</li>
+          <li>• Exams are only accessible during the approved date and time window.</li>
+          <li>• Once started, the timer cannot be paused. Ensure you have a stable internet connection.</li>
+          <li>• Do not navigate away from the exam page — this may be flagged.</li>
+          <li>• Exams auto-submit when the time expires.</li>
         </ul>
       </div>
 
@@ -60,7 +60,7 @@ export default function StudentExams() {
                       <h4 className="font-bold text-[#1b2473]">{exam.title}</h4>
                       <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
                         <span className="flex items-center gap-1"><Calendar size={10} /> {exam.date}</span>
-                        <span className="flex items-center gap-1"><Clock size={10} /> {exam.startTime} â€“ {exam.endTime}</span>
+                        <span className="flex items-center gap-1"><Clock size={10} /> {exam.startTime} – {exam.endTime}</span>
                         <span>{exam.duration} mins</span>
                       </div>
                     </div>

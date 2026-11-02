@@ -57,7 +57,7 @@ export default function AdminLogin() {
             <div>
               <label className="label"><Lock size={14} className="inline mr-1" /> Password</label>
               <div className="relative">
-                <input {...register('password')} type={showPwd ? 'text' : 'password'} className="input-field pr-12" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" />
+                <input {...register('password')} type={showPwd ? 'text' : 'password'} className="input-field pr-12" placeholder="••••••••" />
                 <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -69,7 +69,7 @@ export default function AdminLogin() {
             </button>
           </form>
           <div className="text-center mt-5">
-            <Link to="/" className="text-xs text-gray-400 hover:text-[#1b2473]">â† Back to Website</Link>
+            <Link to="/" className="text-xs text-gray-400 hover:text-[#1b2473]">← Back to Website</Link>
           </div>
         </div>
       </div>

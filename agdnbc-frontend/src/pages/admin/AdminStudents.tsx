@@ -157,7 +157,7 @@ export default function AdminStudents() {
                     </div>
                   </td>
                   <td className="px-6 py-4 font-mono text-xs text-gray-600">{student.schoolId}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{(student as typeof mockStudents[0]).campus ?? 'â€”'}</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">{(student as typeof mockStudents[0]).campus ?? '—'}</td>
                   <td className="px-6 py-4 text-center text-sm text-[#1b2473] font-semibold">{student.level}</td>
                   <td className="px-6 py-4 text-center">
                     {student.portalAccess

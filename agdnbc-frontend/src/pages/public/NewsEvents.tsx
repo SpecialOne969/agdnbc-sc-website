@@ -2,9 +2,9 @@
 
 const news = [
   { date: 'July 15, 2026', category: 'Admissions', title: '2026/2027 Admission Forms Now Available', body: 'Applications for the new academic session are now open. Prospective students can apply online via the admissions page or visit the college in person.' },
-  { date: 'July 10, 2026', category: 'Events', title: 'Convocation Ceremony â€“ Class of 2026', body: 'The annual convocation ceremony to celebrate graduating students will hold at the college auditorium. Family and friends are welcome.' },
+  { date: 'July 10, 2026', category: 'Events', title: 'Convocation Ceremony – Class of 2026', body: 'The annual convocation ceremony to celebrate graduating students will hold at the college auditorium. Family and friends are welcome.' },
   { date: 'June 28, 2026', category: 'Academics', title: 'New Academic Materials Now Available in Shop', body: 'Updated course textbooks and study guides for the new session are now available. Students can purchase soft or hard copies from the school shop.' },
-  { date: 'June 15, 2026', category: 'Ministry', title: 'Annual Revival Programme â€“ Save the Date', body: 'Join us for our annual college revival programme. Guest ministers from across the country will minister the Word over three days.' },
+  { date: 'June 15, 2026', category: 'Ministry', title: 'Annual Revival Programme – Save the Date', body: 'Join us for our annual college revival programme. Guest ministers from across the country will minister the Word over three days.' },
   { date: 'June 5, 2026', category: 'Partnerships', title: 'New Financial Partnership Drive Launched', body: 'AGDNBC is reaching out to Kingdom-minded partners to support the expansion of the college and its scholarship programme.' },
 ]
 
@@ -64,8 +64,8 @@ export default function NewsEvents() {
                   <div className="text-xs font-bold text-[#c49a1a] mb-1">{date}</div>
                   <h4 className="font-bold text-[#1b2473] text-sm mb-2">{title}</h4>
                   <div className="text-xs text-gray-500 space-y-0.5">
-                    <div>â° {time}</div>
-                    <div>ðŸ“ {location}</div>
+                    <div>⏰ {time}</div>
+                    <div>📍 {location}</div>
                   </div>
                 </div>
               ))}
