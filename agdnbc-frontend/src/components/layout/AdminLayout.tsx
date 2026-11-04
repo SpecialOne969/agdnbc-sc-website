@@ -2,10 +2,11 @@
 import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BookOpen, FileText, ClipboardList,
-  CreditCard, ShoppingBag, FileEdit, LogOut, Menu, Shield, Library, ClipboardCheck
+  CreditCard, ShoppingBag, FileEdit, LogOut, Menu, Library, ClipboardCheck
 } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 import { api } from '../../services/api'
+import logo from '../../assets/logo.jpg'
 
 const adminLinks = [
   { label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard },
@@ -57,9 +58,7 @@ export default function AdminLayout() {
       >
         <div className="p-5 border-b border-white/10">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#c49a1a] rounded-full flex items-center justify-center">
-              <Shield size={18} />
-            </div>
+            <img src={logo} alt="AGDNBC Logo" className="w-10 h-10 rounded-full object-cover border-2 border-[#c49a1a]" />
             <div>
               <div className="font-bold text-sm">AGDNBC Admin</div>
               <div className="text-gray-400 text-xs">Control Panel</div>

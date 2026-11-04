@@ -7,6 +7,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { studentLogin } from '../../services/api'
 import { useAuthStore } from '../../store/authStore'
+import logo from '../../assets/logo.jpg'
 
 // New ID format: AGDNBCSC/YYYY/NNNCC  (e.g. AGDNBCSC/2024/001PH)
 const DEMO_ID = 'AGDNBCSC/2024/001PH'
@@ -83,9 +84,7 @@ export default function StudentLogin() {
         {/* Header */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3 mb-6">
-            <div className="w-14 h-14 bg-[#1b2473] rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">AG</span>
-            </div>
+            <img src={logo} alt="AGDNBC Logo" className="w-14 h-14 rounded-full object-cover border-2 border-[#c49a1a]" />
             <div className="text-left">
               <div className="font-bold text-[#1b2473]">AGDNBC</div>
               <div className="text-xs text-[#c49a1a]">Student Portal</div>

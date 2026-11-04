@@ -9,6 +9,7 @@ import {
 import toast from 'react-hot-toast'
 import { submitContactForm } from '../../services/api'
 import admissionFlyer from '../../assets/admission-flyer.jpg'
+import logo from '../../assets/logo.jpg'
 
 const schema = z.object({
   email: z.string().email('Valid email required'),
@@ -94,6 +95,7 @@ export default function Admissions() {
       <section className="bg-gradient-to-br from-[#1b2473] to-[#16213e] text-white py-20 px-4">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
           <div className="text-center md:text-left">
+            <img src={logo} alt="AGDNBC Logo" className="w-20 h-20 rounded-full object-cover border-2 border-[#c49a1a] mb-6 mx-auto md:mx-0" />
             <p className="section-subtitle text-[#c49a1a]">Join Our Community</p>
             <h1 className="text-4xl md:text-5xl font-extrabold mb-6">Student Registration</h1>
             <p className="text-blue-200 text-lg">

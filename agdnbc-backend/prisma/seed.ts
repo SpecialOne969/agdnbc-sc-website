@@ -152,10 +152,10 @@ async function main() {
   }
 
   // ── Admin account ─────────────────────────────────────────────────────────
-  const adminHash = await bcrypt.hash('Admin@2024!', 10)
+  const adminHash = await bcrypt.hash('1234567890', 10)
   await prisma.admin.upsert({
     where: { email: 'admin@agdnbc-sc.edu.ng' },
-    update: {},
+    update: { passwordHash: adminHash },
     create: {
       name: 'AGDNBC Admin',
       email: 'admin@agdnbc-sc.edu.ng',
@@ -216,7 +216,7 @@ async function main() {
   console.log(`✓ Seeded ${year1Courses.length} Year 1 courses`)
   console.log(`✓ Seeded ${year2Courses.length} Year 2 courses`)
   console.log(`✓ Seeded ${studentData.length} student accounts`)
-  console.log('✓ Admin account: admin@agdnbc-sc.edu.ng / Admin@2024!')
+  console.log('✓ Admin account: admin@agdnbc-sc.edu.ng / 1234567890')
   console.log('✓ Default student password: agdnbc1')
   console.log('Done.')
 }

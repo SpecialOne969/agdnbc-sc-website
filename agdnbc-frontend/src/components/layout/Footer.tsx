@@ -1,5 +1,6 @@
 ﻿import { Link } from 'react-router-dom'
 import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react'
+import logo from '../../assets/logo.jpg'
 
 export default function Footer() {
   return (
@@ -9,9 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                <span className="text-[#1b2473] font-bold">AG</span>
-              </div>
+              <img src={logo} alt="AGDNBC Logo" className="w-12 h-12 rounded-full object-cover border-2 border-[#c49a1a]" />
               <div>
                 <div className="font-bold text-sm">AGDNBC</div>
                 <div className="text-[#c49a1a] text-xs">Satellite Campus</div>

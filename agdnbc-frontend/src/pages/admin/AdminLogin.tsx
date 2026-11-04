@@ -2,11 +2,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useNavigate, Link } from 'react-router-dom'
-import { Mail, Lock, Shield, Eye, EyeOff } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { adminLogin } from '../../services/api'
 import { useAuthStore } from '../../store/authStore'
+import logo from '../../assets/logo.jpg'
 
 const schema = z.object({
   email: z.string().email('Valid email required'),
@@ -40,9 +41,7 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-[#c49a1a] rounded-full flex items-center justify-center mx-auto mb-4">
-            <Shield size={28} className="text-white" />
-          </div>
+          <img src={logo} alt="AGDNBC Logo" className="w-16 h-16 rounded-full object-cover border-2 border-[#c49a1a] mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">Admin Access</h1>
           <p className="text-gray-400 text-sm">AGDNBC Control Panel</p>
         </div>
