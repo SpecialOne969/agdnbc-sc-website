@@ -15,9 +15,12 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    // Only auto-logout on 401 for authenticated routes, not login endpoints
+    // Only auto-logout on 401 for authenticated routes, not login endpoints.
+    // Skip the demo session — its token is not a real JWT, so protected
+    // endpoints 401 and would otherwise kick the user straight back out.
     const url = error.config?.url || ''
-    if (error.response?.status === 401 && !url.includes('/login')) {
+    const isDemo = useAuthStore.getState().token === 'demo-token'
+    if (error.response?.status === 401 && !url.includes('/login') && !isDemo) {
       useAuthStore.getState().clearAuth()
       window.location.href = '/portal/login'
     }
