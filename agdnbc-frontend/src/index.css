@@ -22,6 +22,22 @@ body {
   background-color: #ffffff;
 }
 
+/* ── Cross-device fit ───────────────────────────────────────────────────────
+   Stop any stray wide element from forcing horizontal scroll / zoom-out on
+   phones, and keep all media inside its container on small screens. */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
 .btn-primary {
   @apply bg-[#1b2473] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#111a5a] transition-all duration-200 inline-flex items-center gap-2;
 }
