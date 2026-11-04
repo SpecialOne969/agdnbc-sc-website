@@ -33,7 +33,7 @@ export class AdminController {
   }
 
   @Post('students')
-  createStudent(@Body() body: { name: string; email?: string; programme?: string; level?: string }) {
+  createStudent(@Body() body: { name: string; email?: string; programme?: string; level?: string; year?: string; campus?: string }) {
     return this.studentsService.create(body);
   }
 

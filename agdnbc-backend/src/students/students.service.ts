@@ -6,10 +6,25 @@ import { PrismaService } from '../prisma/prisma.service';
 export class StudentsService {
   constructor(private prisma: PrismaService) {}
 
-  private async generateSchoolId(): Promise<string> {
-    const year = new Date().getFullYear();
-    const count = await this.prisma.student.count();
-    return `AGDNBC/${year}/${String(count + 1).padStart(3, '0')}`;
+  // School IDs follow AGDNBCSC/<year>/<NNN><campus>, e.g. AGDNBCSC/2026/001PH.
+  // Numbering is per-session-year and per-campus (next available).
+  private async generateSchoolId(year: string, campus: 'PH' | 'BY'): Promise<string> {
+    const prefix = `AGDNBCSC/${year}/`;
+    const existing = await this.prisma.student.findMany({
+      where: { schoolId: { startsWith: prefix } },
+      select: { schoolId: true },
+    });
+
+    let max = 0;
+    for (const s of existing) {
+      const suffix = s.schoolId.slice(prefix.length); // e.g. "031PH"
+      if (suffix.endsWith(campus)) {
+        const num = parseInt(suffix.slice(0, suffix.length - campus.length), 10);
+        if (!Number.isNaN(num) && num > max) max = num;
+      }
+    }
+
+    return `${prefix}${String(max + 1).padStart(3, '0')}${campus}`;
   }
 
   async create(data: {
@@ -17,18 +32,36 @@ export class StudentsService {
     email?: string;
     programme?: string;
     level?: string;
+    year?: string;
+    campus?: string;
   }) {
-    const schoolId = await this.generateSchoolId();
-    const defaultPassword = 'Welcome1';
-    const passwordHash = await bcrypt.hash(defaultPassword, 12);
+    const year = data.year && /^\d{4}$/.test(data.year) ? data.year : String(new Date().getFullYear());
+    const campus: 'PH' | 'BY' = data.campus === 'BY' ? 'BY' : 'PH';
 
     const existing = data.email
       ? await this.prisma.student.findUnique({ where: { email: data.email } })
       : null;
     if (existing) throw new ConflictException('Email already exists');
 
+    const schoolId = await this.generateSchoolId(year, campus);
+    const defaultPassword = 'agdnbc1';
+    const passwordHash = await bcrypt.hash(defaultPassword, 12);
+
+    // Portal access is intentionally left unset — it unlocks only when
+    // School Fees are paid/verified (see PaymentsService.verifyPayment).
     const student = await this.prisma.student.create({
-      data: { schoolId, name: data.name, email: data.email, programme: data.programme, level: data.level, passwordHash },
+      data: {
+        schoolId,
+        name: data.name,
+        email: data.email,
+        programme: data.programme || 'Biblical Studies',
+        level: data.level || 'Year 1',
+        admissionYear: year,
+        session: `${year}/${Number(year) + 1}`,
+        status: 'active',
+        firstLogin: true,
+        passwordHash,
+      },
     });
 
     return { student, defaultPassword };

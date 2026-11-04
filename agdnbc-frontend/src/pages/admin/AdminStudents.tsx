@@ -76,8 +76,17 @@ const mockStudents = [
 export default function AdminStudents() {
   const [search, setSearch] = useState('')
   const [showModal, setShowModal] = useState(false)
-  const [formData, setFormData] = useState({ name: '', email: '', programme: '', level: 'Year 1' })
+  const [formData, setFormData] = useState({ name: '', email: '', programme: '', level: 'Year 1', year: String(new Date().getFullYear()), campus: 'PH' })
   const [saving, setSaving] = useState(false)
+  const [createdInfo, setCreatedInfo] = useState<{ schoolId: string; password: string } | null>(null)
+
+  const sessionYears = Array.from({ length: 6 }, (_, i) => String(2024 + i))
+
+  const resetModal = () => {
+    setShowModal(false)
+    setCreatedInfo(null)
+    setFormData({ name: '', email: '', programme: '', level: 'Year 1', year: String(new Date().getFullYear()), campus: 'PH' })
+  }
 
   const { data, isLoading, refetch } = useQuery({ queryKey: ['admin-students'], queryFn: adminGetStudents })
   const students = data?.data?.length ? data.data : mockStudents
@@ -89,11 +98,14 @@ export default function AdminStudents() {
   )
 
   const handleCreate = async () => {
+    if (!formData.name.trim()) { toast.error('Full name is required.'); return }
     setSaving(true)
     try {
-      await adminCreateStudent(formData)
+      const res = await adminCreateStudent(formData)
+      const student = res.data?.student
+      const password = res.data?.defaultPassword
+      if (student?.schoolId) setCreatedInfo({ schoolId: student.schoolId, password: password || 'agdnbc1' })
       toast.success('Student account created!')
-      setShowModal(false)
       refetch()
     } catch {
       toast.error('Failed to create student.')
@@ -191,40 +203,79 @@ export default function AdminStudents() {
             <h3 className="text-xl font-bold text-[#1a1a2e] mb-6 flex items-center gap-2">
               <User size={20} /> Create Student Account
             </h3>
-            <div className="space-y-4">
-              <div>
-                <label className="label">Full Name</label>
-                <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="input-field" placeholder="Student full name" />
+            {createdInfo ? (
+              <div className="space-y-4">
+                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                  <p className="text-sm font-semibold text-green-800 mb-3">Account created — share these with the student:</p>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center justify-between gap-3 bg-white rounded-lg px-3 py-2 border border-green-100">
+                      <span className="text-gray-500">School ID</span>
+                      <span className="font-mono font-semibold text-[#1b2473]">{createdInfo.schoolId}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-3 bg-white rounded-lg px-3 py-2 border border-green-100">
+                      <span className="text-gray-500">Password</span>
+                      <span className="font-mono font-semibold text-[#1b2473]">{createdInfo.password}</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-green-700 mt-3">Portal access unlocks once School Fees are paid. The student can change the password after logging in.</p>
+                </div>
+                <button onClick={resetModal} className="btn-primary w-full justify-center">Done</button>
               </div>
-              <div>
-                <label className="label">Email Address</label>
-                <input value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" className="input-field" placeholder="student@email.com" />
-              </div>
-              <div>
-                <label className="label">Programme</label>
-                <select value={formData.programme} onChange={(e) => setFormData({ ...formData, programme: e.target.value })} className="input-field">
-                  <option value="">Select programme</option>
-                  <option>Certificate in Theology</option>
-                  <option>Diploma in Biblical Studies</option>
-                  <option>Christian Ministry & Leadership</option>
-                  <option>Mission & Evangelism</option>
-                </select>
-              </div>
-              <div>
-                <label className="label">Current Level</label>
-                <select value={formData.level} onChange={(e) => setFormData({ ...formData, level: e.target.value })} className="input-field">
-                  <option>Year 1</option>
-                  <option>Year 2</option>
-                </select>
-              </div>
-              <p className="text-xs text-gray-400">A School ID will be auto-generated. The student will set their own 8-character password on first login.</p>
-            </div>
-            <div className="flex gap-3 mt-6">
-              <button onClick={() => setShowModal(false)} className="btn-outline flex-1 justify-center">Cancel</button>
-              <button onClick={handleCreate} disabled={saving} className="btn-primary flex-1 justify-center">
-                {saving ? 'Creating...' : 'Create Account'}
-              </button>
-            </div>
+            ) : (
+              <>
+                <div className="space-y-4">
+                  <div>
+                    <label className="label">Full Name</label>
+                    <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="input-field" placeholder="Student full name" />
+                  </div>
+                  <div>
+                    <label className="label">Email Address</label>
+                    <input value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" className="input-field" placeholder="student@email.com" />
+                  </div>
+                  <div>
+                    <label className="label">Programme</label>
+                    <select value={formData.programme} onChange={(e) => setFormData({ ...formData, programme: e.target.value })} className="input-field">
+                      <option value="">Select programme</option>
+                      <option>Certificate in Theology</option>
+                      <option>Diploma in Biblical Studies</option>
+                      <option>Christian Ministry & Leadership</option>
+                      <option>Mission & Evangelism</option>
+                    </select>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="label">Session / Year</label>
+                      <select value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })} className="input-field">
+                        {sessionYears.map((y) => <option key={y} value={y}>{y}/{Number(y) + 1}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="label">Campus</label>
+                      <select value={formData.campus} onChange={(e) => setFormData({ ...formData, campus: e.target.value })} className="input-field">
+                        <option value="PH">Port Harcourt (PH)</option>
+                        <option value="BY">Yenagoa / Bayelsa (BY)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="label">Current Level</label>
+                    <select value={formData.level} onChange={(e) => setFormData({ ...formData, level: e.target.value })} className="input-field">
+                      <option>Year 1</option>
+                      <option>Year 2</option>
+                    </select>
+                  </div>
+                  <p className="text-xs text-gray-400">
+                    School ID is auto-generated as <span className="font-mono">AGDNBCSC/{formData.year}/NNN{formData.campus}</span>. Default password is <span className="font-mono">agdnbc1</span>; the student can change it after logging in.
+                  </p>
+                </div>
+                <div className="flex gap-3 mt-6">
+                  <button onClick={resetModal} className="btn-outline flex-1 justify-center">Cancel</button>
+                  <button onClick={handleCreate} disabled={saving} className="btn-primary flex-1 justify-center">
+                    {saving ? 'Creating...' : 'Create Account'}
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
