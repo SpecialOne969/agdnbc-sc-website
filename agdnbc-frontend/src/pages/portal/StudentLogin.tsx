@@ -14,7 +14,7 @@ const DEMO_ID = 'AGDNBCSC/2024/001PH'
 const DEMO_PWD = '0987654'
 
 const schema = z.object({
-  password: z.string().min(6, 'Minimum 6 characters').max(8, 'Maximum 8 characters'),
+  password: z.string().min(6, 'Minimum 6 characters'),
 })
 type FormData = z.infer<typeof schema>
 
@@ -159,7 +159,6 @@ export default function StudentLogin() {
                   type={showPwd ? 'text' : 'password'}
                   className="input-field pr-12 font-mono tracking-widest"
                   placeholder="••••••••"
-                  maxLength={8}
                   autoComplete="current-password"
                 />
                 <button
