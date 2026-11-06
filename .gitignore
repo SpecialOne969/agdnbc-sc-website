@@ -30,3 +30,9 @@ Thumbs.db
 # Prisma generated
 agdnbc-backend/node_modules/
 agdnbc-frontend/node_modules/
+
+# Reverse-engineering reference for the self-hosted attendance app
+attendance-reference/
+
+# Source data spreadsheets (contain student PII — already imported to the DB)
+*.xlsx

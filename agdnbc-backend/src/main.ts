@@ -12,6 +12,8 @@ async function bootstrap() {
       const allowed = [
         'http://localhost:5173',
         'http://localhost:4173',
+        'https://satellite-agdnbc.com',
+        'https://www.satellite-agdnbc.com',
         ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
       ];
       if (!origin || allowed.includes(origin) || /\.vercel\.app$/.test(origin)) {

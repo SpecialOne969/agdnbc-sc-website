@@ -435,3 +435,19 @@ model ContactMessage {
 
   @@map("contact_messages")
 }
+
+// ─── Attendance System ────────────────────────────────────────────────────────
+// Self-hosted replacement for the external Firebase attendance app. Documents are
+// stored schemaless (Firestore-style) so the original app logic runs unchanged
+// against a Firestore-compatible shim. Collections: students, courses, attendance.
+
+model AttendanceDocument {
+  id         String   @id @default(cuid())
+  collection String
+  data       Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([collection])
+  @@map("attendance_documents")
+}
