@@ -88,10 +88,13 @@
     if (isObj(value)) {
       if (typeof value.__ts === 'string') {
         var d = new Date(value.__ts);
+        var iso = value.__ts;
         return {
           toDate: function () { return d; },
           toMillis: function () { return d.getTime(); },
           seconds: Math.floor(d.getTime() / 1000),
+          // Round-trips back to { __ts } if written again (read-modify-write).
+          toJSON: function () { return { __ts: iso }; },
         };
       }
       var o = {};
