@@ -72,7 +72,7 @@ export default function AdminLayout() {
           <div className="text-xs text-[#c49a1a] capitalize">{user?.role?.replace('_', ' ')}</div>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 min-h-0 overflow-y-auto p-4 space-y-1">
           {adminLinks.map(({ label, to, icon: Icon }) => (
             <NavLink
               key={to}
