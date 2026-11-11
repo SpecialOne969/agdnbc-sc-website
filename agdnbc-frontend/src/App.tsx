@@ -16,6 +16,7 @@ import NewsEvents from './pages/public/NewsEvents'
 import Partnership from './pages/public/Partnership'
 import Shop from './pages/public/Shop'
 import Gallery from './pages/public/Gallery'
+import WhyChooseUs from './pages/public/WhyChooseUs'
 
 // Portal pages
 import StudentLogin from './pages/portal/StudentLogin'
@@ -49,6 +50,7 @@ export default function App() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/why-choose-us" element={<WhyChooseUs />} />
           <Route path="/admissions" element={<Admissions />} />
           <Route path="/programmes" element={<Programmes />} />
           <Route path="/team" element={<Team />} />

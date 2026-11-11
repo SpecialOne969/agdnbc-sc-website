@@ -6,6 +6,7 @@ import logo from '../../assets/logo.jpg'
 const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'About Us', to: '/about' },
+  { label: 'Why Choose Us', to: '/why-choose-us' },
   {
     label: 'Academics',
     children: [
