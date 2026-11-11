@@ -12,6 +12,7 @@ const navLinks = [
     children: [
       { label: 'Programmes', to: '/programmes' },
       { label: 'Admissions', to: '/admissions' },
+      { label: 'Student Handbook', to: '/student-handbook' },
     ],
   },
   { label: 'Meet the Team', to: '/team' },
