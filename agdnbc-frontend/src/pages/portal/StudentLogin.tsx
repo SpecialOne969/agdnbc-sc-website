@@ -50,24 +50,8 @@ export default function StudentLogin() {
 
     const schoolId = fullId
 
-    // Demo bypass
-    if (schoolId === DEMO_ID && data.password === DEMO_PWD) {
-      setAuth(
-        {
-          id: 'demo-001',
-          schoolId: DEMO_ID,
-          name: 'Demo Student',
-          role: 'student',
-          portalAccessValid: true,
-          level: 'Year 1',
-          programme: 'Diploma in Biblical Studies',
-        },
-        'demo-token',
-      )
-      navigate('/portal/dashboard')
-      return
-    }
-
+    // The demo account (DEMO_ID / DEMO_PWD) is now a real sandbox student in the
+    // backend, so it authenticates through the normal flow below.
     try {
       const res = await studentLogin(schoolId, data.password)
       setAuth(res.data.user, res.data.token)
