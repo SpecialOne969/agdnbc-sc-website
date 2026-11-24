@@ -78,6 +78,9 @@ export const adminGetDashboardStats = () => api.get('/admin/dashboard')
 export const adminCreateAnnouncement = (data: { title: string; body: string; target?: string }) =>
   api.post('/admin/announcements', data)
 export const adminGetAnnouncements = () => api.get('/admin/announcements')
+export const adminUpdateAnnouncement = (id: string, data: { title?: string; body?: string; target?: string }) =>
+  api.patch(`/admin/announcements/${id}`, data)
+export const adminDeleteAnnouncement = (id: string) => api.delete(`/admin/announcements/${id}`)
 
 // Library
 export const getLibraryBooks = () => api.get('/library/books')

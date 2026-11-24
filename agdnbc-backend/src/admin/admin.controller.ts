@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { StudentsService } from '../students/students.service';
 import { PaymentsService } from '../payments/payments.service';
@@ -87,5 +87,18 @@ export class AdminController {
   @Get('announcements')
   getAnnouncements() {
     return this.adminService.getAnnouncements();
+  }
+
+  @Patch('announcements/:id')
+  updateAnnouncement(
+    @Param('id') id: string,
+    @Body() body: { title?: string; body?: string; target?: string },
+  ) {
+    return this.adminService.updateAnnouncement(id, body);
+  }
+
+  @Delete('announcements/:id')
+  deleteAnnouncement(@Param('id') id: string) {
+    return this.adminService.deleteAnnouncement(id);
   }
 }

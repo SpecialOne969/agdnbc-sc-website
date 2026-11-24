@@ -1,7 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Plus, Bell, Newspaper, Calendar } from 'lucide-react'
+import { Plus, Bell, Newspaper, Calendar, Pencil, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { adminCreateAnnouncement, adminGetAnnouncements } from '../../services/api'
+import {
+  adminCreateAnnouncement,
+  adminGetAnnouncements,
+  adminUpdateAnnouncement,
+  adminDeleteAnnouncement,
+} from '../../services/api'
 
 type TabType = 'announcements' | 'news' | 'events'
 
@@ -19,6 +24,7 @@ export default function AdminContent() {
   const [form, setForm] = useState({ title: '', body: '', target: 'All Students', category: 'General', date: '', location: '' })
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [saving, setSaving] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
 
   const loadAnnouncements = useCallback(async () => {
     try {
@@ -31,6 +37,30 @@ export default function AdminContent() {
 
   useEffect(() => { loadAnnouncements() }, [loadAnnouncements])
 
+  const openCreate = () => {
+    setEditingId(null)
+    setForm({ ...form, title: '', body: '', target: 'All Students' })
+    setShowModal(true)
+  }
+
+  const openEdit = (a: Announcement) => {
+    setTab('announcements')
+    setEditingId(a.id)
+    setForm({ ...form, title: a.title, body: a.body, target: a.target || 'All Students' })
+    setShowModal(true)
+  }
+
+  const remove = async (id: string) => {
+    if (!confirm('Delete this announcement?')) return
+    try {
+      await adminDeleteAnnouncement(id)
+      toast.success('Announcement deleted')
+      loadAnnouncements()
+    } catch {
+      toast.error('Failed to delete announcement')
+    }
+  }
+
   const handlePost = async () => {
     if (tab === 'announcements') {
       if (!form.title.trim() || !form.body.trim()) {
@@ -39,13 +69,19 @@ export default function AdminContent() {
       }
       setSaving(true)
       try {
-        await adminCreateAnnouncement({ title: form.title, body: form.body, target: form.target })
-        toast.success('Announcement published!')
+        if (editingId) {
+          await adminUpdateAnnouncement(editingId, { title: form.title, body: form.body, target: form.target })
+          toast.success('Announcement updated!')
+        } else {
+          await adminCreateAnnouncement({ title: form.title, body: form.body, target: form.target })
+          toast.success('Announcement published!')
+        }
         setForm({ ...form, title: '', body: '' })
+        setEditingId(null)
         setShowModal(false)
         loadAnnouncements()
       } catch {
-        toast.error('Failed to publish announcement')
+        toast.error('Failed to save announcement')
       } finally {
         setSaving(false)
       }
@@ -55,11 +91,13 @@ export default function AdminContent() {
     setShowModal(false)
   }
 
+  const closeModal = () => { setShowModal(false); setEditingId(null) }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <h2 className="text-xl font-bold text-[#1a1a2e]">Content Management</h2>
-        <button onClick={() => setShowModal(true)} className="btn-accent text-sm py-2.5">
+        <button onClick={openCreate} className="btn-accent text-sm py-2.5">
           <Plus size={16} /> Add New
         </button>
       </div>
@@ -89,17 +127,27 @@ export default function AdminContent() {
             </div>
           ) : (
             announcements.map((a) => (
-              <div key={a.id} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#c49a1a]/10 rounded-xl flex items-center justify-center shrink-0">
-                  <Bell size={18} className="text-[#c49a1a]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#1a1a2e]">{a.title}</h4>
-                  <p className="text-sm text-gray-500 mt-1">{a.body}</p>
-                  <div className="flex gap-3 mt-2 text-xs text-gray-400">
-                    <span>Target: {a.target || 'All Students'}</span>
-                    <span>{new Date(a.createdAt).toLocaleDateString()}</span>
+              <div key={a.id} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-start justify-between gap-4">
+                <div className="flex gap-3">
+                  <div className="w-10 h-10 bg-[#c49a1a]/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Bell size={18} className="text-[#c49a1a]" />
                   </div>
+                  <div>
+                    <h4 className="font-bold text-[#1a1a2e]">{a.title}</h4>
+                    <p className="text-sm text-gray-500 mt-1">{a.body}</p>
+                    <div className="flex gap-3 mt-2 text-xs text-gray-400">
+                      <span>Target: {a.target || 'All Students'}</span>
+                      <span>{new Date(a.createdAt).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-1 shrink-0">
+                  <button onClick={() => openEdit(a)} className="p-2 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#1b2473] transition-colors" title="Edit">
+                    <Pencil size={15} />
+                  </button>
+                  <button onClick={() => remove(a.id)} className="p-2 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-500 transition-colors" title="Delete">
+                    <Trash2 size={15} />
+                  </button>
                 </div>
               </div>
             ))
@@ -124,7 +172,9 @@ export default function AdminContent() {
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
-            <h3 className="text-xl font-bold mb-6 capitalize">New {tab.replace('s', '')}</h3>
+            <h3 className="text-xl font-bold mb-6 capitalize">
+              {editingId ? 'Edit Announcement' : `New ${tab.replace('s', '')}`}
+            </h3>
             <div className="space-y-4">
               <div><label className="label">Title</label><input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="input-field" /></div>
               <div><label className="label">Content</label><textarea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} className="input-field" rows={4} /></div>
@@ -156,9 +206,9 @@ export default function AdminContent() {
               )}
             </div>
             <div className="flex gap-3 mt-6">
-              <button onClick={() => setShowModal(false)} className="btn-outline flex-1 justify-center">Cancel</button>
+              <button onClick={closeModal} className="btn-outline flex-1 justify-center">Cancel</button>
               <button onClick={handlePost} disabled={saving} className="btn-primary flex-1 justify-center">
-                {saving ? 'Publishing…' : 'Publish'}
+                {saving ? 'Saving…' : editingId ? 'Update' : 'Publish'}
               </button>
             </div>
           </div>

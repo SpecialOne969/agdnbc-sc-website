@@ -49,4 +49,13 @@ export class AdminService {
   async getAnnouncements() {
     return this.prisma.announcement.findMany({ orderBy: { createdAt: 'desc' } });
   }
+
+  async updateAnnouncement(id: string, data: { title?: string; body?: string; target?: string }) {
+    return this.prisma.announcement.update({ where: { id }, data });
+  }
+
+  async deleteAnnouncement(id: string) {
+    await this.prisma.announcement.delete({ where: { id } });
+    return { id };
+  }
 }
