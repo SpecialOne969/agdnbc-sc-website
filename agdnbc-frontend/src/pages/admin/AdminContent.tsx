@@ -1,21 +1,57 @@
-﻿import { useState } from 'react'
-import { FileEdit, Plus, Bell, Newspaper, Calendar } from 'lucide-react'
+import { useState, useEffect, useCallback } from 'react'
+import { Plus, Bell, Newspaper, Calendar } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { adminCreateAnnouncement, adminGetAnnouncements } from '../../services/api'
 
 type TabType = 'announcements' | 'news' | 'events'
 
-const mockAnnouncements = [
-  { id: '1', title: 'Portal Maintenance – Saturday', body: 'The student portal will be down for maintenance on Saturday from 12am to 4am.', target: 'All Students', date: '2026-07-25' },
-  { id: '2', title: 'Exam Schedule Released', body: 'The 1st semester exam timetable has been uploaded. Check your portal for details.', target: 'All Students', date: '2026-07-22' },
-]
+interface Announcement {
+  id: string
+  title: string
+  body: string
+  target?: string
+  createdAt: string
+}
 
 export default function AdminContent() {
   const [tab, setTab] = useState<TabType>('announcements')
   const [showModal, setShowModal] = useState(false)
   const [form, setForm] = useState({ title: '', body: '', target: 'All Students', category: 'General', date: '', location: '' })
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [saving, setSaving] = useState(false)
 
-  const handlePost = () => {
-    toast.success(`${tab === 'announcements' ? 'Announcement' : tab === 'news' ? 'News post' : 'Event'} published!`)
+  const loadAnnouncements = useCallback(async () => {
+    try {
+      const res = await adminGetAnnouncements()
+      setAnnouncements(res.data)
+    } catch {
+      /* not logged in yet or request failed */
+    }
+  }, [])
+
+  useEffect(() => { loadAnnouncements() }, [loadAnnouncements])
+
+  const handlePost = async () => {
+    if (tab === 'announcements') {
+      if (!form.title.trim() || !form.body.trim()) {
+        toast.error('Title and content are required')
+        return
+      }
+      setSaving(true)
+      try {
+        await adminCreateAnnouncement({ title: form.title, body: form.body, target: form.target })
+        toast.success('Announcement published!')
+        setForm({ ...form, title: '', body: '' })
+        setShowModal(false)
+        loadAnnouncements()
+      } catch {
+        toast.error('Failed to publish announcement')
+      } finally {
+        setSaving(false)
+      }
+      return
+    }
+    toast(`${tab === 'news' ? 'News' : 'Events'} management is coming soon.`)
     setShowModal(false)
   }
 
@@ -45,38 +81,42 @@ export default function AdminContent() {
       </div>
 
       <div className="space-y-4">
-        {tab === 'announcements' && mockAnnouncements.map((a) => (
-          <div key={a.id} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-start justify-between gap-4">
-            <div className="flex gap-3">
-              <div className="w-10 h-10 bg-[#c49a1a]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Bell size={18} className="text-[#c49a1a]" />
-              </div>
-              <div>
-                <h4 className="font-bold text-[#1a1a2e]">{a.title}</h4>
-                <p className="text-sm text-gray-500 mt-1">{a.body}</p>
-                <div className="flex gap-3 mt-2 text-xs text-gray-400">
-                  <span>Target: {a.target}</span>
-                  <span>{a.date}</span>
+        {tab === 'announcements' && (
+          announcements.length === 0 ? (
+            <div className="bg-[#f7f9fc] rounded-xl p-10 text-center text-gray-400">
+              <Bell size={40} className="mx-auto mb-3 opacity-30" />
+              <p>No announcements yet. Click "Add New" to publish one to students.</p>
+            </div>
+          ) : (
+            announcements.map((a) => (
+              <div key={a.id} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 flex items-start gap-4">
+                <div className="w-10 h-10 bg-[#c49a1a]/10 rounded-xl flex items-center justify-center shrink-0">
+                  <Bell size={18} className="text-[#c49a1a]" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#1a1a2e]">{a.title}</h4>
+                  <p className="text-sm text-gray-500 mt-1">{a.body}</p>
+                  <div className="flex gap-3 mt-2 text-xs text-gray-400">
+                    <span>Target: {a.target || 'All Students'}</span>
+                    <span>{new Date(a.createdAt).toLocaleDateString()}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <button className="p-2 hover:bg-gray-100 rounded-lg shrink-0">
-              <FileEdit size={15} className="text-gray-400" />
-            </button>
-          </div>
-        ))}
+            ))
+          )
+        )}
 
         {tab === 'news' && (
           <div className="bg-[#f7f9fc] rounded-xl p-10 text-center text-gray-400">
             <Newspaper size={40} className="mx-auto mb-3 opacity-30" />
-            <p>News posts will appear here. Click "Add New" to create one.</p>
+            <p>News management is coming soon.</p>
           </div>
         )}
 
         {tab === 'events' && (
           <div className="bg-[#f7f9fc] rounded-xl p-10 text-center text-gray-400">
             <Calendar size={40} className="mx-auto mb-3 opacity-30" />
-            <p>Events will appear here. Click "Add New" to create one.</p>
+            <p>Events management is coming soon.</p>
           </div>
         )}
       </div>
@@ -86,12 +126,12 @@ export default function AdminContent() {
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
             <h3 className="text-xl font-bold mb-6 capitalize">New {tab.replace('s', '')}</h3>
             <div className="space-y-4">
-              <div><label className="label">Title</label><input value={form.title} onChange={(e) => setForm({...form, title: e.target.value})} className="input-field" /></div>
-              <div><label className="label">Content</label><textarea value={form.body} onChange={(e) => setForm({...form, body: e.target.value})} className="input-field" rows={4} /></div>
+              <div><label className="label">Title</label><input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="input-field" /></div>
+              <div><label className="label">Content</label><textarea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} className="input-field" rows={4} /></div>
               {tab === 'announcements' && (
                 <div>
                   <label className="label">Target Audience</label>
-                  <select value={form.target} onChange={(e) => setForm({...form, target: e.target.value})} className="input-field">
+                  <select value={form.target} onChange={(e) => setForm({ ...form, target: e.target.value })} className="input-field">
                     <option>All Students</option>
                     <option>Year 1 Students</option>
                     <option>Year 2 Students</option>
@@ -103,21 +143,23 @@ export default function AdminContent() {
               {tab === 'news' && (
                 <div>
                   <label className="label">Category</label>
-                  <select value={form.category} onChange={(e) => setForm({...form, category: e.target.value})} className="input-field">
+                  <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="input-field">
                     <option>General</option><option>Admissions</option><option>Academics</option><option>Events</option><option>Ministry</option>
                   </select>
                 </div>
               )}
               {tab === 'events' && (
                 <div className="grid grid-cols-2 gap-4">
-                  <div><label className="label">Date</label><input value={form.date} onChange={(e) => setForm({...form, date: e.target.value})} type="date" className="input-field" /></div>
-                  <div><label className="label">Location</label><input value={form.location} onChange={(e) => setForm({...form, location: e.target.value})} className="input-field" placeholder="Venue" /></div>
+                  <div><label className="label">Date</label><input value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} type="date" className="input-field" /></div>
+                  <div><label className="label">Location</label><input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} className="input-field" placeholder="Venue" /></div>
                 </div>
               )}
             </div>
             <div className="flex gap-3 mt-6">
               <button onClick={() => setShowModal(false)} className="btn-outline flex-1 justify-center">Cancel</button>
-              <button onClick={handlePost} className="btn-primary flex-1 justify-center">Publish</button>
+              <button onClick={handlePost} disabled={saving} className="btn-primary flex-1 justify-center">
+                {saving ? 'Publishing…' : 'Publish'}
+              </button>
             </div>
           </div>
         </div>

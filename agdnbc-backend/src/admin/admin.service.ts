@@ -45,4 +45,8 @@ export class AdminService {
   async createAnnouncement(data: { title: string; body: string; target?: string }) {
     return this.prisma.announcement.create({ data });
   }
+
+  async getAnnouncements() {
+    return this.prisma.announcement.findMany({ orderBy: { createdAt: 'desc' } });
+  }
 }

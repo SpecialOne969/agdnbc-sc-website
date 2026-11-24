@@ -451,3 +451,18 @@ model AttendanceDocument {
   @@index([collection])
   @@map("attendance_documents")
 }
+
+// ─── Digital Library ──────────────────────────────────────────────────────────
+
+model LibraryBook {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  section     String   @default("General Resources")
+  pdfUrl      String
+  available   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("library_books")
+}

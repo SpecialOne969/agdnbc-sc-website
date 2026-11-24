@@ -1,8 +1,7 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { BookOpen, Plus, Edit, Trash2, Eye, EyeOff, ExternalLink, Library } from 'lucide-react'
 import toast from 'react-hot-toast'
-
-const STORAGE_KEY = 'agdnbc-library-books'
+import { adminGetBooks, adminCreateBook, adminUpdateBook, adminDeleteBook } from '../../services/api'
 
 interface Book {
   id: string
@@ -11,7 +10,7 @@ interface Book {
   section: string
   pdfUrl: string
   available: boolean
-  addedAt: string
+  createdAt?: string
 }
 
 const sections = [
@@ -53,26 +52,28 @@ const sections = [
   'EFM218 – Excellence in Facilities and Management',
 ]
 
-const blank: Omit<Book, 'id' | 'addedAt'> = {
+const blank: Omit<Book, 'id' | 'createdAt'> = {
   title: '', description: '', section: 'General Resources', pdfUrl: '', available: true,
 }
 
-function loadBooks(): Book[] {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') } catch { return [] }
-}
-
-function saveBooks(books: Book[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(books))
-}
-
 export default function AdminBooks() {
-  const [books, setBooks] = useState<Book[]>(loadBooks)
+  const [books, setBooks] = useState<Book[]>([])
   const [showModal, setShowModal] = useState(false)
   const [editingBook, setEditingBook] = useState<Book | null>(null)
   const [form, setForm] = useState(blank)
   const [filterSection, setFilterSection] = useState('All')
+  const [saving, setSaving] = useState(false)
 
-  useEffect(() => { saveBooks(books) }, [books])
+  const refresh = useCallback(async () => {
+    try {
+      const res = await adminGetBooks()
+      setBooks(res.data)
+    } catch {
+      /* not logged in yet or request failed */
+    }
+  }, [])
+
+  useEffect(() => { refresh() }, [refresh])
 
   const openCreate = () => { setEditingBook(null); setForm(blank); setShowModal(true) }
 
@@ -82,29 +83,45 @@ export default function AdminBooks() {
     setShowModal(true)
   }
 
-  const save = () => {
+  const save = async () => {
     if (!form.title.trim()) { toast.error('Title is required'); return }
     if (!form.pdfUrl.trim()) { toast.error('PDF URL is required'); return }
-    if (editingBook) {
-      const updated = books.map(b => b.id === editingBook.id ? { ...editingBook, ...form } : b)
-      setBooks(updated)
-      toast.success('Book updated!')
-    } else {
-      const book: Book = { id: Date.now().toString(), ...form, addedAt: new Date().toISOString() }
-      setBooks([book, ...books])
-      toast.success('Book added to library!')
+    setSaving(true)
+    try {
+      if (editingBook) {
+        await adminUpdateBook(editingBook.id, { ...form })
+        toast.success('Book updated!')
+      } else {
+        await adminCreateBook({ ...form })
+        toast.success('Book added to library!')
+      }
+      setShowModal(false)
+      await refresh()
+    } catch {
+      toast.error('Failed to save book')
+    } finally {
+      setSaving(false)
     }
-    setShowModal(false)
   }
 
-  const remove = (id: string) => {
+  const remove = async (id: string) => {
     if (!confirm('Remove this book from the library?')) return
-    setBooks(books.filter(b => b.id !== id))
-    toast.success('Book removed')
+    try {
+      await adminDeleteBook(id)
+      toast.success('Book removed')
+      await refresh()
+    } catch {
+      toast.error('Failed to remove book')
+    }
   }
 
-  const toggle = (id: string) => {
-    setBooks(books.map(b => b.id === id ? { ...b, available: !b.available } : b))
+  const toggle = async (book: Book) => {
+    try {
+      await adminUpdateBook(book.id, { available: !book.available })
+      await refresh()
+    } catch {
+      toast.error('Failed to update visibility')
+    }
   }
 
   const uniqueSections = ['All', ...Array.from(new Set(books.map(b => b.section)))]
@@ -196,7 +213,7 @@ export default function AdminBooks() {
                   <td className="px-6 py-4 text-center">
                     {/* Toggle switch */}
                     <button
-                      onClick={() => toggle(book.id)}
+                      onClick={() => toggle(book)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                         book.available ? 'bg-green-500' : 'bg-gray-300'
                       }`}
@@ -221,7 +238,7 @@ export default function AdminBooks() {
                         <ExternalLink size={14} />
                       </a>
                       <button
-                        onClick={() => toggle(book.id)}
+                        onClick={() => toggle(book)}
                         className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 hover:text-[#1b2473] transition-colors"
                         title={book.available ? 'Hide from students' : 'Show to students'}
                       >
@@ -297,8 +314,8 @@ export default function AdminBooks() {
             </div>
             <div className="p-6 border-t border-gray-100 flex gap-3">
               <button onClick={() => setShowModal(false)} className="btn-outline flex-1 justify-center">Cancel</button>
-              <button onClick={save} className="btn-primary flex-1 justify-center">
-                {editingBook ? 'Update Book' : 'Add to Library'}
+              <button onClick={save} disabled={saving} className="btn-primary flex-1 justify-center">
+                {saving ? 'Saving…' : editingBook ? 'Update Book' : 'Add to Library'}
               </button>
             </div>
           </div>

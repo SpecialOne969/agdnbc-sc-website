@@ -83,4 +83,9 @@ export class AdminController {
   createAnnouncement(@Body() body: { title: string; body: string; target?: string }) {
     return this.adminService.createAnnouncement(body);
   }
+
+  @Get('announcements')
+  getAnnouncements() {
+    return this.adminService.getAnnouncements();
+  }
 }

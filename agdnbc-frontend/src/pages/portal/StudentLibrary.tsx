@@ -1,7 +1,6 @@
 ﻿import { useState, useEffect, useRef } from 'react'
 import { BookOpen, Search, X, Lock, ChevronLeft, ChevronRight, Library } from 'lucide-react'
-
-const STORAGE_KEY = 'agdnbc-library-books'
+import { getLibraryBooks } from '../../services/api'
 
 interface Book {
   id: string
@@ -10,11 +9,7 @@ interface Book {
   section: string
   pdfUrl: string
   available: boolean
-  addedAt: string
-}
-
-function loadBooks(): Book[] {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') } catch { return [] }
+  createdAt?: string
 }
 
 // ── PDF Reader Modal ───────────────────────────────────────────────────────────
@@ -117,7 +112,10 @@ function PdfReader({ book, books, onClose }: { book: Book; books: Book[]; onClos
 
 // ── Main Component ─────────────────────────────────────────────────────────────
 export default function StudentLibrary() {
-  const allBooks = loadBooks().filter(b => b.available)
+  const [allBooks, setAllBooks] = useState<Book[]>([])
+  useEffect(() => {
+    getLibraryBooks().then(res => setAllBooks(res.data.filter((b: Book) => b.available))).catch(() => {})
+  }, [])
   const [search, setSearch] = useState('')
   const [activeSection, setActiveSection] = useState('All')
   const [reading, setReading] = useState<Book | null>(null)

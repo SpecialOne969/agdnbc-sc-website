@@ -72,3 +72,16 @@ export const adminUploadResults = (data: FormData) => api.post('/admin/results/u
 export const adminCreateExam = (data: Record<string, unknown>) => api.post('/admin/exams', data)
 export const adminGetExams = () => api.get('/admin/exams')
 export const adminGetDashboardStats = () => api.get('/admin/dashboard')
+
+// Announcements
+export const adminCreateAnnouncement = (data: { title: string; body: string; target?: string }) =>
+  api.post('/admin/announcements', data)
+export const adminGetAnnouncements = () => api.get('/admin/announcements')
+
+// Library
+export const getLibraryBooks = () => api.get('/library/books')
+export const adminGetBooks = () => api.get('/library/admin/books')
+export const adminCreateBook = (data: Record<string, unknown>) => api.post('/library/admin/books', data)
+export const adminUpdateBook = (id: string, data: Record<string, unknown>) =>
+  api.patch(`/library/admin/books/${id}`, data)
+export const adminDeleteBook = (id: string) => api.delete(`/library/admin/books/${id}`)
