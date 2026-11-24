@@ -21,6 +21,10 @@ export class ContentService {
     return this.prisma.programme.findMany({ include: { courses: true } });
   }
 
+  getAnnouncements() {
+    return this.prisma.announcement.findMany({ orderBy: { createdAt: 'desc' }, take: 50 });
+  }
+
   async createContactMessage(data: { name: string; email: string; phone?: string; subject: string; message: string; type?: string }) {
     return this.prisma.contactMessage.create({ data });
   }

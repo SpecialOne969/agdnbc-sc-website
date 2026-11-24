@@ -57,6 +57,7 @@ export const createOrder = (data: Record<string, unknown>) => api.post('/shop/or
 // Public
 export const getNews = () => api.get('/content/news')
 export const getEvents = () => api.get('/content/events')
+export const getPublicAnnouncements = () => api.get('/content/announcements')
 export const getProgrammes = () => api.get('/content/programmes')
 export const getTeam = () => api.get('/content/team')
 export const submitContactForm = (data: Record<string, unknown>) => api.post('/content/contact', data)

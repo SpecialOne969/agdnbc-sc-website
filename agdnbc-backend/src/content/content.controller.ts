@@ -11,6 +11,9 @@ export class ContentController {
   @Get('events')
   getEvents() { return this.contentService.getEvents(); }
 
+  @Get('announcements')
+  getAnnouncements() { return this.contentService.getAnnouncements(); }
+
   @Get('team')
   getTeam() { return this.contentService.getTeam(); }
 

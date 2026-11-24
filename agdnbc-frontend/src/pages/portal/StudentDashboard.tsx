@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import { BookOpen, FileText, ClipboardList, CreditCard, Bell, AlertCircle, CheckCircle, ChevronRight } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
-import { getMyAnnouncements, getMyPayments, getMyExams } from '../../services/api'
+import { getPublicAnnouncements, getMyPayments, getMyExams } from '../../services/api'
 
 const quickLinks = [
   { label: 'My Courses', icon: BookOpen, to: '/portal/courses', color: 'bg-blue-50 text-blue-700' },
@@ -13,7 +13,7 @@ const quickLinks = [
 
 export default function StudentDashboard() {
   const { user } = useAuthStore()
-  const { data: announcements } = useQuery({ queryKey: ['announcements'], queryFn: getMyAnnouncements })
+  const { data: announcements } = useQuery({ queryKey: ['announcements'], queryFn: getPublicAnnouncements })
   const { data: payments } = useQuery({ queryKey: ['my-payments'], queryFn: getMyPayments })
   const { data: exams } = useQuery({ queryKey: ['my-exams'], queryFn: getMyExams })
 
